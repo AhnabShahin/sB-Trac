@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+:root {
+  /* The page is a dark navy product from the first byte. This used to be
+     `#ffffff`, which was the root cause of the white flash on reload: the
+     header is a translucent, backdrop-blurred bar (`bg-navy/92` +
+     `backdrop-blur-md`) and the logo chip is `bg-white/[0.06]` +
+     `backdrop-blur-md`, so both blur whatever sits *behind* them. Over a
+     white body that backdrop sampled as near-white, which drew a pale
+     smear and a light seam around the header wordmark before hydration.
+     The canvas is now navy from the very first paint, so the blur samples
+     navy. Matches `--color-navy` below. */
+  --background: #101729;
+  --foreground: #101729;
+
+  /* Reference palette (Demo Referance/index.html :root) */
+  --color-navy: #101729;
+  --color-navy2: #182037;
+  --color-navy3: #090e1a;
+  --color-blue: #203169;
+  --color-blue2: #849cdd;
+  --color-blue-light: #9fb9fc;
+  --color-teal: #0a9e88;
+  --color-teal-dark: #089e7a;
+  /* Same-hue lighter tint of `teal` for dark surfaces, mirroring the
+     `--color-blue` / `--color-blue-light` pair. Used by the word cloud's
+     artwork, where the approved design's yellow had to give way to the theme
+     accent without the mid-tone `teal` sinking into the navy background. */
+  --color-teal-light: #3ad3b2;
+  --color-amber: #e08a00;
+  --color-amber-dark: #c07000;
+  --color-purple: #7c3aed;
+  --color-purple-dark: #6020c0;
+  --color-cyan: #0ea5b5;
+  --color-cyan-dark: #0c8794;
+  --color-offwhite: #f4f6f9;
+  --color-muted: #6b7a8f;
+  --color-border: #232f50;
+  --color-card: #161e36;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+
+  --color-navy: var(--color-navy);
+  --color-navy2: var(--color-navy2);
+  --color-navy3: var(--color-navy3);
+  --color-blue: var(--color-blue);
+  --color-blue2: var(--color-blue2);
+  --color-blue-light: var(--color-blue-light);
+  --color-teal: var(--color-teal);
+  --color-teal-dark: var(--color-teal-dark);
+  --color-teal-light: var(--color-teal-light);
+  --color-amber: var(--color-amber);
+  --color-amber-dark: var(--color-amber-dark);
+  --color-purple: var(--color-purple);
+  --color-purple-dark: var(--color-purple-dark);
+  --color-cyan: var(--color-cyan);
+  --color-cyan-dark: var(--color-cyan-dark);
+  --color-offwhite: var(--color-offwhite);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --color-card: var(--color-card);
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.3);
+    }
+  }
+}
+
+/* The base layer, not unlayered. Tailwind v4 registers `@layer theme, base,
+   components, utilities`, and unlayered rules outrank *every* layer — a bare
+   `body { background: ... }` here was silently beating the `bg-navy` class on
+   `<body>` in layout.tsx, which is what let the white canvas above reach the
+   screen. Inside `@layer base` the utilities layer wins as intended, and these
+   rules still apply wherever no utility overrides them. */
+@layer base {
+  /* On the root element too, so the canvas is navy before `<body>` has been
+     parsed and painted — that is the window the reload flash showed in. */
+  html {
+    background: var(--background);
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body), sans-serif;
+  }
+}
+
+::selection {
+  background: var(--color-teal);
+  color: var(--color-navy);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-navy);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+/* @media (pointer: fine) {
+  .has-custom-cursor,
+  .has-custom-cursor a,
+  .has-custom-cursor button {
+    cursor: none;
+  }
+} */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
