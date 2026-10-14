@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import { Barlow, Barlow_Condensed } from "next/font/google";
-import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
-// import { CustomCursor } from "@/components/custom-cursor";
-import { SiteHeader } from "@/components/site-header";
-import { BackToTopButton } from "@/components/ui/back-to-top-button";
 import "./globals.css";
 
 // Only the weights actually applied in the app are requested. The site uses
@@ -37,6 +33,11 @@ export const metadata: Metadata = {
   },
 };
 
+// The root layout is deliberately thin: html/body shell, fonts and the dark
+// navy canvas only. The marketing chrome (Lenis smooth-scroll, site header,
+// back-to-top) lives in `(public)/layout.tsx` so the `(auth)` and `(admin)`
+// trees render without it. Keep `"use client"` out of this file — metadata and
+// the initial HTML stay server-rendered.
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -48,12 +49,7 @@ export default async function RootLayout({
       className={`${barlow.variable} ${barlowCondensed.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-navy text-white">
-        <SmoothScrollProvider>
-          {/* <CustomCursor /> */}
-          <SiteHeader />
-          {children}
-          <BackToTopButton />
-        </SmoothScrollProvider>
+        {children}
       </body>
     </html>
   );
