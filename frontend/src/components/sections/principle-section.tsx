@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getCompanyStats, getPillars, getAtAGlanceFacts } from "@/data/company";
+import { getHomeContent } from "@/data/pages";
 import { Reveal } from "@/components/ui/reveal";
 import { StaggerGroup } from "@/components/ui/stagger-group";
 import { Counter } from "@/components/ui/counter";
@@ -30,23 +30,13 @@ function parseStatValue(raw: string) {
 }
 
 export async function PrincipleSection() {
-  const [stats, pillars, facts] = await Promise.all([
-    getCompanyStats(),
-    getPillars(),
-    getAtAGlanceFacts(),
-  ]);
+  const content = await getHomeContent();
+  const c = content?.principle;
+  if (!c) return null;
 
   return (
     <>
-      {/* Top padding clears the half of the client logo rail that hangs over this
-          section's top edge, so the "Who We Are" heading starts well clear of it;
-          the bottom padding keeps the section tall. */}
       <section id="about" className="relative z-10 overflow-hidden bg-navy2 px-6 pt-24 pb-24 sm:px-12 sm:pt-28 sm:pb-28 lg:px-20 lg:pt-32 lg:pb-32">
-        {/* Heavier navy scrim so the "Who We Are" panel sits deeper in the dark run.
-            The client logo band above is its own full-width section whose gradient
-            hands off to this navy2 at its lower edge, so the two meet as one
-            continuous surface rather than a rail floating over both. The top padding
-            is reduced from pt-44 because there is no longer a rail to clear. */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,14,26,0.94)_0%,rgba(9,16,30,0.89)_32%,rgba(11,19,34,0.83)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,11,21,0.72)_0%,rgba(8,14,26,0.45)_28%,rgba(6,11,21,0.62)_100%)]" />
@@ -68,44 +58,40 @@ export async function PrincipleSection() {
           <div className="mb-16 grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-start">
             <Reveal>
               <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal drop-shadow-[0_0_18px_rgba(10,158,136,0.35)]">
-                Who We Are
+                {c.eyebrow}
               </div>
-              <h2 className="mb-4 max-w-[620px] font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white drop-shadow-[0_12px_28px_rgba(0,0,0,0.38)]">
-                A Leading EPC Company
-                <br />
-                in Bangladesh
+              <h2 className="mb-4 max-w-[620px] whitespace-pre-line font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white drop-shadow-[0_12px_28px_rgba(0,0,0,0.38)]">
+                {c.heading}
               </h2>
-              <p className="mb-4 max-w-[620px] text-[15px] leading-[1.8] text-slate-200/90 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]">
-                B-Trac Engineering Ltd. (BTEL), a concern of Bangla Trac
-                Group, is a leading EPC company driving Bangladesh&apos;s
-                industrial growth since 2009. We deliver turnkey engineering
-                solutions spanning Substation &amp; Switchgear, Renewable
-                Energy-Solar, MEP-EPC, NALCO Water Treatment Chemicals, and
-                nationwide After Sales Support &amp; Service.
-              </p>
-              <p className="mb-7 max-w-[620px] text-[15px] leading-[1.8] text-slate-200/90 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]">
-                Our success is built on three unwavering commitments:
-                Customer Focus, Quality Excellence, and Timely Delivery. As
-                an ISO 9001:2015 certified organization, BTEL continues to
-                strengthen Bangladesh&apos;s industrial landscape through
-                innovation, engineering excellence, and customer trust.
-              </p>
-              <a
-                href="/contact"
-                data-cursor-interactive
-                className="inline-block rounded-[4px] bg-blue-light/95 px-7 py-3 text-sm font-semibold text-navy shadow-[0_10px_26px_rgba(0,0,0,0.22)] transition-all hover:-translate-y-0.5 hover:bg-blue2"
-              >
-                Talk to Our Engineers
-              </a>
+              {c.paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className={cn(
+                    "max-w-[620px] text-[15px] leading-[1.8] text-slate-200/90 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]",
+                    i === c.paragraphs.length - 1 ? "mb-7" : "mb-4",
+                  )}
+                >
+                  {p}
+                </p>
+              ))}
+              {c.ctaLabel ? (
+                <a
+                  href={c.ctaHref || "#"}
+                  data-cursor-interactive
+                  className="inline-block rounded-[4px] bg-blue-light/95 px-7 py-3 text-sm font-semibold text-navy shadow-[0_10px_26px_rgba(0,0,0,0.22)] transition-all hover:-translate-y-0.5 hover:bg-blue2"
+                >
+                  {c.ctaLabel}
+                </a>
+              ) : null}
             </Reveal>
 
             <Reveal delay={0.1}>
               <div className="rounded-[10px] border border-white/10 bg-white/6 px-7 py-7 shadow-[0_18px_48px_rgba(0,0,0,0.38)] backdrop-blur-md transition-all duration-300 hover:border-teal/30 hover:shadow-[0_20px_60px_rgba(0,0,0,0.42)]">
                 <div className="mb-5 text-[11px] font-bold uppercase tracking-[2px] text-teal">
-                  BTEL at a Glance
+                  {c.glanceTitle}
                 </div>
                 <dl className="divide-y divide-white/10">
-                  {facts.map((fact) => (
+                  {c.facts.map((fact) => (
                     <div
                       key={fact.label}
                       className="group flex items-center justify-between gap-4 py-3 transition-colors duration-200 first:pt-0 last:pb-0"
@@ -115,8 +101,8 @@ export async function PrincipleSection() {
                       </dt>
                       <dd
                         className={cn(
-                          "text-right text-sm font-semibold text-white transition-transform duration-200 group-hover:scale-105",
-                          fact.accent && "text-teal"
+                          "text-right text-sm font-semibold transition-transform duration-200 group-hover:scale-105",
+                          fact.accent ? "text-teal" : "text-white",
                         )}
                       >
                         {fact.value}
@@ -135,7 +121,7 @@ export async function PrincipleSection() {
         className="grid grid-cols-2 gap-0 border-y border-border bg-navy px-6 py-16 sm:px-12 lg:grid-cols-4 lg:px-20"
         itemSelector="[data-stagger-item]"
       >
-        {stats.map((stat, i) => {
+        {c.stats.map((stat, i) => {
           const { prefix, number } = parseStatValue(stat.value);
           return (
             <div
@@ -143,7 +129,7 @@ export async function PrincipleSection() {
               data-stagger-item
               className={cn(
                 "group px-4 py-4 text-center transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.03] sm:px-8",
-                i !== stats.length - 1 && "border-border sm:border-r"
+                i !== c.stats.length - 1 && "border-border sm:border-r",
               )}
             >
               <Counter
@@ -165,10 +151,10 @@ export async function PrincipleSection() {
         <div className="mx-auto max-w-6xl">
           <Reveal className="mb-14">
             <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
-              Our Foundation
+              {c.foundationEyebrow}
             </div>
             <h2 className="font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
-              Vision, Mission &amp; Values
+              {c.foundationHeading}
             </h2>
           </Reveal>
 
@@ -176,20 +162,20 @@ export async function PrincipleSection() {
             className="grid grid-cols-1 gap-6 md:grid-cols-3"
             itemSelector="[data-stagger-item]"
           >
-            {pillars.map((pillar) => (
+            {c.pillars.map((pillar) => (
               <div
                 key={pillar.title}
                 data-stagger-item
                 className={cn(
                   "group rounded-[10px] border border-border border-t-[3px] bg-card px-7 py-9 transition-all duration-300 hover:-translate-y-1.5",
                   PILLAR_BORDER[pillar.accent],
-                  PILLAR_SHADOW[pillar.accent]
+                  PILLAR_SHADOW[pillar.accent],
                 )}
               >
                 <div
                   className={cn(
                     "mb-4 font-display text-[13px] font-bold uppercase tracking-[3px] transition-transform duration-300 group-hover:translate-x-0.5",
-                    PILLAR_TEXT[pillar.accent]
+                    PILLAR_TEXT[pillar.accent],
                   )}
                 >
                   {pillar.title}

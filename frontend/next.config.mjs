@@ -1,6 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Media uploaded/applied through the admin panel is served from the Laravel
+    // public storage disk (http://localhost:8000/storage/...). Allow next/image
+    // to optimize those. Adjust the host/port here if the API origin changes.
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
+        pathname: "/storage/**",
+      },
+    ],
+    // The backend storage disk runs on localhost in dev, which Next 16 blocks
+    // from the image optimizer as a private IP (SSRF guard). The remotePattern
+    // above already scopes what can be fetched, so lifting the guard is safe
+    // here. In production media is served from a real host and this is a no-op.
+    dangerouslyAllowLocalIP: true,
     // Next 16 negotiates AVIF first and falls back to WebP, which is well below
     // the weight of the source JPEG/PNG for essentially every asset here.
     formats: ["image/avif", "image/webp"],

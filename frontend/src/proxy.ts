@@ -13,7 +13,8 @@ export function proxy(request: NextRequest) {
   const token = request.cookies.get(AUTH_COOKIE)?.value;
   const { pathname } = request.nextUrl;
 
-  const isAdminRoute = pathname.startsWith("/dashboard");
+  const isAdminRoute =
+    pathname.startsWith("/dashboard") || pathname.startsWith("/pages");
   const isLoginRoute = pathname === "/login";
 
   if (isAdminRoute && !token) {
@@ -33,5 +34,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/pages/:path*", "/login"],
 };

@@ -1,0 +1,29 @@
+{
+  "siteIdentity": {
+    "companyName": "B-Trac Engineering Ltd.",
+    "shortName": "BTEL",
+    "parentGroup": "Bangla Trac Group",
+    "logo": {
+      "src": "/logo.png",
+      "alt": "B-Trac Engineering",
+      "width": 4712,
+      "height": 435
+    },
+    "ariaLabel": "B-Trac Engineering — home"
+  },
+  "header": {
+    "nav": [
+      { "label": "Home", "href": "/" },
+      { "label": "Products & Services", "href": "/products-services" },
+      { "label": "Projects", "href": "/projects" },
+      { "label": "Partners", "href": "/partners" },
+      { "label": "Clients", "href": "/clients" }
+    ],
+    "cta": { "label": "Contact Us →", "href": "/contact" }
+  },
+  "footer": {
+    "copyright": "© 2026 B-Trac Engineering Ltd. · A Bangla Trac Group Company",
+    "copyrightNote": "Frontend currently renders the year dynamically (new Date().getFullYear()); this snapshot pins the live value (2026) so the demo shows real text, not a {year} placeholder.",
+    "certBadges": ["ISO 9001:2015", "EPC Licensed", "Since 2009"]
+  }
+}

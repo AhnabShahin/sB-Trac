@@ -1,0 +1,473 @@
+{
+  "title": "Home",
+  "sections": {
+    "hero": {
+      "badge": "ISO 9001:2015 Certified · Since 2009",
+      "headline": {
+        "line1": "ENGINEERING",
+        "line2Prefix": "YOUR ",
+        "highlight": "GROWTH"
+      },
+      "subhead": "Complete EPC and engineering solutions — from 33KV substations and megawatt-scale solar plants to MEP systems and water treatment. Trusted by 60+ industry leaders.",
+      "primaryCta": {
+        "label": "Explore Our Services",
+        "href": "/products-services"
+      },
+      "secondaryCta": {
+        "label": "View Projects",
+        "href": "#projects"
+      },
+      "stats": [
+        {
+          "value": 60,
+          "suffix": "+",
+          "label": "Clients"
+        },
+        {
+          "value": 38,
+          "suffix": "+",
+          "label": "Projects"
+        },
+        {
+          "value": 500,
+          "suffix": "Cr+",
+          "label": "Total PO Value (BDT)"
+        },
+        {
+          "value": 16,
+          "suffix": "yr",
+          "label": "Years of Experience"
+        }
+      ],
+      "slides": [
+        {
+          "type": "video",
+          "mp4Src": "/assets/video/home-hero-720.mp4",
+          "poster": "/assets/video/home-hero-poster.jpg"
+        }
+      ]
+    },
+    "principle": {
+      "eyebrow": "Who We Are",
+      "heading": "A Leading EPC Company\nin Bangladesh",
+      "paragraphs": [
+        "B-Trac Engineering Ltd. (BTEL), a concern of Bangla Trac Group, is a leading EPC company driving Bangladesh's industrial growth since 2009. We deliver turnkey engineering solutions spanning Substation & Switchgear, Renewable Energy-Solar, MEP-EPC, NALCO Water Treatment Chemicals, and nationwide After Sales Support & Service.",
+        "Our success is built on three unwavering commitments: Customer Focus, Quality Excellence, and Timely Delivery. As an ISO 9001:2015 certified organization, BTEL continues to strengthen Bangladesh's industrial landscape through innovation, engineering excellence, and customer trust."
+      ],
+      "ctaLabel": "Talk to Our Engineers",
+      "ctaHref": "/contact",
+      "glanceTitle": "BTEL at a Glance",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2009"
+        },
+        {
+          "label": "Parent Group",
+          "value": "Bangla Trac Group"
+        },
+        {
+          "label": "Certification",
+          "value": "ISO 9001:2015",
+          "accent": true
+        },
+        {
+          "label": "Headquarters",
+          "value": "Banani, Dhaka"
+        },
+        {
+          "label": "Service Divisions",
+          "value": "5 Divisions"
+        },
+        {
+          "label": "Largest Project",
+          "value": "BDT 185 Cr (BATB, 2023)",
+          "accent": true
+        }
+      ],
+      "stats": [
+        {
+          "value": "250",
+          "accent": "+",
+          "description": "Industry-leading clients served nationwide"
+        },
+        {
+          "value": "800",
+          "accent": "+",
+          "description": "Projects delivered & ongoing across all five divisions"
+        },
+        {
+          "value": "BDT 500",
+          "accent": "Cr+",
+          "description": "Total purchase order value delivered to date"
+        },
+        {
+          "value": "16",
+          "accent": "yr",
+          "description": "In operation since 2009. Bangla Trac Group since 2004"
+        }
+      ],
+      "foundationEyebrow": "Our Foundation",
+      "foundationHeading": "Vision, Mission & Values",
+      "pillars": [
+        {
+          "title": "Vision",
+          "accent": "teal",
+          "description": "A dynamic global company driving stakeholders' success through excellence, integrity, humility & people leadership.",
+          "items": []
+        },
+        {
+          "title": "Mission",
+          "accent": "blue",
+          "description": "We ensure safe, reliable & cost-effective engineering solutions by providing innovative products & services to maximize customer satisfaction.",
+          "items": []
+        },
+        {
+          "title": "Values",
+          "accent": "amber",
+          "description": "",
+          "items": [
+            {
+              "label": "People First"
+            },
+            {
+              "label": "Customers' Success"
+            },
+            {
+              "label": "Excellence Through Humility"
+            },
+            {
+              "label": "Integrity"
+            },
+            {
+              "label": "Innovation"
+            },
+            {
+              "label": "Environmentally Responsible"
+            }
+          ]
+        }
+      ]
+    },
+    "isoBand": {
+      "headingPrefix": "ISO ",
+      "headingHighlight": "9001:2015",
+      "headingSuffix": " Certified",
+      "text": "BTEL holds ISO 9001:2015 certification — confirming our quality management systems meet the highest international standards across all engineering divisions.",
+      "badge": "/assets/badges/iso-certificate.png",
+      "badgeAlt": "BTEL ISO 9001:2015 certified company seal"
+    },
+    "strength": {
+      "eyebrow": "Operational Excellence",
+      "heading": "Our Strength",
+      "intro": "Four pillars of operational capability that enable BTEL to deliver complex, large-scale engineering projects with precision.",
+      "pillars": [
+        {
+          "title": "Project Management",
+          "description": "Dedicated team of competent engineers & technicians. Timebound project execution and superior tactical support for every engagement.",
+          "icon": "hardhat"
+        },
+        {
+          "title": "Finance Management",
+          "description": "Revenue growth, equity growth & market share. Large project financing, solvency health, productivity and compliance with tax & regulatory requirements.",
+          "icon": "coins"
+        },
+        {
+          "title": "Production Facility",
+          "description": "ISO certified fully compliant production facility with dedicated workstations for different production criterions to ensure consistent quality output.",
+          "icon": "factory"
+        },
+        {
+          "title": "Supply Chain Management",
+          "description": "ERP-based supply chain with extensive quality control for inbound and outbound fleets. Ensuring materials arrive on time, every time.",
+          "icon": "truck"
+        }
+      ]
+    },
+    "timeline": {
+      "eyebrow": "Our Journey",
+      "headingLine1": "16 Years of",
+      "headingHighlight": "Engineering Growth",
+      "intro": "From a single-division startup to a multi-division EPC powerhouse — here's how BTEL grew.",
+      "milestones": [
+        {
+          "year": "2004",
+          "title": "Bangla Trac Group Founded",
+          "description": "Parent conglomerate Bangla Trac Group established, laying the foundation for BTEL's future engineering operations.",
+          "image": "/assets/timeline/2004.jpg"
+        },
+        {
+          "year": "2009",
+          "title": "B-Trac Engineering Ltd. Incorporated",
+          "description": "B-Trac Engineering Ltd. incorporated and began workshop operations, taking on first projects in substation supply and electrical contracting across Dhaka.",
+          "image": "/assets/timeline/2009.jpg"
+        },
+        {
+          "year": "2013",
+          "title": "Factory Expansion in Bhulta, Narayanganj",
+          "description": "Expanded the workshop into a dedicated factory in Bhulta, Narayanganj, growing manufacturing capacity for all engineering divisions.",
+          "image": "/assets/timeline/2014.jpg"
+        },
+        {
+          "year": "2018",
+          "title": "ISO 9001:2015 Certification",
+          "description": "Achieved ISO 9001:2015 certification, cementing BTEL's commitment to international quality management standards.",
+          "image": "/assets/timeline/2018.jpg"
+        },
+        {
+          "year": "2023",
+          "title": "Became one of the largest MEP Solution provider for BATB with a project valued at BDT 185 Cr.",
+          "description": "Delivered the largest single project in BTEL history — British American Tobacco Bangladesh Savar Factory MEP, at BDT 185 Cr.",
+          "image": "/assets/timeline/2023.jpg"
+        }
+      ]
+    },
+    "projects": {
+      "eyebrow": "Project Portfolio",
+      "headingLine1": "Work That Speaks",
+      "headingLine2": "For Itself",
+      "cards": [
+        {
+          "categoryLabel": "Substation & Switchgear",
+          "accent": "blue",
+          "count": "266+",
+          "countSuffix": "projects",
+          "highlightLabel": "Highest Value",
+          "title": "Completed Substation & Switchgear System at MJL, Bangladesh",
+          "metric": "BDT 5.82 Cr",
+          "href": "/projects?filter=substation#portfolio",
+          "image": "/assets/hero/substation.jpg"
+        },
+        {
+          "categoryLabel": "Solar Power",
+          "accent": "amber",
+          "count": "21+",
+          "countSuffix": "projects",
+          "highlightLabel": "Highest Value",
+          "title": "5MWP Solar Power Plant for Akij Textile Mills Ltd.",
+          "metric": "BDT 7 Cr",
+          "href": "/projects?filter=solar#portfolio",
+          "image": "/assets/hero/solar.jpg"
+        },
+        {
+          "categoryLabel": "MEP / EPC",
+          "accent": "teal",
+          "count": "96+",
+          "countSuffix": "projects",
+          "highlightLabel": "Highest Value",
+          "title": "",
+          "metric": "",
+          "href": "/projects?filter=mep#portfolio",
+          "image": "/assets/hero/mep.jpg"
+        },
+        {
+          "categoryLabel": "Water Treatment",
+          "accent": "purple",
+          "count": "90+",
+          "countSuffix": "Customer Delivered",
+          "highlightLabel": "Value",
+          "title": "1.5+ Tones",
+          "metric": "BDT 18.5 Lac",
+          "href": "/projects?filter=water-treatment#portfolio",
+          "image": "/assets/hero/water.jpg"
+        }
+      ]
+    },
+    "partnerCta": {
+      "eyebrow": "Ready to Partner?",
+      "headingLine1": "Let's Engineer Your Next Project",
+      "headingLine2": "From Design to Commissioning",
+      "body": "Five engineering divisions under one roof — substation & switchgear, solar power, MEP/EPC, water treatment, and lifetime after-sales support. Since 2009, BTEL has delivered BDT 500 Cr+ in projects for 60+ of Bangladesh's most demanding industrial clients, with design, procurement, installation, and commissioning handled entirely in-house.",
+      "ctaLabel": "Explore Products & Services →",
+      "ctaHref": "/products-services"
+    },
+    "support": {
+      "eyebrow": "Post-Delivery",
+      "heading": "After Sales\nSupport & Service",
+      "intro": "Our commitment doesn't end at handover. BTEL provides nationwide, round-the-clock after-sales support ensuring reliable operation and customer confidence at every stage.",
+      "features": [
+        {
+          "title": "Unparalleled Technical Expertise",
+          "description": "Strong after-sales capability ensuring reliable operation and timely service.",
+          "icon": "wrench"
+        },
+        {
+          "title": "Embracing Commitments",
+          "description": "Safeguarding sales by extensive after-sales service coverage.",
+          "icon": "refresh"
+        },
+        {
+          "title": "Precision Engineering",
+          "description": "Relentless pursuit of work perfection to ensure customer satisfaction.",
+          "icon": "target"
+        },
+        {
+          "title": "24/7 Effortless Vigilance",
+          "description": "Nationwide proven service excellence and emergency responses — in time, every time.",
+          "icon": "clock"
+        }
+      ]
+    },
+    "clientMarquee": {
+      "ariaLabel": "Trusted by 60+ industry leaders",
+      "clients": [
+        {
+          "name": "British American Tobacco",
+          "logo": "/assets/logos/clients/british-american-tobacco.png"
+        },
+        {
+          "name": "Nestlé Bangladesh",
+          "logo": "/assets/logos/clients/nestle-bangladesh.png"
+        },
+        {
+          "name": "Unilever Bangladesh",
+          "logo": "/assets/logos/clients/unilever-bangladesh.png"
+        },
+        {
+          "name": "Coca-Cola Bangladesh",
+          "logo": "/assets/logos/clients/coca-cola-bangladesh.png"
+        },
+        {
+          "name": "Square Group",
+          "logo": "/assets/logos/clients/square-group.png"
+        },
+        {
+          "name": "Chevron Bangladesh",
+          "logo": "/assets/logos/clients/chevron-bangladesh.png"
+        },
+        {
+          "name": "Bangladesh Navy",
+          "logo": "/assets/logos/clients/bangladesh-navy.png"
+        },
+        {
+          "name": "Walton Hi-Tech",
+          "logo": "/assets/logos/clients/walton-hi-tech.png"
+        },
+        {
+          "name": "ACI Group",
+          "logo": "/assets/logos/clients/aci-group.png"
+        },
+        {
+          "name": "Akij Group",
+          "logo": "/assets/logos/clients/akij-group.png"
+        },
+        {
+          "name": "Bashundhara Group",
+          "logo": "/assets/logos/clients/bashundhara-group.png"
+        },
+        {
+          "name": "Beximco Pharma",
+          "logo": "/assets/logos/clients/beximco-pharma.png"
+        },
+        {
+          "name": "Incepta Pharma",
+          "logo": "/assets/logos/clients/incepta-pharma.png"
+        },
+        {
+          "name": "Popular Pharmaceuticals",
+          "logo": "/assets/logos/clients/popular-pharmaceuticals.png"
+        },
+        {
+          "name": "The ACME Laboratories",
+          "logo": "/assets/logos/clients/acme-laboratories.png"
+        },
+        {
+          "name": "SK+F Pharmaceuticals",
+          "logo": "/assets/logos/clients/sk-f-pharmaceuticals.png"
+        },
+        {
+          "name": "H Healthcare",
+          "logo": "/assets/logos/clients/h-healthcare.png"
+        },
+        {
+          "name": "LifeMed",
+          "logo": "/assets/logos/clients/lifemed.png"
+        },
+        {
+          "name": "GPH Ispat",
+          "logo": "/assets/logos/clients/gph-ispat.png"
+        },
+        {
+          "name": "Sharmin Group",
+          "logo": "/assets/logos/clients/sharmin-group.png"
+        },
+        {
+          "name": "Super Petrochemical",
+          "logo": "/assets/logos/clients/super-petrochemical.png"
+        },
+        {
+          "name": "T.K. Group",
+          "logo": "/assets/logos/clients/tk-group.png"
+        },
+        {
+          "name": "TRU Group",
+          "logo": "/assets/logos/clients/tru-group.png"
+        },
+        {
+          "name": "Srizony Bangladesh",
+          "logo": "/assets/logos/clients/srizony-bangladesh.png"
+        },
+        {
+          "name": "Anfords",
+          "logo": "/assets/logos/clients/anfords.png"
+        },
+        {
+          "name": "AARATA",
+          "logo": "/assets/logos/clients/aarata.png"
+        },
+        {
+          "name": "Montrims",
+          "logo": "/assets/logos/clients/montrims.png"
+        },
+        {
+          "name": "Linde Bangladesh",
+          "logo": "/assets/logos/clients/linde-bangladesh.png"
+        },
+        {
+          "name": "Bay",
+          "logo": "/assets/logos/clients/bay.png"
+        },
+        {
+          "name": "Noman Group",
+          "logo": "/assets/logos/clients/noman-group.png"
+        },
+        {
+          "name": "Pakiza",
+          "logo": "/assets/logos/clients/pakiza.png"
+        },
+        {
+          "name": "Hatil",
+          "logo": "/assets/logos/clients/hatil.png"
+        },
+        {
+          "name": "Premier Hotels & Resorts",
+          "logo": "/assets/logos/clients/premier-hotels-resorts.png"
+        },
+        {
+          "name": "New Zealand Dairy",
+          "logo": "/assets/logos/clients/new-zealand-dairy.png"
+        },
+        {
+          "name": "BREB",
+          "logo": "/assets/logos/clients/breb.png"
+        },
+        {
+          "name": "Bangladesh Machine Tools Factory",
+          "logo": "/assets/logos/clients/bangladesh-machine-tools-factory.png"
+        },
+        {
+          "name": "IOM (UN Migration)",
+          "logo": "/assets/logos/clients/iom.png"
+        },
+        {
+          "name": "UNHCR",
+          "logo": "/assets/logos/clients/unhcr.png"
+        },
+        {
+          "name": "BUP",
+          "logo": "/assets/logos/clients/bup.png"
+        }
+      ]
+    }
+  }
+}

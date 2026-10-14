@@ -1,4 +1,4 @@
-import { getSupportFeatures } from "@/data/company";
+import { getHomeContent } from "@/data/pages";
 import { Reveal } from "@/components/ui/reveal";
 import { StaggerGroup } from "@/components/ui/stagger-group";
 import { WrenchIcon, RefreshIcon, TargetIcon, ClockIcon } from "@/components/ui/icons";
@@ -11,30 +11,26 @@ const ICON_MAP = {
 } as const;
 
 export async function SupportSection() {
-  const features = await getSupportFeatures();
+  const content = await getHomeContent();
+  const c = content?.support;
+  if (!c) return null;
 
   return (
     <section id="aftersales" className="bg-navy px-6 py-20 sm:px-12 lg:px-20">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <Reveal>
           <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
-            Post-Delivery
+            {c.eyebrow}
           </div>
-          <h2 className="mb-4 font-display text-[clamp(36px,4vw,52px)] font-extrabold leading-[1.05] text-white">
-            After Sales
-            <br />
-            Support &amp; Service
+          <h2 className="mb-4 whitespace-pre-line font-display text-[clamp(36px,4vw,52px)] font-extrabold leading-[1.05] text-white">
+            {c.heading}
           </h2>
-          <p className="max-w-[520px] text-base leading-[1.7] text-muted">
-            Our commitment doesn&apos;t end at handover. BTEL provides
-            nationwide, round-the-clock after-sales support ensuring reliable
-            operation and customer confidence at every stage.
-          </p>
+          <p className="max-w-[520px] text-base leading-[1.7] text-muted">{c.intro}</p>
         </Reveal>
 
         <StaggerGroup className="grid grid-cols-2 gap-4" itemSelector="[data-stagger-item]">
-          {features.map((feature) => {
-            const Icon = ICON_MAP[feature.icon];
+          {c.features.map((feature) => {
+            const Icon = ICON_MAP[feature.icon] ?? WrenchIcon;
             return (
               <div
                 key={feature.title}
