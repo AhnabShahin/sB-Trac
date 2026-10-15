@@ -14,6 +14,20 @@ export type HeroSlide =
   | { type: "image"; src: string }
   | { type: "video"; mp4Src: string; poster: string };
 
+export type HeroServiceIcon = "bolt" | "sun" | "crane" | "droplet" | "wrench";
+
+export interface HeroServiceCard {
+  icon: HeroServiceIcon;
+  title: string;
+  subtitle: string;
+  /** Accent hex (e.g. "#0A9E88"); drives the icon tint, underline and icon chip. */
+  accent: string;
+  href: string;
+  image?: string;
+  /** Spans both columns (used for the wide "After Sales" card). */
+  wide?: boolean;
+}
+
 export interface HeroContent {
   badge: string;
   headline: { line1: string; line2Prefix: string; highlight: string };
@@ -22,6 +36,7 @@ export interface HeroContent {
   secondaryCta: { label: string; href: string };
   stats: HeroStat[];
   slides: HeroSlide[];
+  services: HeroServiceCard[];
 }
 
 /* ------------------------------------------------- principle / who we are --- */

@@ -45,6 +45,49 @@
           "mp4Src": "/assets/video/home-hero-720.mp4",
           "poster": "/assets/video/home-hero-poster.jpg"
         }
+      ],
+      "services": [
+        {
+          "icon": "bolt",
+          "title": "Substation & Switchgear",
+          "subtitle": "33KV & 11KV systems · Up to 20MVA",
+          "accent": "#9FB9FC",
+          "href": "/products-services/substation",
+          "image": "/assets/hero/substation.jpg"
+        },
+        {
+          "icon": "sun",
+          "title": "Solar Power",
+          "subtitle": "On-grid · Off-grid · Hybrid · MW scale",
+          "accent": "#E08A00",
+          "href": "/products-services/solar",
+          "image": "/assets/hero/solar.jpg"
+        },
+        {
+          "icon": "crane",
+          "title": "MEP / EPC",
+          "subtitle": "Turnkey solutions · Fire · HVAC · Piping",
+          "accent": "#0A9E88",
+          "href": "/products-services/mep",
+          "image": "/assets/hero/mep.jpg"
+        },
+        {
+          "icon": "droplet",
+          "title": "Water Treatment",
+          "subtitle": "NALCO chemicals · Boiler · RO · Cooling",
+          "accent": "#7C3AED",
+          "href": "/products-services/water-treatment",
+          "image": "/assets/hero/water.jpg"
+        },
+        {
+          "icon": "wrench",
+          "title": "After Sales Support",
+          "subtitle": "AMC contracts · 24/7 support · Spares · Emergency response",
+          "accent": "#0A9E88",
+          "href": "/products-services/after-sales",
+          "image": "/assets/hero/after-sales.jpg",
+          "wide": true
+        }
       ]
     },
     "principle": {

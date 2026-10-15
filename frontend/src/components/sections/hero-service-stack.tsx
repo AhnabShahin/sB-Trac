@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap, registerGsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { BoltIcon, SunIcon, CraneIcon, DropletIcon, WrenchIcon } from "@/components/ui/icons";
+import type { HeroServiceCard } from "@/data/content-types";
 
 registerGsap();
 
@@ -18,59 +19,17 @@ const ICON_MAP = {
   wrench: WrenchIcon,
 } as const;
 
-const CARDS = [
-  {
-    icon: "bolt",
-    title: "Substation & Switchgear",
-    subtitle: "33KV & 11KV systems · Up to 20MVA",
-    accent: "#9FB9FC",
-    iconBg: "rgba(159,185,252,0.15)",
-    href: "/products-services/substation",
-    image: "/assets/hero/substation.jpg",
-    webpImage: "/assets/hero/substation.webp",
-  },
-  {
-    icon: "sun",
-    title: "Solar Power",
-    subtitle: "On-grid · Off-grid · Hybrid · MW scale",
-    accent: "#E08A00",
-    iconBg: "rgba(224,138,0,0.15)",
-    href: "/products-services/solar",
-    image: "/assets/hero/solar.jpg",
-    webpImage: "/assets/hero/solar.webp",
-  },
-  {
-    icon: "crane",
-    title: "MEP / EPC",
-    subtitle: "Turnkey solutions · Fire · HVAC · Piping",
-    accent: "#0A9E88",
-    iconBg: "rgba(10,158,136,0.15)",
-    href: "/products-services/mep",
-    image: "/assets/hero/mep.jpg",
-    webpImage: "/assets/hero/mep.webp",
-  },
-  {
-    icon: "droplet",
-    title: "Water Treatment",
-    subtitle: "NALCO chemicals · Boiler · RO · Cooling",
-    accent: "#7C3AED",
-    iconBg: "rgba(124,58,237,0.15)",
-    href: "/products-services/water-treatment",
-    image: "/assets/hero/water.jpg",
-    webpImage: "/assets/hero/water.webp",
-  },
-  {
-    icon: "wrench",
-    title: "After Sales Support",
-    subtitle: "AMC contracts · 24/7 support · Spares · Emergency response",
-    accent: "#0A9E88",
-    iconBg: "rgba(10,158,136,0.15)",
-    href: "/products-services/after-sales",
-    image: "/assets/hero/after-sales.jpg",
-    webpImage: "/assets/hero/after-sales.webp",
-    wide: true,
-  },
-] as const;
+// The icon chip is the accent at 15% — derived here so the admin only ever sets
+// one colour per card. Falls back to the raw value for non-hex input.
+function iconChip(accent: string): string {
+  const hex = accent.replace("#", "").trim();
+  const full = hex.length === 3 ? hex.split("").map((c) => c + c).join("") : hex;
+  if (!/^[0-9a-fA-F]{6}$/.test(full)) return accent;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},0.15)`;
+}
 
 /**
  * The hover-only artwork behind a service card.
@@ -84,13 +43,11 @@ const CARDS = [
  * loaded, so the two layers can never fade in over missing pixels.
  */
 function HeroCardHoverArt({
-  webp,
-  fallback,
+  src,
   title,
   scrim,
 }: {
-  webp: string;
-  fallback: string;
+  src: string;
   title: string;
   scrim: string;
 }) {
@@ -104,20 +61,17 @@ function HeroCardHoverArt({
       style={ready ? undefined : { opacity: 0 }}
       className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
     >
-      {/* Hover Image Reveal */}
-      <picture className="relative block h-full w-full">
-        <source srcSet={webp} type="image/webp" />
-        <Image
-          src={fallback}
-          alt={`${title} Background`}
-          fill
-          sizes="(min-width: 1024px) 220px, 45vw"
-          className="scale-110 object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
-          loading="lazy"
-          decoding="async"
-          onLoad={() => setReady(true)}
-        />
-      </picture>
+      {/* Hover Image Reveal (next/image negotiates WebP/AVIF from the one source). */}
+      <Image
+        src={src}
+        alt={`${title} Background`}
+        fill
+        sizes="(min-width: 1024px) 220px, 45vw"
+        className="scale-110 object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setReady(true)}
+      />
 
       {/* Dark Overlay Gradient on Hover for Maximum Legibility */}
       <div className="absolute inset-0" style={{ background: scrim }} />
@@ -125,7 +79,7 @@ function HeroCardHoverArt({
   );
 }
 
-export function HeroServiceStack() {
+export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
@@ -222,12 +176,12 @@ export function HeroServiceStack() {
   return (
     <div ref={containerRef} className="w-full max-w-[440px]">
       <div ref={cardsRef} className="grid grid-cols-2 gap-3">
-        {CARDS.map((card) => {
-          const Icon = ICON_MAP[card.icon];
+        {cards.map((card, i) => {
+          const Icon = ICON_MAP[card.icon] ?? BoltIcon;
           return (
             <Link
-              key={card.title}
-              href={card.href}
+              key={`${card.title}-${i}`}
+              href={card.href || "#"}
               data-scard
               data-cursor-interactive
               // No `backdrop-blur` here. These five cards sit directly on top of the
@@ -241,14 +195,15 @@ export function HeroServiceStack() {
               // behind the right-hand column is already darkened by the hero's
               // gradient overlays, so legibility is unaffected.
               className="group relative block cursor-pointer overflow-hidden rounded-lg border border-white/15 bg-navy/55 px-5 py-6 pb-7 transition-[background,border-color,box-shadow] duration-300 hover:border-white/30 hover:bg-navy/70 hover:shadow-lg"
-              style={"wide" in card && card.wide ? { gridColumn: "span 2" } : undefined}
+              style={card.wide ? { gridColumn: "span 2" } : undefined}
             >
-              <HeroCardHoverArt
-                webp={card.webpImage}
-                fallback={card.image}
-                title={card.title}
-                scrim="linear-gradient(115deg, rgba(6,15,26,0.94) 15%, rgba(6,15,26,0.80) 55%, rgba(6,15,26,0.60) 100%)"
-              />
+              {card.image ? (
+                <HeroCardHoverArt
+                  src={card.image}
+                  title={card.title}
+                  scrim="linear-gradient(115deg, rgba(6,15,26,0.94) 15%, rgba(6,15,26,0.80) 55%, rgba(6,15,26,0.60) 100%)"
+                />
+              ) : null}
 
               <span
                 className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
@@ -258,7 +213,7 @@ export function HeroServiceStack() {
                 <div
                   data-scard-icon
                   className="mb-3.5 flex h-10 w-10 items-center justify-center rounded-lg"
-                  style={{ background: card.iconBg, color: card.accent }}
+                  style={{ background: iconChip(card.accent), color: card.accent }}
                 >
                   <Icon width={20} height={20} />
                 </div>
@@ -267,7 +222,7 @@ export function HeroServiceStack() {
                 </div>
                 <div
                   className="text-xs leading-relaxed text-muted transition-colors duration-500 group-hover:text-white/90"
-                  style={"wide" in card && card.wide ? { maxWidth: "320px" } : undefined}
+                  style={card.wide ? { maxWidth: "320px" } : undefined}
                 >
                   {card.subtitle}
                 </div>

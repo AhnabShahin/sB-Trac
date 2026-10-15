@@ -12,7 +12,7 @@ import {
   TextInput,
   inputCls,
 } from "@/components/admin/form-primitives";
-import type { HeroContent, HeroSlide } from "@/data/content-types";
+import type { HeroContent, HeroServiceCard, HeroSlide } from "@/data/content-types";
 
 export const EMPTY_HERO: HeroContent = {
   badge: "",
@@ -22,7 +22,16 @@ export const EMPTY_HERO: HeroContent = {
   secondaryCta: { label: "", href: "" },
   stats: [],
   slides: [],
+  services: [],
 };
+
+const SERVICE_ICONS = [
+  { value: "bolt", label: "Bolt" },
+  { value: "sun", label: "Sun" },
+  { value: "crane", label: "Crane" },
+  { value: "droplet", label: "Droplet" },
+  { value: "wrench", label: "Wrench" },
+];
 
 export function HeroForm({
   value,
@@ -125,6 +134,44 @@ export function HeroForm({
                   ) : (
                     <MediaField label="Image" kind="image" slug={slug} value={slide.src} onChange={(x) => replace({ ...slide, src: x })} />
                   )}
+                </RepeaterItem>
+              );
+            })}
+          </div>
+        )}
+      </SectionCard>
+
+      <SectionCard
+        title="Service cards"
+        description="The division tiles stacked beside the hero. Each has an icon, accent colour and a background photo shown on hover."
+        action={<AddButton label="Add card" onClick={() => set({ services: [...v.services, { icon: "bolt", title: "", subtitle: "", accent: "#0A9E88", href: "", image: "", wide: false }] })} />}
+      >
+        {v.services.length === 0 ? (
+          <EmptyRow text="No service cards yet — add one, or load the demo." />
+        ) : (
+          <div className="space-y-3">
+            {v.services.map((card, i) => {
+              const upd = (patch: Partial<HeroServiceCard>) => set({ services: v.services.map((c, idx) => (idx === i ? { ...c, ...patch } : c)) });
+              const swatch = /^#[0-9a-fA-F]{6}$/.test(card.accent) ? card.accent : "#0A9E88";
+              return (
+                <RepeaterItem key={i} onRemove={() => set({ services: v.services.filter((_, idx) => idx !== i) })}>
+                  <div className="grid gap-3 sm:grid-cols-[9rem_1fr]">
+                    <Field label="Icon"><Select value={card.icon} onChange={(x) => upd({ icon: x as HeroServiceCard["icon"] })} options={SERVICE_ICONS} /></Field>
+                    <Field label="Accent colour">
+                      <div className="flex items-center gap-2">
+                        <input type="color" aria-label="Accent colour" value={swatch} onChange={(e) => upd({ accent: e.target.value })} className="h-9 w-10 shrink-0 cursor-pointer rounded-lg border border-border bg-navy p-1" />
+                        <input className={inputCls} value={card.accent} onChange={(e) => upd({ accent: e.target.value })} placeholder="#0A9E88" />
+                      </div>
+                    </Field>
+                  </div>
+                  <Field label="Title"><TextInput value={card.title} onChange={(x) => upd({ title: x })} placeholder="Substation & Switchgear" /></Field>
+                  <Field label="Subtitle"><TextArea value={card.subtitle} onChange={(x) => upd({ subtitle: x })} rows={2} /></Field>
+                  <Field label="Link"><TextInput value={card.href} onChange={(x) => upd({ href: x })} placeholder="/products-services/substation" /></Field>
+                  <MediaField label="Background image" kind="image" slug={slug} value={card.image ?? ""} onChange={(x) => upd({ image: x })} />
+                  <label className="flex items-center gap-2 text-xs font-medium text-muted">
+                    <input type="checkbox" checked={!!card.wide} onChange={(e) => upd({ wide: e.target.checked })} />
+                    Full-width card (spans both columns)
+                  </label>
                 </RepeaterItem>
               );
             })}

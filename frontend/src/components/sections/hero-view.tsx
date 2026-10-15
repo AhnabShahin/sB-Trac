@@ -13,7 +13,7 @@ import { HeroBackgroundSlider } from "@/components/sections/hero-background-slid
 // `content`; the gradient/grid overlays and the right-hand service stack are
 // fixed design, not content.
 export function HeroView({ content }: { content: HeroContent }) {
-  const { badge, headline, subhead, primaryCta, secondaryCta, stats, slides } =
+  const { badge, headline, subhead, primaryCta, secondaryCta, stats, slides, services } =
     content;
 
   return (
@@ -119,7 +119,7 @@ export function HeroView({ content }: { content: HeroContent }) {
       </div>
 
       <div className="relative z-1 flex items-center justify-center px-6 pb-16 sm:px-12 lg:py-20 lg:pl-12 lg:pr-20">
-        <HeroServiceStack />
+        <HeroServiceStack cards={services ?? []} />
       </div>
     </section>
   );
