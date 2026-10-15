@@ -67,7 +67,16 @@
 
   --animate-marquee: marquee 30s linear infinite;
   --animate-pulse-dot: pulse-dot 2s infinite;
+  --animate-ken-burns: ken-burns 24s ease-in-out infinite alternate;
 
+  @keyframes ken-burns {
+    from {
+      transform: scale(1.05) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.18) translate3d(-1.5%, -1.5%, 0);
+    }
+  }
   @keyframes marquee {
     from {
       transform: translateX(0);
@@ -86,6 +95,19 @@
       opacity: 0.5;
       transform: scale(1.3);
     }
+  }
+}
+
+/* Continuous slow zoom/pan for a hero background image (projects page), so its
+   backdrop drifts like the slider-driven heroes on the other pages. A plain
+   class rather than a generated utility, so it applies regardless of scan
+   timing; it honours reduced motion. */
+.bg-ken-burns {
+  animation: var(--animate-ken-burns);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-ken-burns {
+    animation: none;
   }
 }
 

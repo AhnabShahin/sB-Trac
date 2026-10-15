@@ -167,7 +167,6 @@ export function ProjectPortfolioGrid({ projects }: { projects: Project[] }) {
         <AnimatePresence mode="popLayout">
           {filtered.map((project) => {
             const imageSrc = project.image || "/assets/projects/p-01.jpg";
-            const webpSrc = project.webpImage || "/assets/projects/p-01.webp";
 
             return (
               <motion.article
@@ -201,18 +200,15 @@ export function ProjectPortfolioGrid({ projects }: { projects: Project[] }) {
                     project.featured ? "h-[300px]" : "h-[190px]"
                   )}
                 >
-                  <picture className="relative block h-full w-full">
-                    <source srcSet={webpSrc} type="image/webp" />
-                    <Image
-                      src={imageSrc}
-                      alt={project.title}
-                      fill
-                      sizes={project.featured ? "(min-width: 640px) 100vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
-                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
+                  <Image
+                    src={imageSrc}
+                    alt={project.title}
+                    fill
+                    sizes={project.featured ? "(min-width: 640px) 100vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <div
                     aria-hidden="true"
                     className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent opacity-90"

@@ -1,0 +1,76 @@
+{
+  "title": "Substation & Switchgear",
+  "sections": {
+    "hero": {
+      "accent": "blue",
+      "badge": "Service Division 01 · 33kV & 11kV Substation EPC",
+      "breadcrumbLabel": "Substation & Switchgear",
+      "headingLine1": "Substation &",
+      "headingHighlight": "Switchgear Systems",
+      "subhead": "Complete 33kV & 11kV electrical substation systems, power transformers up to 20MVA, and HV/LV switchgear panels — delivering reliable power infrastructure across Bangladesh.",
+      "image": "/assets/hero/substation.jpg",
+      "stats": [
+        { "value": "20", "unit": "MVA", "label": "Max Transformer Range" },
+        { "value": "33", "unit": "kV", "label": "Max Voltage Capability" },
+        { "value": "DEIF", "unit": "", "label": "Authorized Distributor" }
+      ]
+    },
+    "capabilities": {
+      "eyebrow": "Core Capabilities",
+      "heading": "What We Supply",
+      "intro": "Select a capability to jump to the matching product category in our full catalogue.",
+      "cards": [
+        { "icon": "bolt", "title": "33kV & 11kV Sub-Stations", "description": "Complete turnkey substation systems for industrial and commercial power delivery", "href": "/products-services#scp-substation-systems", "accentColor": "#9fb9fc" },
+        { "icon": "panel", "title": "HV/LV Switchgear", "description": "High & low voltage electrical panels, synchronization and control systems", "href": "/products-services#scp-switchgear", "accentColor": "#9fb9fc" },
+        { "icon": "transformer", "title": "Power Transformers", "description": "Transformer supply up to 20MVA for diverse industrial applications", "href": "/products-services#scp-substation-systems", "accentColor": "#9fb9fc" },
+        { "icon": "broadcast", "title": "SCADA Systems", "description": "Remote monitoring & fuel optimization syncing conventional and renewable sources", "href": "/products-services#scp-automation", "accentColor": "#9fb9fc" },
+        { "icon": "anchor", "title": "Marine Power", "description": "Electrical panels and synchronization systems for industrial & marine applications", "href": "/products-services#scp-deif", "accentColor": "#9fb9fc" },
+        { "icon": "globe", "title": "DEIF Power Control", "description": "World-class power control and management solutions as authorized DEIF distributor", "href": "/products-services#scp-deif", "accentColor": "#9fb9fc" }
+      ]
+    },
+    "features": {
+      "eyebrow": "What We Deliver",
+      "heading": "Full-Scope Substation Capability",
+      "intro": "From design and engineering to installation, commissioning and after-sales support — BTEL owns the entire project lifecycle.",
+      "cards": [
+        { "icon": "lightbulb", "title": "Leading Gateway of Power to Industries", "description": "Complete 33kV & 11kV electrical substation systems, transformers & HV/LV switchgears designed and installed to the highest standards.", "accentColor": "#203169" },
+        { "icon": "factory", "title": "Diverse Industrial Solutions", "description": "Transformer range extends up to 20MVA — ensuring reliable power solutions for even the most demanding industrial needs.", "accentColor": "#203169" },
+        { "icon": "hardhat", "title": "Engineering Mastery & Craftsmanship", "description": "Precise & efficient turnkey substation solutions delivered by our senior engineering team with decades of field experience.", "accentColor": "#203169" },
+        { "icon": "flask", "title": "R&D for Power Optimization", "description": "One-stop solution for high and low voltage electrical panels and switchgears, backed by continuous research and development.", "accentColor": "#203169" },
+        { "icon": "anchor", "title": "Industrial & Marine Applications", "description": "Manufacture of electrical panels and synchronization systems for both industrial facilities and marine power applications.", "accentColor": "#203169" },
+        { "icon": "broadcast", "title": "Advanced SCADA Monitoring", "description": "Remote monitoring system for sub-stations, sync systems, and fuel consumption to optimize operation costs.", "accentColor": "#203169" }
+      ]
+    },
+    "slider": {
+      "eyebrow": "Delivered Substation Projects",
+      "images": [
+        { "image": "/assets/slider/substation/01.jpg", "caption": "High Voltage 33kV Substation System Installation" },
+        { "image": "/assets/slider/substation/02.jpg", "caption": "Heavy Industrial Power Transformer & HV Switchgear" },
+        { "image": "/assets/slider/substation/03.jpg", "caption": "Custom HV/LV Synchronization & Control Panel Assembly" },
+        { "image": "/assets/slider/substation/04.jpg", "caption": "Digital Substation SCADA & Remote Control Room" }
+      ]
+    },
+    "otherServices": {
+      "eyebrow": "Explore More",
+      "heading": "Other Service Divisions",
+      "cards": [
+        { "icon": "sun", "title": "Solar Power", "description": "Turnkey solar EPC — rooftop, ground-mounted, and hybrid systems for industrial and commercial clients.", "href": "/products-services/solar", "accentColor": "#e08a00" },
+        { "icon": "wrench", "title": "MEP / EPC", "description": "Mechanical, Electrical, and Plumbing engineering for factories, commercial buildings, data centres, and power plants.", "href": "/products-services/mep", "accentColor": "#0a9e88" },
+        { "icon": "droplet", "title": "Water Treatment", "description": "Authorized distributor of NALCO (Ecolab) water treatment chemicals — boiler, cooling tower, RO, and engine coolant programs.", "href": "/products-services/water-treatment", "accentColor": "#a78bfa" },
+        { "icon": "clock", "title": "After Sales Support", "description": "Nationwide, round-the-clock after-sales support — AMC contracts, spare parts supply, and emergency response across all delivered projects.", "href": "/products-services/after-sales", "accentColor": "#0ea5b5" }
+      ]
+    },
+    "specs": {
+      "eyebrow": "Technical Specifications",
+      "heading": "Substation System Parameters",
+      "rows": [
+        { "label": "Voltage Classes", "value": "33kV · 11kV · 0.415kV (LV)" },
+        { "label": "Transformer Capacity", "value": "Up to 20 MVA" },
+        { "label": "Switchgear Types", "value": "VCB · LBS · ACB · MCCB Panels" },
+        { "label": "Control Systems", "value": "DEIF AGC-4 · SCADA · PLC Synchronizing" },
+        { "label": "Standards Compliance", "value": "IEC 62271 · IEC 61439 · BNBC" },
+        { "label": "Key Global Brand Partners", "value": "DEIF · ABB · SGB-SMIT · Schneider" }
+      ]
+    }
+  }
+}

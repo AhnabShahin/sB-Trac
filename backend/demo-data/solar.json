@@ -1,0 +1,90 @@
+{
+  "title": "Solar Power",
+  "sections": {
+    "hero": {
+      "accent": "amber",
+      "badge": "Turnkey Solar EPC · On-Grid & Off-Grid",
+      "breadcrumbLabel": "Solar & Renewable",
+      "headingLine1": "Solar Power",
+      "headingHighlight": "Solutions",
+      "subhead": "Turnkey solar EPC for industrial and commercial facilities across Bangladesh. From high-efficiency rooftop PV arrays to hybrid microgrids, BTEL lowers operating energy costs up to 40% with clean energy.",
+      "image": "/assets/hero/solar.jpg",
+      "stats": [],
+      "primaryCta": { "label": "Book Free Site Visit", "href": "#site-visit" },
+      "secondaryCta": { "label": "Explore System Types", "href": "#system-types" }
+    },
+    "systemTypes": {
+      "eyebrow": "Solar Configurations",
+      "heading": "Tailored System Architecture",
+      "intro": "We design and commission solar solutions engineered specifically for your load profile — select a configuration to see the products behind it.",
+      "cards": [
+        { "icon": "plug", "title": "On-Grid Solar", "description": "Grid-connected solar power systems that export excess energy and reduce your utility bill. Ideal for factories, commercial buildings and institutions with a reliable grid supply.", "tag": "Net Metering Ready", "href": "/products-services#renewable-energy-solar", "accentColor": "#9fb9fc" },
+        { "icon": "battery", "title": "Off-Grid Solar", "description": "Standalone solar power systems with battery storage for locations without grid access. Provides 24/7 clean energy independence in remote industrial and agricultural sites.", "tag": "Battery Storage", "href": "/products-services#renewable-energy-storage", "accentColor": "#0a9e88" },
+        { "icon": "bolt", "title": "Hybrid Solar", "description": "Combines grid connection with battery storage for maximum resilience. Automatically switches power sources to ensure zero downtime — ideal for mission-critical operations.", "tag": "Zero Downtime", "href": "/products-services#renewable-energy-solar", "accentColor": "#e08a00" }
+      ]
+    },
+    "features": {
+      "eyebrow": "Our Approach",
+      "heading": "Turnkey Solar / Renewable Projects",
+      "intro": "From the first site survey to the final watt delivered — BTEL manages every phase of your solar project.",
+      "cards": [
+        { "icon": "sun", "title": "Revolutionary Solar Power Plants", "description": "Harnessing solar energy efficiently to deliver optimum energy solutions for industrial, commercial and institutional clients across Bangladesh.", "accentColor": "#e08a00" },
+        { "icon": "lightbulb", "title": "Cutting Edge Technology & Operations", "description": "We design, develop and implement on-grid, off-grid, and hybrid solar power plants using globally proven equipment and signature operations management systems.", "accentColor": "#0a9e88" },
+        { "icon": "leaf", "title": "Future Integration & Environmental Responsibility", "description": "Turnkey solutions advancing sustainability and carbon neutrality through solar power — aligning with Bangladesh's national renewable energy targets and global ESG commitments.", "accentColor": "#0a9e88" },
+        { "icon": "handshake", "title": "Partner in Development & a Friend in Need", "description": "Construction, maintenance, and troubleshooting powered by aerial surveillance and simulations to meet the energy demand of today and tomorrow.", "accentColor": "#e08a00" }
+      ]
+    },
+    "process": {
+      "eyebrow": "How We Work",
+      "heading": "The BTEL Solar EPC Process",
+      "intro": "Five structured phases from concept to commissioning — delivered on time, every time.",
+      "steps": [
+        { "title": "Site Survey & Yield Analysis", "description": "Shading analysis, structural roof checks, and solar irradiance simulation.", "active": false },
+        { "title": "System Engineering & Design", "description": "Single line diagrams, component selection, structural sizing, net metering planning.", "active": false },
+        { "title": "Procurement & Import", "description": "Tier-1 solar modules, string/central inverters, mounting structure, protection hardware.", "active": false },
+        { "title": "Installation & Interconnection", "description": "Mechanical mounting, DC/AC cabling, inverter setup, grid synchronisation.", "active": true },
+        { "title": "Testing, Commissioning & O&M", "description": "Performance ratio testing, grid authority sign-off, ongoing monitoring & AMC.", "active": false }
+      ]
+    },
+    "slider": {
+      "eyebrow": "Featured Solar Project Installations",
+      "images": [
+        { "image": "/assets/slider/solar/01.jpg", "caption": "Rooftop Megawatt Solar EPC Installation" },
+        { "image": "/assets/slider/solar/02.jpg", "caption": "Tier-1 High Efficiency Solar Array Layout" },
+        { "image": "/assets/slider/solar/03.jpg", "caption": "Industrial Solar Power Plant Grid Connection" },
+        { "image": "/assets/slider/solar/04.jpg", "caption": "Smart Inverter & SCADA Monitoring System" }
+      ]
+    },
+    "siteVisitCta": {
+      "eyebrow": "Get Started",
+      "headingLine1": "See Your Site's",
+      "headingLine2": "Solar Potential",
+      "intro": "Book a free, no-obligation site visit and our solar engineers will assess your roof or land, energy usage, and recommend the right system size."
+    },
+    "siteVisitForm": {
+      "tabSiteVisitLabel": "Book a Free Site Visit",
+      "tabInquiryLabel": "General Inquiry",
+      "heading": "Schedule Your Free Site Visit",
+      "submitLabel": "Book Free Site Visit →",
+      "successTitle": "Site Visit Requested",
+      "successBody": "Thank you — our solar engineering team will confirm your site visit slot within 24 hours.",
+      "siteTypeOptions": ["Rooftop", "Ground-Mounted", "Hybrid / Not Sure"]
+    },
+    "banner": {
+      "eyebrow": "",
+      "headingLine1": "Ready to transition your facility to clean solar energy?",
+      "intro": "Contact BTEL's renewable energy team for full EPC proposals & ROI analysis.",
+      "image": "/assets/banner/solar-cta.jpg"
+    },
+    "otherServices": {
+      "eyebrow": "Explore More",
+      "heading": "Other Service Divisions",
+      "cards": [
+        { "icon": "bolt", "title": "Substation & Switchgear", "description": "Full-scope substation EPC from 11kV to 132kV — protection relays, SCADA, switchgear, and power transformers.", "href": "/products-services/substation", "accentColor": "#9fb9fc" },
+        { "icon": "wrench", "title": "MEP / EPC", "description": "Mechanical, Electrical, and Plumbing engineering for factories, commercial buildings, data centres, and power plants.", "href": "/products-services/mep", "accentColor": "#0a9e88" },
+        { "icon": "droplet", "title": "Water Treatment", "description": "Authorized distributor of NALCO (Ecolab) water treatment chemicals — boiler, cooling tower, RO, and engine coolant programs.", "href": "/products-services/water-treatment", "accentColor": "#a78bfa" },
+        { "icon": "clock", "title": "After Sales Support", "description": "Nationwide, round-the-clock after-sales support — AMC contracts, spare parts supply, and emergency response across all delivered projects.", "href": "/products-services/after-sales", "accentColor": "#0ea5b5" }
+      ]
+    }
+  }
+}

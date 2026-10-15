@@ -1,15 +1,24 @@
 import Image from "next/image";
 import { CERT_BADGES } from "@/data/contact";
 import { FooterHomeLink } from "@/components/sections/footer-home-link";
+import { getFooterContent } from "@/data/pages";
 
-export function SiteFooter() {
+// Site-wide chrome, so a missing admin entry falls back to the built-in copy
+// below rather than rendering blank — unlike a page section, the footer
+// appears on every route and can't just disappear until someone saves it.
+export async function SiteFooter() {
+  const content = await getFooterContent();
+  const logo = content?.logo || "/logo.png";
+  const copyrightText = content?.copyrightText || "B-Trac Engineering Ltd. · A Bangla Trac Group Company";
+  const badges = content?.badges && content.badges.length > 0 ? content.badges : CERT_BADGES;
+
   return (
     <footer className="flex flex-col items-center gap-6 border-t border-border bg-navy3 px-6 py-10 sm:flex-row sm:justify-between sm:px-12 lg:px-20">
       {/* The wordmark is the footer's home link, matching the header. It was a
           bare `<span>`, so the logo looked clickable but did nothing. */}
       <FooterHomeLink className="flex items-center rounded-lg border border-white/12 bg-white/[0.06] px-2.5 py-1 shadow-[0_2px_10px_rgba(2,6,17,0.25),inset_0_1px_0_rgba(255,255,255,0.18)] transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/60">
         <Image
-          src="/logo.png"
+          src={logo}
           alt="B-Trac Engineering"
           // Must match the file's real pixel size. Next uses these to reserve the
           // image's box before it loads; stale values reserve a wrongly-proportioned
@@ -28,12 +37,11 @@ export function SiteFooter() {
       </FooterHomeLink>
 
       <div className="text-[13px] text-muted">
-        © {new Date().getFullYear()} B-Trac Engineering Ltd. · A Bangla Trac
-        Group Company
+        © {new Date().getFullYear()} {copyrightText}
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-4">
-        {CERT_BADGES.map((badge) => (
+        {badges.map((badge) => (
           <span
             key={badge}
             className="rounded border border-border bg-white/5 px-3 py-1.5 text-[11px] font-bold tracking-[0.5px] text-muted"

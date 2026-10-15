@@ -4,27 +4,38 @@ import { useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ContactPageForm } from "@/components/sections/contact-page-form";
 import { cn } from "@/lib/utils";
+import type { SiteVisitFormContent } from "@/data/content-types";
+import { submitInquiry } from "@/services/inquiries";
+
+// Distinguishes a site-visit booking from a general inquiry in the admin
+// Inquiries list (same table — see services/inquiries.ts / the /contact form).
+const SITE_VISIT_SERVICE_LABEL = "Solar Site Visit Request";
 
 const inputClasses =
   "w-full rounded-md border border-border bg-white/[0.04] px-3.5 py-3 text-sm text-white placeholder:text-muted outline-none transition-colors focus:border-amber";
 
 type FormMode = "site-visit" | "inquiry";
 
-const TABS = [
-  { key: "site-visit", label: "Book a Free Site Visit" },
-  { key: "inquiry", label: "General Inquiry" },
-] as const;
+const DEFAULT_SITE_TYPE_OPTIONS = ["Rooftop", "Ground-Mounted", "Hybrid / Not Sure"];
 
 function FormTabs({
   mode,
   onChange,
+  siteVisitLabel,
+  inquiryLabel,
 }: {
   mode: FormMode;
   onChange: (mode: FormMode) => void;
+  siteVisitLabel: string;
+  inquiryLabel: string;
 }) {
+  const tabs = [
+    { key: "site-visit" as const, label: siteVisitLabel },
+    { key: "inquiry" as const, label: inquiryLabel },
+  ];
   return (
     <div className="mb-6 flex w-fit gap-1 rounded-md bg-white/5 p-1">
-      {TABS.map((tab) => (
+      {tabs.map((tab) => (
         <button
           key={tab.key}
           type="button"
@@ -49,18 +60,68 @@ function FormTabs({
   );
 }
 
-export function SiteVisitForm() {
+export function SiteVisitForm({ content }: { content?: SiteVisitFormContent }) {
   const [mode, setMode] = useState<FormMode>("site-visit");
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const reducedMotion = useReducedMotion();
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const siteVisitLabel = content?.tabSiteVisitLabel || "Book a Free Site Visit";
+  const inquiryLabel = content?.tabInquiryLabel || "General Inquiry";
+  const heading = content?.heading || "Schedule Your Free Site Visit";
+  const submitLabel = content?.submitLabel || "Book Free Site Visit →";
+  const successTitle = content?.successTitle || "Site Visit Requested";
+  const successBody =
+    content?.successBody ||
+    "Thank you — our solar engineering team will confirm your site visit slot within 24 hours.";
+  const siteTypeOptions = content?.siteTypeOptions?.length ? content.siteTypeOptions : DEFAULT_SITE_TYPE_OPTIONS;
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const preferredDate = String(fd.get("preferredDate") ?? "").trim();
+    const siteType = String(fd.get("roofType") ?? "").trim();
+    const details = String(fd.get("message") ?? "").trim();
+    const message = [
+      preferredDate ? `Preferred date: ${preferredDate}` : null,
+      siteType ? `Site type: ${siteType}` : null,
+      details || null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    try {
+      await submitInquiry({
+        full_name: String(fd.get("fullName") ?? "").trim(),
+        company: String(fd.get("company") ?? "").trim(),
+        email: String(fd.get("email") ?? "").trim(),
+        phone: String(fd.get("phone") ?? "").trim() || undefined,
+        service: SITE_VISIT_SERVICE_LABEL,
+        location: String(fd.get("siteAddress") ?? "").trim() || undefined,
+        message: message || "Site visit requested.",
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        (err as Error)?.message ?? "Something went wrong. Please try again or call us directly.",
+      );
+    } finally {
+      setBusy(false);
+    }
   }
 
   if (mode === "inquiry") {
-    return <ContactPageForm header={<FormTabs mode={mode} onChange={setMode} />} />;
+    return (
+      <ContactPageForm
+        header={<FormTabs mode={mode} onChange={setMode} siteVisitLabel={siteVisitLabel} inquiryLabel={inquiryLabel} />}
+      />
+    );
   }
 
   if (submitted) {
@@ -76,22 +137,17 @@ export function SiteVisitForm() {
             <path d="m5 13 4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h3 className="mt-5 font-display text-lg font-bold text-white">Site Visit Requested</h3>
-        <p className="mt-2 max-w-xs text-sm text-muted">
-          Thank you — our solar engineering team will confirm your site visit
-          slot within 24 hours.
-        </p>
+        <h3 className="mt-5 font-display text-lg font-bold text-white">{successTitle}</h3>
+        <p className="mt-2 max-w-xs text-sm text-muted">{successBody}</p>
       </motion.div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="rounded-[10px] border border-border bg-card p-9">
-      <FormTabs mode={mode} onChange={setMode} />
+      <FormTabs mode={mode} onChange={setMode} siteVisitLabel={siteVisitLabel} inquiryLabel={inquiryLabel} />
 
-      <div className="mb-6 font-display text-2xl font-bold text-white">
-        Schedule Your Free Site Visit
-      </div>
+      <div className="mb-6 font-display text-2xl font-bold text-white">{heading}</div>
 
       <div className="mb-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
@@ -113,13 +169,13 @@ export function SiteVisitForm() {
           <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wide text-muted">
             Email
           </label>
-          <input id="email" name="email" type="email" className={inputClasses} placeholder="your@email.com" />
+          <input id="email" name="email" type="email" required className={inputClasses} placeholder="your@email.com" />
         </div>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="company" className="text-xs font-semibold uppercase tracking-wide text-muted">
             Company
           </label>
-          <input id="company" name="company" className={inputClasses} placeholder="Company name" />
+          <input id="company" name="company" required className={inputClasses} placeholder="Company name" />
         </div>
       </div>
 
@@ -151,9 +207,11 @@ export function SiteVisitForm() {
             <option value="" disabled className="bg-navy">
               Select site type
             </option>
-            <option value="rooftop" className="bg-navy">Rooftop</option>
-            <option value="ground-mounted" className="bg-navy">Ground-Mounted</option>
-            <option value="hybrid" className="bg-navy">Hybrid / Not Sure</option>
+            {siteTypeOptions.map((option) => (
+              <option key={option} value={option} className="bg-navy">
+                {option}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -171,12 +229,19 @@ export function SiteVisitForm() {
         />
       </div>
 
+      {error ? (
+        <p className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-[13px] text-red-300">
+          {error}
+        </p>
+      ) : null}
+
       <button
         type="submit"
+        disabled={busy}
         data-cursor-interactive
-        className="mt-1.5 w-full rounded-md bg-amber px-6 py-3.5 text-[15px] font-semibold tracking-[0.3px] text-navy transition-all hover:-translate-y-px hover:bg-amber-dark hover:text-white"
+        className="mt-1.5 w-full rounded-md bg-amber px-6 py-3.5 text-[15px] font-semibold tracking-[0.3px] text-navy transition-all hover:-translate-y-px hover:bg-amber-dark hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Book Free Site Visit →
+        {busy ? "Submitting…" : submitLabel}
       </button>
     </form>
   );

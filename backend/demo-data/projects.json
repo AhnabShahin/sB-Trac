@@ -1,0 +1,227 @@
+{
+  "title": "Project Portfolio",
+  "sections": {
+    "projectsHero": {
+      "accent": "blue",
+      "badge": "38+ Projects · BDT 400+ Cr Delivered",
+      "headingLine1": "Work That",
+      "headingHighlight": "Speaks",
+      "headingSuffix": "For Itself",
+      "subhead": "From the largest MEP contract in BTEL history to utility-scale solar plants — our project portfolio spans five engineering divisions, serving Bangladesh's most demanding clients.",
+      "image": "/assets/hero/projects.jpg"
+    },
+    "statsBand": {
+      "stats": [
+        {
+          "value": 500,
+          "suffix": "Cr+",
+          "description": "Total PO value\ndelivered (BDT)"
+        },
+        {
+          "value": 38,
+          "suffix": "+",
+          "description": "Projects across all\nfive divisions"
+        },
+        {
+          "value": 60,
+          "suffix": "+",
+          "description": "Industry clients\nserved since 2009"
+        },
+        {
+          "value": 100,
+          "suffix": "%",
+          "description": "ISO 9001 quality\nacross all projects"
+        }
+      ]
+    },
+    "portfolio": {
+      "projects": [
+        {
+          "id": "factory-conversion-mep",
+          "categorySlug": "mep",
+          "statusLabel": "MEP · Ongoing",
+          "title": "Factory Conversion MEP Works",
+          "client": "British American Tobacco Bangladesh (BATB)",
+          "metric": "BDT 91 Cr",
+          "valueCr": 91,
+          "status": "Ongoing",
+          "featured": true,
+          "image": "/assets/slider/mep/02.jpg",
+          "description": "Complete mechanical, electrical, and plumbing systems for large-scale factory conversion. Covers HVAC, fire detection, power distribution, and piping infrastructure."
+        },
+        {
+          "id": "3mw-solar-power-plant",
+          "categorySlug": "solar",
+          "statusLabel": "Solar Power · Ongoing",
+          "title": "3 MW Solar Power Plant",
+          "client": "Akij Jute Mills Ltd.",
+          "metric": "3 MW",
+          "valueCr": 6.15,
+          "status": "Ongoing",
+          "image": "/assets/slider/solar/01.jpg"
+        },
+        {
+          "id": "batb-smd-savar-mep",
+          "categorySlug": "mep",
+          "statusLabel": "MEP / EPC · Completed 2023",
+          "title": "BATB SMD Savar MEP Works",
+          "client": "British American Tobacco Bangladesh (BATB)",
+          "metric": "BDT 185.98 Cr",
+          "valueCr": 185.98,
+          "status": "Completed",
+          "featured": true,
+          "image": "/assets/projects/featured.jpg",
+          "description": "BTEL's largest single project. Complete turnkey MEP for BATB's Savar SMD facility — the most technically complex and value-intensive project in company history."
+        },
+        {
+          "id": "1575-kwp-solar-power-plant",
+          "categorySlug": "solar",
+          "statusLabel": "Solar Power · Completed 2023",
+          "title": "1575 kWp Solar Power Plant",
+          "client": "Sharmin Group",
+          "metric": "BDT 7 Cr",
+          "valueCr": 7,
+          "status": "Completed",
+          "image": "/assets/slider/solar/02.jpg"
+        },
+        {
+          "id": "11kv-complete-substation",
+          "categorySlug": "substation",
+          "statusLabel": "Substation · Completed 2023",
+          "title": "11KV Complete Substation System",
+          "client": "British American Tobacco Bangladesh",
+          "metric": "2,000 kVA",
+          "status": "Completed",
+          "image": "/assets/slider/substation/01.jpg"
+        },
+        {
+          "id": "solar-irrigation-pump",
+          "categorySlug": "solar",
+          "statusLabel": "Solar · Completed 2020",
+          "title": "Solar Irrigation Pump Project",
+          "client": "Bangladesh Agricultural Dev. Corp.",
+          "metric": "~150 kWp",
+          "valueCr": 2.81,
+          "status": "Completed",
+          "image": "/assets/slider/solar/03.jpg"
+        },
+        {
+          "id": "hv-lv-switchgear-supply",
+          "categorySlug": "substation",
+          "statusLabel": "Switchgear · Completed 2022",
+          "title": "HV/LV Switchgear Panel Supply & Installation",
+          "client": "Nestlé Bangladesh Ltd.",
+          "metric": "Turnkey",
+          "status": "Completed",
+          "image": "/assets/slider/substation/03.jpg"
+        },
+        {
+          "id": "diesel-generator-epc",
+          "categorySlug": "mep",
+          "statusLabel": "MEP / EPC · Completed 2022",
+          "title": "Diesel Generator EPC Installation",
+          "client": "Bashundhara Group",
+          "metric": "Multi-unit",
+          "status": "Completed",
+          "image": "/assets/slider/mep/03.jpg"
+        },
+        {
+          "id": "rooftop-solar-pv",
+          "categorySlug": "solar",
+          "statusLabel": "Solar Power · Completed 2022",
+          "title": "Rooftop Solar PV Installation",
+          "client": "PRAN-RFL Group (Multiple Facilities)",
+          "metric": "500 kWp+",
+          "status": "Completed",
+          "image": "/assets/slider/solar/04.jpg"
+        },
+        {
+          "id": "33kv-substation-turnkey",
+          "categorySlug": "substation",
+          "statusLabel": "Substation · Completed 2021",
+          "title": "33KV Substation Turnkey Project",
+          "client": "Square Pharmaceuticals Ltd.",
+          "metric": "5,000 kVA",
+          "status": "Completed",
+          "image": "/assets/slider/substation/02.jpg"
+        },
+        {
+          "id": "factory-relocation-mep",
+          "categorySlug": "mep",
+          "statusLabel": "MEP / EPC · Completed 2021",
+          "title": "Factory Relocation & MEP",
+          "client": "Unilever Bangladesh Ltd.",
+          "metric": "Turnkey",
+          "status": "Completed",
+          "image": "/assets/slider/mep/04.jpg"
+        },
+        {
+          "id": "cooling-tower-water-treatment",
+          "categorySlug": "water-treatment",
+          "statusLabel": "Water Treatment · Ongoing",
+          "title": "Industrial Cooling Tower Water Treatment",
+          "client": "Pharma Group, Narayanganj",
+          "metric": "~90 MT/yr",
+          "status": "Ongoing",
+          "image": "/assets/slider/water/01.jpg"
+        },
+        {
+          "id": "boiler-chemical-treatment",
+          "categorySlug": "water-treatment",
+          "statusLabel": "Water Treatment · Completed 2024",
+          "title": "Steam Boiler Chemical Treatment Program",
+          "client": "Beverage Plant, Gazipur",
+          "metric": "~40 MT/yr",
+          "status": "Completed",
+          "image": "/assets/slider/water/02.jpg"
+        },
+        {
+          "id": "ro-membrane-antiscalant",
+          "categorySlug": "water-treatment",
+          "statusLabel": "Water Treatment · Ongoing",
+          "title": "RO Membrane Antiscalant & Cleaning Program",
+          "client": "Textile Mill, Narayanganj",
+          "metric": "~15 MT/yr",
+          "status": "Ongoing",
+          "image": "/assets/slider/water/03.jpg"
+        }
+      ]
+    },
+    "trackRecord": {
+      "eyebrow": "Track Record",
+      "headingLine1": "Proven Across",
+      "headingLine2": "Every Division",
+      "cards": [
+        {
+          "tag": "MEP",
+          "accent": "teal",
+          "filter": "mep",
+          "title": "Largest EPC Contracts",
+          "description": "BTEL's MEP division has delivered the company's highest-value projects — including the BDT 185.98 Cr BATB Savar facility and a BDT 91 Cr ongoing factory conversion. Both are among the largest private MEP contracts in Bangladesh."
+        },
+        {
+          "tag": "Solar",
+          "accent": "amber",
+          "filter": "solar",
+          "title": "MW-Scale Solar Plants",
+          "description": "From rural irrigation systems for BADC to a 3MW industrial plant for Akij Jute Mills, BTEL's solar division has delivered projects across all scales — on-grid, off-grid, and hybrid — covering Bangladesh's urban and rural industrial landscape."
+        },
+        {
+          "tag": "Power",
+          "accent": "blue",
+          "filter": "substation",
+          "title": "33KV to 132KV Systems",
+          "description": "BTEL's substation and switchgear divisions serve national grid authorities and private industrial clients — delivering complete power systems from transformer manufacturing to SCADA commissioning."
+        }
+      ]
+    },
+    "projectsCta": {
+      "eyebrow": "Start Your Project",
+      "headingLine1": "Let's Add Your Project",
+      "headingLine2": "to This Portfolio",
+      "intro": "Reach out to BTEL's engineering team to discuss your requirements. We respond within 24 hours.",
+      "ctaLabel": "Request a Quotation →",
+      "ctaHref": "/contact"
+    }
+  }
+}

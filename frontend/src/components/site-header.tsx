@@ -7,8 +7,12 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { lenisStore } from "@/lib/lenis-instance";
 import { cn } from "@/lib/utils";
+import type { HeaderContent } from "@/data/content-types";
 
-const NAV_LINKS = [
+// Built-in fallback — nav disappearing site-wide the moment someone opens the
+// admin before ever saving "Header" would be worse than showing stale-but-known
+// content, so (unlike a page section) this chrome keeps a hardcoded default.
+const DEFAULT_NAV_LINKS = [
   { label: "Home", href: "/" },
   // Plain paths, no anchors. Every item lands on its page and scrolls to the top —
   // "Products & Services" used to carry `hash: "products"` to aim at the catalogue,
@@ -19,6 +23,9 @@ const NAV_LINKS = [
   { label: "Partners", href: "/partners" },
   { label: "Clients", href: "/clients" },
 ];
+const DEFAULT_CTA_LABEL = "Contact Us →";
+const DEFAULT_CTA_HREF = "/contact";
+const DEFAULT_LOGO = "/logo.png";
 
 const NAV_LINK_BASE_CLASS = "text-sm tracking-[0.3px] transition-colors";
 const NAV_LINK_CLASS = "font-medium text-[#475569] hover:text-[#0E2A47]";
@@ -58,12 +65,17 @@ function NavLabel({ label }: { label: string }) {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ content }: { content?: HeaderContent }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   const reducedMotion = useReducedMotion();
   const pathname = usePathname();
+
+  const navLinks = content?.navLinks && content.navLinks.length > 0 ? content.navLinks : DEFAULT_NAV_LINKS;
+  const ctaLabel = content?.ctaLabel || DEFAULT_CTA_LABEL;
+  const ctaHref = content?.ctaHref || DEFAULT_CTA_HREF;
+  const logo = content?.logo || DEFAULT_LOGO;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -173,7 +185,7 @@ export function SiteHeader() {
         className="flex items-center rounded-lg transition-opacity duration-200 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-dark/60"
       >
         <Image
-          src="/logo.png"
+          src={logo}
           alt="B-Trac Engineering"
           width={4712}
           height={435}
@@ -204,7 +216,7 @@ export function SiteHeader() {
 
       <div className="flex items-center gap-8">
         <nav className="hidden items-center gap-8 lg:flex">
-          {NAV_LINKS.map((link) => {
+          {navLinks.map((link) => {
             const active = isActivePath(pathname, link.href);
             return (
               <Link
@@ -222,12 +234,12 @@ export function SiteHeader() {
         </nav>
 
         <Link
-          href="/contact"
-          onClick={(event) => handleNavClick(event, "/contact")}
+          href={ctaHref}
+          onClick={(event) => handleNavClick(event, ctaHref)}
           data-cursor-interactive
           className="hidden rounded-[4px] bg-teal px-[22px] py-[9px] text-[13px] font-semibold tracking-[0.3px] text-white transition-all hover:-translate-y-px hover:bg-teal-dark lg:inline-block"
         >
-          Contact Us →
+          {ctaLabel}
         </Link>
 
         <button
@@ -274,7 +286,7 @@ export function SiteHeader() {
             className="fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-[#E2E8F0] bg-offwhite lg:hidden"
           >
             <nav className="flex flex-col gap-1 px-6 py-3">
-              {NAV_LINKS.map((link, i) => {
+              {navLinks.map((link, i) => {
                 const active = isActivePath(pathname, link.href);
                 return (
                   <MotionLink

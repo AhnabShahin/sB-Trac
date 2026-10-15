@@ -1,5 +1,19 @@
 import { cache } from "react";
-import type { HomeSections } from "@/data/content-types";
+import type {
+  AfterSalesSections,
+  ClientsSections,
+  ContactSections,
+  FooterContent,
+  HeaderContent,
+  HomeSections,
+  MepSections,
+  PartnersSections,
+  ProductsServicesSections,
+  ProjectsSections,
+  SolarSections,
+  SubstationSections,
+  WaterTreatmentSections,
+} from "@/data/content-types";
 
 // Phase-2 data boundary for public pages. Server Components call these; the
 // implementation fetches the Laravel API and nothing else. There is no
@@ -28,11 +42,74 @@ async function fetchPage<T>(slug: string): Promise<PageContent<T> | null> {
   }
 }
 
-// Cached per request: the home page renders many sections, each of which calls
-// this. React's cache() dedupes them to a single fetch per render.
-export const getHomeContent = cache(
-  async (): Promise<HomeSections | null> => {
-    const page = await fetchPage<HomeSections>("home");
+// Cached per request and per slug: a page renders many sections, each of which
+// calls its getter. React's cache() dedupes them to a single fetch per render
+// for each distinct page.
+const getPageSections = cache(
+  async (slug: string): Promise<Record<string, unknown> | null> => {
+    const page = await fetchPage<Record<string, unknown>>(slug);
     return page?.sections ?? null;
   },
 );
+
+export async function getHomeContent(): Promise<HomeSections | null> {
+  return (await getPageSections("home")) as HomeSections | null;
+}
+
+export async function getProductsServicesContent(): Promise<ProductsServicesSections | null> {
+  return (await getPageSections(
+    "products-services",
+  )) as ProductsServicesSections | null;
+}
+
+export async function getProjectsContent(): Promise<ProjectsSections | null> {
+  return (await getPageSections("projects")) as ProjectsSections | null;
+}
+
+export async function getPartnersContent(): Promise<PartnersSections | null> {
+  return (await getPageSections("partners")) as PartnersSections | null;
+}
+
+export async function getClientsContent(): Promise<ClientsSections | null> {
+  return (await getPageSections("clients")) as ClientsSections | null;
+}
+
+export async function getContactContent(): Promise<ContactSections | null> {
+  return (await getPageSections("contact")) as ContactSections | null;
+}
+
+export async function getSubstationContent(): Promise<SubstationSections | null> {
+  return (await getPageSections("substation")) as SubstationSections | null;
+}
+
+export async function getSolarContent(): Promise<SolarSections | null> {
+  return (await getPageSections("solar")) as SolarSections | null;
+}
+
+export async function getMepContent(): Promise<MepSections | null> {
+  return (await getPageSections("mep")) as MepSections | null;
+}
+
+export async function getWaterTreatmentContent(): Promise<WaterTreatmentSections | null> {
+  return (await getPageSections(
+    "water-treatment",
+  )) as WaterTreatmentSections | null;
+}
+
+export async function getAfterSalesContent(): Promise<AfterSalesSections | null> {
+  return (await getPageSections("after-sales")) as AfterSalesSections | null;
+}
+
+// Header/footer are site-wide chrome, not a routed page — they reuse the same
+// slug-keyed posts/postmeta mechanism (slug "header" / "footer") purely as a
+// convenient admin-editable key-value store, with the current static chrome as
+// a client-side fallback so nav/footer can never disappear site-wide just
+// because nobody has saved them in the admin yet (see site-header.tsx /
+// site-footer.tsx).
+export async function getHeaderContent(): Promise<HeaderContent | null> {
+  return (await getPageSections("header")) as HeaderContent | null;
+}
+
+export async function getFooterContent(): Promise<FooterContent | null> {
+  return (await getPageSections("footer")) as FooterContent | null;
+}

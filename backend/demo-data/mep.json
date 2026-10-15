@@ -1,0 +1,63 @@
+{
+  "title": "MEP / EPC",
+  "sections": {
+    "hero": {
+      "accent": "amber",
+      "badge": "Service Division 03 · Mechanical, Electrical & Plumbing",
+      "breadcrumbLabel": "MEP / EPC",
+      "headingLine1": "Turnkey",
+      "headingHighlight": "MEP & EPC",
+      "headingSuffix": "Solutions",
+      "subhead": "Mechanical, Electrical, and Plumbing engineering delivered with strict adherence to safety, precision, and quality standards — from factory setups to high-rise developments.",
+      "image": "/assets/hero/mep.jpg",
+      "stats": [
+        { "value": "Full-Scope", "unit": "", "label": "Mechanical, Electrical, Plumbing" },
+        { "value": "NFPA", "unit": "", "label": "Fire Safety Compliance" }
+      ]
+    },
+    "pillars": {
+      "pillars": [
+        { "letter": "M", "name": "Mechanical", "description": "HVAC, ducting, piping, fire protection, industrial ventilation, thermal insulation", "accentColor": "#9fb9fc" },
+        { "letter": "E", "name": "Electrical", "description": "Power distribution, MV/LV cabling, busbar trunking, earthing, lighting, generator sync", "accentColor": "#e08a00" },
+        { "letter": "P", "name": "Plumbing", "description": "Industrial water supply, drainage, storm water management, sanitary systems", "accentColor": "#0a9e88" }
+      ]
+    },
+    "services": {
+      "eyebrow": "Full Scope",
+      "heading": "What BTEL Delivers",
+      "intro": "Comprehensive MEP/EPC services under one roof — no subcontracting complexity, single point accountability. Select a service to see the products behind it.",
+      "cards": [
+        { "icon": "wrench", "title": "Turnkey Mechanical Systems", "description": "HVAC plant installation, chillers, AHUs, ductwork, industrial ventilation, thermal insulation.", "href": "/products-services#mep-epc-building-systems", "accentColor": "#e08a00" },
+        { "icon": "bolt", "title": "Electrical Power Distribution", "description": "Cable tray routing, MV/LV power panels, busbar trunking, emergency power integration, earthing grid.", "href": "/products-services#scp-power-control", "accentColor": "#e08a00" },
+        { "icon": "flame", "title": "Fire Detection & Suppression", "description": "Hydrant networks, sprinkler systems, FM200/Novec gas suppression, NFPA compliant detection panels.", "href": "/products-services#mep-epc-building-systems", "accentColor": "#e08a00" },
+        { "icon": "shield", "title": "Plumbing & Process Piping", "description": "Industrial water supply, drainage networks, compressed air lines, steam & chemical piping systems.", "href": "/products-services#mep-epc-process-systems", "accentColor": "#e08a00" },
+        { "icon": "hardhat", "title": "Logistics & Site Management", "description": "Heavy machinery positioning, rigging, crane operations, site logistics, safety supervision.", "href": "/products-services#mep-epc-industrial-installation", "accentColor": "#e08a00" },
+        { "icon": "truck", "title": "Construction Safety & Security", "description": "OSHA compliant site protocols, access control, perimeter security, HSE documentation.", "href": "/products-services#mep-epc-building-systems", "accentColor": "#e08a00" }
+      ]
+    },
+    "slider": {
+      "eyebrow": "Featured MEP / EPC Projects",
+      "images": [
+        { "image": "/assets/slider/mep/01.jpg", "caption": "Industrial HVAC & Mechanical Plant Commissioning" },
+        { "image": "/assets/slider/mep/02.jpg", "caption": "High Capacity Cable Tray & Busbar Trunking Assembly" },
+        { "image": "/assets/slider/mep/03.jpg", "caption": "NFPA-Compliant Industrial Fire Suppression Installation" },
+        { "image": "/assets/slider/mep/04.jpg", "caption": "Heavy Industrial Rigging & Mechanical Site Operations" }
+      ]
+    },
+    "brands": {
+      "eyebrow": "Equipment Brands",
+      "heading": "Global Brands Integrated in Our MEP Systems",
+      "brands": ["Caterpillar (CAT)", "Daikin", "Wilo", "Ingersoll Rand", "CompAir", "Trane", "Kruger", "TROX", "Atlas Copco"]
+    },
+    "otherServices": {
+      "eyebrow": "Explore More",
+      "heading": "Other Service Divisions",
+      "cards": [
+        { "icon": "bolt", "title": "Substation & Switchgear", "description": "Full-scope substation EPC from 11kV to 132kV — protection relays, SCADA, switchgear, and power transformers.", "href": "/products-services/substation", "accentColor": "#9fb9fc" },
+        { "icon": "sun", "title": "Solar Power", "description": "Turnkey solar EPC — rooftop, ground-mounted, and hybrid systems for industrial and commercial clients.", "href": "/products-services/solar", "accentColor": "#e08a00" },
+        { "icon": "droplet", "title": "Water Treatment", "description": "Authorized distributor of NALCO (Ecolab) water treatment chemicals — boiler, cooling tower, RO, and engine coolant programs.", "href": "/products-services/water-treatment", "accentColor": "#a78bfa" },
+        { "icon": "clock", "title": "After Sales Support", "description": "Nationwide, round-the-clock after-sales support — AMC contracts, spare parts supply, and emergency response across all delivered projects.", "href": "/products-services/after-sales", "accentColor": "#0ea5b5" }
+      ]
+    }
+  }
+}

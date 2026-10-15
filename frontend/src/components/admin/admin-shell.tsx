@@ -30,6 +30,15 @@ function PagesIcon({ className }: IconProps) {
   );
 }
 
+function InquiriesIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M3 5h18v14H3z" />
+      <path d="m3 6 9 7 9-7" />
+    </svg>
+  );
+}
+
 function MenuIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -47,17 +56,19 @@ function SettingsIcon({ className }: IconProps) {
   );
 }
 
-const ICONS = { dashboard: DashboardIcon, pages: PagesIcon, menu: MenuIcon, settings: SettingsIcon } as const;
+const ICONS = { dashboard: DashboardIcon, pages: PagesIcon, inquiries: InquiriesIcon, menu: MenuIcon, settings: SettingsIcon } as const;
 
 const NAV: { label: string; href: string; icon: keyof typeof ICONS; enabled: boolean }[] = [
   { label: "Dashboard", href: "/dashboard", icon: "dashboard", enabled: true },
   { label: "Pages", href: "/pages", icon: "pages", enabled: true },
+  { label: "Inquiries", href: "/inquiries", icon: "inquiries", enabled: true },
   { label: "Menu", href: "#", icon: "menu", enabled: false },
   { label: "Settings", href: "#", icon: "settings", enabled: false },
 ];
 
 function titleFor(pathname: string): string {
   if (pathname.startsWith("/pages")) return "Pages";
+  if (pathname.startsWith("/inquiries")) return "Inquiries";
   if (pathname.startsWith("/dashboard")) return "Dashboard";
   return "Admin Panel";
 }

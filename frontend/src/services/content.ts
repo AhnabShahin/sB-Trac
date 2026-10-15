@@ -14,6 +14,10 @@ export interface PageListEntry {
   url: string;
   editable: boolean;
   sections: string[];
+  /** "products" = a products-services sub-page, "global" = site-wide chrome (header/footer). Omitted = a main page. */
+  group?: "products" | "global";
+  /** Slug of the page this one is nested under in the admin list (e.g. sub-pages under "products-services"). */
+  parent?: string;
 }
 
 export interface AdminPage<T = Record<string, unknown>> {

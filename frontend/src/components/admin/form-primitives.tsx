@@ -142,6 +142,77 @@ export function RepeaterItem({
   );
 }
 
+// Shared with the home hero's service cards: a native swatch + hex text input,
+// so every "colourful card" admin form (products-services sub-pages, hero
+// service cards) sets one accent colour the same way.
+export function ColorField({
+  label,
+  value,
+  onChange,
+  fallback = "#0A9E88",
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  fallback?: string;
+}) {
+  const swatch = /^#[0-9a-fA-F]{6}$/.test(value) ? value : fallback;
+  return (
+    <Field label={label}>
+      <div className="flex items-center gap-2">
+        <input
+          type="color"
+          aria-label={label}
+          value={swatch}
+          onChange={(e) => onChange(e.target.value)}
+          className="h-9 w-10 shrink-0 cursor-pointer rounded-lg border border-border bg-navy p-1"
+        />
+        <input className={inputCls} value={value} onChange={(e) => onChange(e.target.value)} placeholder={fallback} />
+      </div>
+    </Field>
+  );
+}
+
+// A simple array-of-strings repeater (dropdown options, badge lists, region
+// names). Shared across the contact form's service/budget options, the
+// footer's cert badges, and after-sales' coverage regions.
+export function StringListField({
+  title,
+  description,
+  items,
+  onChange,
+  placeholder,
+}: {
+  title: string;
+  description?: string;
+  items: string[];
+  onChange: (next: string[]) => void;
+  placeholder?: string;
+}) {
+  return (
+    <SectionCard
+      title={title}
+      description={description}
+      action={<AddButton label="Add" onClick={() => onChange([...items, ""])} />}
+    >
+      {items.length === 0 ? (
+        <EmptyRow text="Nothing yet — add one, or load the demo." />
+      ) : (
+        <div className="space-y-2">
+          {items.map((item, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <div className="min-w-0 flex-1">
+                <TextInput value={item} onChange={(x) => onChange(items.map((it, idx) => (idx === i ? x : it)))} placeholder={placeholder} />
+              </div>
+              <RemoveButton onClick={() => onChange(items.filter((_, idx) => idx !== i))} />
+            </div>
+          ))}
+        </div>
+      )}
+    </SectionCard>
+  );
+}
+
 export function Select({
   value,
   onChange,

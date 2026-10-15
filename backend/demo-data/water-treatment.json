@@ -1,0 +1,45 @@
+{
+  "title": "Water Treatment Chemicals",
+  "sections": {
+    "hero": {
+      "accent": "purple",
+      "badge": "Authorized Distributor · NALCO — Ecolab USA",
+      "breadcrumbLabel": "Water Treatment Chemicals",
+      "headingLine1": "NALCO Water",
+      "headingHighlight": "Treatment Chemicals",
+      "subhead": "Authorized distributor of NALCO (Ecolab) water treatment chemistry in Bangladesh — protecting boilers, cooling towers, RO plants, and engine cooling systems.",
+      "image": "/assets/hero/water.jpg",
+      "stats": []
+    },
+    "features": {
+      "eyebrow": "Key Advantages",
+      "heading": "Comprehensive Water Chemistry Solutions",
+      "intro": "Select an advantage to see the products behind it.",
+      "cards": [
+        { "icon": "flask", "title": "100% Genuine NALCO Chemistry", "description": "Direct import from NALCO / Ecolab manufacturing facilities with full Certificate of Analysis (COA) compliance.", "href": "/products-services#nalco-chemicals", "accentColor": "#a78bfa" },
+        { "icon": "shield", "title": "On-Site Water Testing & Dosages", "description": "BTEL chemical engineers perform routine water analysis, dosing calibration, and monthly system reports.", "href": "/products-services#nalco-testing", "accentColor": "#a78bfa" },
+        { "icon": "recycle", "title": "Effluent & Wastewater Optimization", "description": "Coagulants and flocculants designed to improve ETP performance, sludge dewatering, and compliance.", "href": "/products-services#nalco-chemicals", "accentColor": "#a78bfa" },
+        { "icon": "droplet", "title": "Custom Formulation Programs", "description": "Tailored chemical treatment regimens designed around your specific raw water characteristics.", "href": "/products-services#nalco-chemicals", "accentColor": "#a78bfa" }
+      ]
+    },
+    "slider": {
+      "eyebrow": "NALCO Water Treatment Installations",
+      "images": [
+        { "image": "/assets/slider/water/01.jpg", "caption": "Industrial Cooling Tower Water Treatment System" },
+        { "image": "/assets/slider/water/02.jpg", "caption": "High-Pressure Steam Boiler Chemical Dosing Station" },
+        { "image": "/assets/slider/water/03.jpg", "caption": "Reverse Osmosis Membrane Antiscalant & Filtration Care" },
+        { "image": "/assets/slider/water/04.jpg", "caption": "On-Site Water Chemistry Testing & COA Verification" }
+      ]
+    },
+    "otherServices": {
+      "eyebrow": "Explore More",
+      "heading": "Other Service Divisions",
+      "cards": [
+        { "icon": "bolt", "title": "Substation & Switchgear", "description": "Full-scope substation EPC from 11kV to 132kV — protection relays, SCADA, switchgear, and power transformers.", "href": "/products-services/substation", "accentColor": "#9fb9fc" },
+        { "icon": "sun", "title": "Solar Power", "description": "Turnkey solar EPC — rooftop, ground-mounted, and hybrid systems for industrial and commercial clients.", "href": "/products-services/solar", "accentColor": "#e08a00" },
+        { "icon": "wrench", "title": "MEP / EPC", "description": "Mechanical, Electrical, and Plumbing engineering for factories, commercial buildings, data centres, and power plants.", "href": "/products-services/mep", "accentColor": "#0a9e88" },
+        { "icon": "clock", "title": "After Sales Support", "description": "Nationwide, round-the-clock after-sales support — AMC contracts, spare parts supply, and emergency response across all delivered projects.", "href": "/products-services/after-sales", "accentColor": "#0ea5b5" }
+      ]
+    }
+  }
+}

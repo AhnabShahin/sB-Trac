@@ -10,7 +10,7 @@ import {
 } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
-import type { Service } from "@/data/services";
+import type { ServiceRow } from "@/data/content-types";
 import { BoltIcon, SunIcon, WrenchIcon, DropletIcon, ClockIcon, ArrowRightIcon } from "@/components/ui/icons";
 
 const ICON_MAP = {
@@ -23,8 +23,8 @@ const ICON_MAP = {
 
 const GLOW = "rgba(10,158,136,0.16)";
 
-export function ServiceListRow({ service }: { service: Service }) {
-  const Icon = ICON_MAP[service.icon];
+export function ServiceListRow({ service }: { service: ServiceRow }) {
+  const Icon = ICON_MAP[service.icon] ?? BoltIcon;
   const rowRef = useRef<HTMLLIElement>(null);
   const reducedMotion = useFramerReducedMotion();
 
@@ -71,18 +71,15 @@ export function ServiceListRow({ service }: { service: Service }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-out group-hover/row:opacity-100"
       >
-        <picture className="relative block h-full w-full">
-          {service.webpImage && <source srcSet={service.webpImage} type="image/webp" />}
-          <Image
-            src={service.image}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 800px, 100vw"
-            className="scale-110 object-cover transition-transform duration-[1200ms] ease-out group-hover/row:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
-            loading="lazy"
-            decoding="async"
-          />
-        </picture>
+        <Image
+          src={service.image}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 800px, 100vw"
+          className="scale-110 object-cover transition-transform duration-[1200ms] ease-out group-hover/row:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+          loading="lazy"
+          decoding="async"
+        />
         <div
           aria-hidden="true"
           className="absolute inset-0"

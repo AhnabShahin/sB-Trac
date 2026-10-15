@@ -1,0 +1,144 @@
+{
+  "title": "Partners & Clients",
+  "sections": {
+    "partnersHero": {
+      "accent": "teal",
+      "badge": "30 Global Brands · 60+ Clients",
+      "headingLine1": "World-Class",
+      "headingHighlight": "Partners.",
+      "subhead": "BTEL is an authorized partner and distributor for 30+ global engineering brands — delivering certified, genuine products to Bangladesh's most demanding clients across FMCG, pharmaceuticals, energy, and government sectors.",
+      "image": "/assets/hero/partners.jpg"
+    },
+    "partnerWall": {
+      "eyebrow": "Global Partnerships",
+      "heading": "Partner Brands",
+      "description": "Every brand we represent is backed by factory authorization, genuine product supply, and nationwide service support.",
+      "logos": [
+        {
+          "name": "ABB",
+          "logo": "/assets/logos/partners/abb.png"
+        },
+        {
+          "name": "Schneider Electric",
+          "logo": "/assets/logos/partners/schneider.png"
+        },
+        {
+          "name": "CHNT Electric",
+          "logo": "/assets/logos/partners/chnt.png"
+        },
+        {
+          "name": "Siemens",
+          "logo": "/assets/logos/partners/siemens.png"
+        },
+        {
+          "name": "Caterpillar (CAT)",
+          "logo": "/assets/logos/partners/cat.png"
+        },
+        {
+          "name": "SMA Solar",
+          "logo": "/assets/logos/partners/sma.png"
+        },
+        {
+          "name": "Huawei Solar",
+          "logo": "/assets/logos/partners/huawei.png"
+        },
+        {
+          "name": "Solis Inverters",
+          "logo": "/assets/logos/partners/solis.png"
+        },
+        {
+          "name": "Trina Solar",
+          "logo": "/assets/logos/partners/trina.png"
+        },
+        {
+          "name": "JA Solar",
+          "logo": "/assets/logos/partners/ja-solar.png"
+        },
+        {
+          "name": "LONGi Solar",
+          "logo": "/assets/logos/partners/longi.png"
+        },
+        {
+          "name": "Jinko Solar",
+          "logo": "/assets/logos/partners/jinko.png"
+        },
+        {
+          "name": "SGB-SMIT",
+          "logo": "/assets/logos/partners/sgb-smit.png"
+        },
+        {
+          "name": "ARADY",
+          "logo": "/assets/logos/partners/arady.png"
+        },
+        {
+          "name": "CompAir",
+          "logo": "/assets/logos/partners/compair.png"
+        },
+        {
+          "name": "Ingersoll Rand",
+          "logo": "/assets/logos/partners/ingersoll-rand.png"
+        },
+        {
+          "name": "Trane",
+          "logo": "/assets/logos/partners/trane.png"
+        },
+        {
+          "name": "Wilo Pumps",
+          "logo": "/assets/logos/partners/wilo.png"
+        },
+        {
+          "name": "Kruger Ventilation",
+          "logo": "/assets/logos/partners/kruger.png"
+        },
+        {
+          "name": "Atlas Copco",
+          "logo": "/assets/logos/partners/atlas-copco.png"
+        },
+        {
+          "name": "Daikin HVAC",
+          "logo": "/assets/logos/partners/daikin.png"
+        },
+        {
+          "name": "TROX Technik",
+          "logo": "/assets/logos/partners/trox.png"
+        },
+        {
+          "name": "BBS Cables",
+          "logo": "/assets/logos/partners/bbs-cables.png"
+        },
+        {
+          "name": "Lapp Kabel",
+          "logo": "/assets/logos/partners/lapp-kabel.png"
+        },
+        {
+          "name": "BRB Cable",
+          "logo": "/assets/logos/partners/brb-cable.png"
+        },
+        {
+          "name": "Leader",
+          "logo": "/assets/logos/partners/leader.png"
+        },
+        {
+          "name": "X-Energy",
+          "logo": "/assets/logos/partners/x-energy.png"
+        },
+        {
+          "name": "DEIF",
+          "logo": "/assets/logos/partners/deif.png"
+        },
+        {
+          "name": "NALCO Water (Ecolab)",
+          "logo": "/assets/logos/partners/nalco.png"
+        }
+      ]
+    },
+    "partnersCta": {
+      "eyebrow": "Work With BTEL",
+      "heading": "Join Our Partners Program",
+      "primaryLabel": "Start a Conversation →",
+      "primaryHref": "/contact",
+      "secondaryLabel": "See Our Projects →",
+      "secondaryHref": "/projects"
+    }
+  }
+}

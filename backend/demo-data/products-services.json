@@ -1,0 +1,603 @@
+{
+  "title": "Products & Services",
+  "sections": {
+    "servicesHero": {
+      "badge": "5 Divisions · ISO 9001:2015",
+      "headingPrefix": "Products ",
+      "headingHighlight": "&",
+      "headingSuffix": " Services",
+      "subhead": "B-Trac Engineering Ltd. delivers five core engineering service divisions — spanning power systems, renewable energy, MEP, industrial water treatment, and nationwide after-sales support.",
+      "banners": [
+        "/assets/services-banner/substation.png",
+        "/assets/services-banner/solar.png",
+        "/assets/services-banner/mep.png",
+        "/assets/services-banner/water-treatment.png",
+        "/assets/services-banner/after-sales.png"
+      ]
+    },
+    "serviceList": {
+      "eyebrow": "All Divisions",
+      "heading": "Five Service Divisions",
+      "intro": "Each division is staffed by factory-trained engineers and backed by BTEL's ISO 9001:2015 quality management system.",
+      "services": [
+        {
+          "index": "01",
+          "title": "Substation & Switchgear Systems",
+          "description": "Full-scope substation EPC from 11kV to 132kV — protection relays, SCADA, switchgear, and power transformers.",
+          "tags": [
+            "11kV–132kV",
+            "EPC",
+            "SCADA",
+            "ABB · Schneider · Siemens"
+          ],
+          "icon": "bolt",
+          "href": "/products-services/substation",
+          "image": "/assets/hero/substation.jpg"
+        },
+        {
+          "index": "02",
+          "title": "Solar Power Solutions",
+          "description": "Turnkey solar EPC — rooftop, ground-mounted, and hybrid systems for industrial and commercial clients.",
+          "tags": [
+            "Grid-Tied",
+            "Off-Grid",
+            "Hybrid",
+            "SMA · Huawei · LONGi"
+          ],
+          "icon": "sun",
+          "href": "/products-services/solar",
+          "image": "/assets/hero/solar.jpg"
+        },
+        {
+          "index": "03",
+          "title": "MEP / EPC Solutions",
+          "description": "Mechanical, Electrical, and Plumbing engineering for factories, commercial buildings, data centres, and power plants.",
+          "tags": [
+            "HVAC",
+            "LV/MV Power",
+            "Plumbing",
+            "Daikin · CAT · Wilo"
+          ],
+          "icon": "wrench",
+          "href": "/products-services/mep",
+          "image": "/assets/hero/mep.jpg"
+        },
+        {
+          "index": "04",
+          "title": "Water Treatment Chemicals",
+          "description": "Authorized distributor of NALCO (Ecolab) water treatment chemicals — boiler, cooling tower, RO, and engine coolant programs.",
+          "tags": [
+            "Boiler",
+            "Cooling Tower",
+            "RO",
+            "NALCO · Ecolab USA"
+          ],
+          "icon": "droplet",
+          "href": "/products-services/water-treatment",
+          "image": "/assets/hero/water.jpg"
+        },
+        {
+          "index": "05",
+          "title": "After Sales Support & Service",
+          "description": "Nationwide, round-the-clock after-sales support — AMC contracts, spare parts supply, and emergency response across all delivered projects.",
+          "tags": [
+            "AMC Contracts",
+            "24/7 Support",
+            "Spare Parts",
+            "Nationwide Coverage"
+          ],
+          "icon": "clock",
+          "href": "/products-services/after-sales",
+          "image": "/assets/hero/after-sales.jpg"
+        }
+      ]
+    },
+    "productsShowcase": {
+      "eyebrow": "Product Catalogue",
+      "headingLine1": "Browse Our Full",
+      "headingLine2": "Product Range",
+      "categories": [
+        {
+          "id": "scp",
+          "name": "Switchgear & Control Panels",
+          "shortName": "SCP",
+          "description": "Turnkey electrical infrastructure — from 11kV substations and power transformers through switchgear, automation, and power quality.",
+          "accent": "blue",
+          "image": "/assets/hero/substation.jpg",
+          "subCategories": [
+            {
+              "id": "substation-systems",
+              "name": "Substation Systems",
+              "products": [
+                {
+                  "title": "33kV & 11kV Substation System",
+                  "writeUp": "Complete turnkey substation solutions for 33kV systems, including design, engineering, supply, installation, testing, commissioning and maintenance ranging from 3MVA to 20MVA.",
+                  "highlights": [
+                    "33kV systems",
+                    "3MVA – 20MVA",
+                    "Turnkey scope"
+                  ],
+                  "id": "scp-33kv-11kv-substation-system",
+                  "image": "/assets/products/substation-33kv-11kv.jpg"
+                },
+                {
+                  "title": "11kV Substation System",
+                  "writeUp": "Complete turnkey substation solutions for 11kV systems, including design, engineering, supply, installation, testing, commissioning and maintenance ranging from 100kVA to 4000kVA.",
+                  "highlights": [
+                    "11kV systems",
+                    "100kVA – 4000kVA",
+                    "Turnkey scope"
+                  ],
+                  "id": "scp-11kv-substation-system",
+                  "image": "/assets/products/substation-11kv.jpg"
+                },
+                {
+                  "title": "Oil Type Transformer",
+                  "writeUp": "High-efficiency oil immersed transformers for reliable power transformation in industrial and utility applications for upto 20MVA.",
+                  "highlights": [
+                    "Up to 20MVA",
+                    "Oil immersed"
+                  ],
+                  "id": "scp-oil-type-transformer",
+                  "image": "/assets/products/oil-type-transformer.jpg"
+                }
+              ]
+            },
+            {
+              "id": "switchgear",
+              "name": "Switchgear",
+              "products": [
+                {
+                  "title": "High Voltage Switchgears",
+                  "writeUp": "Safe and dependable HV switchgear systems for power protection, switching, and network control.",
+                  "id": "scp-high-voltage-switchgears",
+                  "image": "/assets/products/hv-switchgear-1.jpg",
+                  "gallery": [
+                    "/assets/products/hv-switchgear-2.jpg"
+                  ]
+                },
+                {
+                  "title": "Low Voltage Switchgears",
+                  "writeUp": "Custom LV switchgears designed for reliable power distribution, protection, and operational safety for upto 12,000 Amps.",
+                  "highlights": [
+                    "Up to 12,000 Amps",
+                    "Custom built"
+                  ],
+                  "id": "scp-low-voltage-switchgears",
+                  "image": "/assets/products/lv-switchgear.jpg"
+                },
+                {
+                  "title": "AIS and GIS Panels",
+                  "writeUp": "Reliable air-insulated and gas-insulated switchgear solutions for modern substations.",
+                  "highlights": [
+                    "AIS & GIS",
+                    "Modern substations"
+                  ],
+                  "id": "scp-ais-and-gis-panels",
+                  "image": "/assets/products/ais-gis-panels.jpg"
+                }
+              ]
+            },
+            {
+              "id": "power-control",
+              "name": "Power Control & Distribution",
+              "products": [
+                {
+                  "title": "Synchronization Panels",
+                  "writeUp": "State of the art synchronization panels for seamless generator and grid power management.",
+                  "id": "scp-synchronization-panels",
+                  "image": "/assets/products/synchronization-panels.jpg"
+                },
+                {
+                  "title": "Automatic Transfer Switch",
+                  "writeUp": "Automatic power source transfer systems ensuring uninterrupted electrical supply upto 4000 Amps.",
+                  "highlights": [
+                    "Up to 4000 Amps",
+                    "Automatic transfer"
+                  ],
+                  "id": "scp-automatic-transfer-switch",
+                  "image": "/assets/products/automatic-transfer-switch.jpg"
+                },
+                {
+                  "title": "Automatic Voltage Regulators",
+                  "writeUp": "Automatic voltage regulation systems ensuring stable and reliable power output for 11kV and 33kV systems.",
+                  "highlights": [
+                    "11kV & 33kV",
+                    "Automatic regulation"
+                  ],
+                  "id": "scp-automatic-voltage-regulators",
+                  "image": "/assets/products/automatic-voltage-regulators.jpg"
+                },
+                {
+                  "title": "Motor Control Centres (MCC)",
+                  "writeUp": "Crafted motor control panels providing efficient operation, protection, and monitoring of industrial motors.",
+                  "id": "scp-motor-control-centres-mcc",
+                  "image": "/assets/products/motor-control-centres.jpg"
+                },
+                {
+                  "title": "NGR-NGS Panels",
+                  "writeUp": "NGR-NGS panels designed to improve electrical safety and fault protection.",
+                  "id": "scp-ngr-ngs-panels",
+                  "image": "/assets/products/ngr-ngs-panels.jpg"
+                },
+                {
+                  "title": "Industrial Power Distribution Systems",
+                  "writeUp": "Complete power distribution infrastructure engineered for industrial facilities.",
+                  "id": "scp-industrial-power-distribution-systems",
+                  "image": "/assets/products/power-distribution-systems.jpg"
+                }
+              ]
+            },
+            {
+              "id": "power-quality",
+              "name": "Power Quality & Backup",
+              "products": [
+                {
+                  "title": "Industrial UPS",
+                  "writeUp": "Reliable industrial UPS systems delivering continuous power for critical equipment ranging from 10kVA to 1200kVA.",
+                  "highlights": [
+                    "10kVA – 1200kVA",
+                    "Critical backup"
+                  ],
+                  "id": "scp-industrial-ups",
+                  "image": "/assets/products/industrial-ups.jpg"
+                },
+                {
+                  "title": "Industrial Voltage Stabilizers",
+                  "writeUp": "Precision voltage stabilization solutions protecting equipment from voltage fluctuations.",
+                  "id": "scp-industrial-voltage-stabilizers",
+                  "image": "/assets/slider/substation/01.jpg"
+                },
+                {
+                  "title": "Active / Passive Harmonic Filters",
+                  "writeUp": "Power quality solutions that reduce harmonics and improve system efficiency, filters range from 30kW to 600kW.",
+                  "highlights": [
+                    "30kW – 600kW",
+                    "Active & passive"
+                  ],
+                  "id": "scp-active-passive-harmonic-filters",
+                  "image": "/assets/products/harmonic-filters.jpg"
+                },
+                {
+                  "title": "Lightning Protection Systems (LPS)",
+                  "writeUp": "Comprehensive lightning protection systems safeguarding facilities and equipment.",
+                  "id": "scp-lightning-protection-systems-lps",
+                  "image": "/assets/products/lightning-protection-lps.jpg"
+                }
+              ]
+            },
+            {
+              "id": "automation",
+              "name": "Automation & Control",
+              "products": [
+                {
+                  "title": "SCADA Automation Systems",
+                  "writeUp": "Advanced SCADA solutions for real-time monitoring, control, and remote operation of electrical assets.",
+                  "highlights": [
+                    "Real-time monitoring",
+                    "Remote operation"
+                  ],
+                  "id": "scp-scada-automation-systems",
+                  "image": "/assets/products/scada-automation.jpg"
+                },
+                {
+                  "title": "Programmable Logic Controlling",
+                  "writeUp": "PLC-based automation systems for intelligent industrial process control. Featuring GE and WAGO.",
+                  "highlights": [
+                    "PLC based",
+                    "GE & WAGO"
+                  ],
+                  "id": "scp-programmable-logic-controlling",
+                  "image": "/assets/products/programmable-logic-controlling.jpg"
+                }
+              ]
+            },
+            {
+              "id": "deif",
+              "name": "DEIF Distribution",
+              "products": [
+                {
+                  "title": "Generator Controllers",
+                  "writeUp": "DEIF generator controllers for land-based prime power applications.",
+                  "highlights": [
+                    "GPC3",
+                    "AGC 150"
+                  ],
+                  "id": "scp-generator-controllers",
+                  "image": "/assets/products/deif-agc.jpg",
+                  "gallery": [
+                    "/assets/products/deif-gpc3.jpg",
+                    "/assets/products/deif-agi.jpg"
+                  ]
+                },
+                {
+                  "title": "Marine Generator Controllers",
+                  "writeUp": "DEIF marine-grade generator control for marine power management systems.",
+                  "highlights": [
+                    "GPU 3",
+                    "PPU3",
+                    "DM4"
+                  ],
+                  "id": "scp-marine-generator-controllers",
+                  "image": "/assets/products/deif-iom.jpg"
+                },
+                {
+                  "title": "Battery Chargers",
+                  "writeUp": "DEIF battery charging solutions for standby and emergency power systems.",
+                  "highlights": [
+                    "10A – 40A"
+                  ],
+                  "id": "scp-battery-chargers",
+                  "image": "/assets/products/deif-battery-chargers.jpg"
+                }
+              ]
+            },
+            {
+              "id": "services",
+              "name": "Retrofit & Testing",
+              "products": [
+                {
+                  "title": "Retrofitting Works of Existing Systems",
+                  "writeUp": "Modernization and upgrade services to improve the performance and reliability of existing electrical systems.",
+                  "id": "scp-retrofitting-works-of-existing-systems",
+                  "image": "/assets/products/retrofitting-works.jpg"
+                },
+                {
+                  "title": "Testing Facility",
+                  "writeUp": "Comprehensive testing and quality assurance services to ensure compliance with industry standards.",
+                  "id": "scp-testing-facility",
+                  "image": "/assets/slider/substation/02.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "mep-epc",
+          "name": "MEP / EPC",
+          "shortName": "MEP / EPC",
+          "description": "End-to-end mechanical, electrical and plumbing engineering — delivered as design, procurement, construction, and commissioning.",
+          "accent": "teal",
+          "image": "/assets/hero/mep.jpg",
+          "subCategories": [
+            {
+              "id": "mep-solutions",
+              "name": "MEP Solutions",
+              "products": [
+                {
+                  "title": "Complete MEP Solutions",
+                  "writeUp": "End-to-end mechanical, electrical, and plumbing engineering, procurement, and construction services.",
+                  "highlights": [
+                    "Design to build",
+                    "Single point of responsibility"
+                  ],
+                  "id": "mep-epc-complete-mep-solutions",
+                  "image": "/assets/products/mep-solutions.jpg"
+                }
+              ]
+            },
+            {
+              "id": "industrial-installation",
+              "name": "Industrial Installation",
+              "products": [
+                {
+                  "title": "Generator Installation Works",
+                  "writeUp": "Professional installation, commissioning, and integration of industrial generator systems.",
+                  "id": "mep-epc-generator-installation-works",
+                  "image": "/assets/products/generator-installation.jpg"
+                },
+                {
+                  "title": "Boiler EPC Works",
+                  "writeUp": "Complete EPC solutions for industrial boiler installation and associated utilities.",
+                  "id": "mep-epc-boiler-epc-works",
+                  "image": "/assets/products/boiler-epc.jpg"
+                },
+                {
+                  "title": "Production Machinery Installation",
+                  "writeUp": "Expert installation and commissioning of industrial production machinery.",
+                  "id": "mep-epc-production-machinery-installation",
+                  "image": "/assets/products/machinery-installation.jpg"
+                },
+                {
+                  "title": "Heavy Lifting & Logistics Support",
+                  "writeUp": "Heavy equipment handling, rigging, transportation, and installation support.",
+                  "id": "mep-epc-heavy-lifting-logistics-support",
+                  "image": "/assets/products/heavy-lifting.jpg"
+                }
+              ]
+            },
+            {
+              "id": "building-systems",
+              "name": "Building Systems",
+              "products": [
+                {
+                  "title": "HVAC System",
+                  "writeUp": "Energy-efficient HVAC solutions for commercial and industrial environments. Chiller capacity upto 450TR and AHU upto 110TR.",
+                  "highlights": [
+                    "Chiller upto 450TR",
+                    "AHU upto 110TR"
+                  ],
+                  "id": "mep-epc-hvac-system",
+                  "image": "/assets/products/hvac-system.jpg"
+                },
+                {
+                  "title": "Building Management System (BMS)",
+                  "writeUp": "Centralized building automation systems for monitoring and controlling facility operations.",
+                  "id": "mep-epc-building-management-system-bms",
+                  "image": "/assets/products/building-management-system.jpg"
+                },
+                {
+                  "title": "Fire Hazard Management",
+                  "writeUp": "Integrated fire detection, suppression, and protection solutions.",
+                  "id": "mep-epc-fire-hazard-management",
+                  "image": "/assets/products/fire-hazard.jpg"
+                },
+                {
+                  "title": "CCTV Solutions & Access Control",
+                  "writeUp": "Integrated surveillance and access control systems for enhanced security.",
+                  "id": "mep-epc-cctv-solutions-access-control",
+                  "image": "/assets/products/cctv-access-control.jpg"
+                },
+                {
+                  "title": "Sound Attenuation Works",
+                  "writeUp": "Noise reduction and acoustic treatment solutions for industrial generators. Expert in constructing generator canopies and room canopies.",
+                  "id": "mep-epc-sound-attenuation-works",
+                  "image": "/assets/products/sound-attenuation-1.jpg",
+                  "gallery": [
+                    "/assets/products/sound-attenuation-2.jpg"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "process-systems",
+              "name": "Process & Utility Systems",
+              "products": [
+                {
+                  "title": "Industrial Piping Works",
+                  "writeUp": "Design and installation of industrial piping systems for multiple process applications.",
+                  "id": "mep-epc-industrial-piping-works",
+                  "image": "/assets/products/industrial-piping.jpg"
+                },
+                {
+                  "title": "Fuel Storage & Distribution",
+                  "writeUp": "Safe fuel storage, transfer, and distribution systems designed to industry standards.",
+                  "id": "mep-epc-fuel-storage-distribution",
+                  "image": "/assets/products/fuel-storage.jpg"
+                },
+                {
+                  "title": "Mufflers",
+                  "writeUp": "Industrial exhaust silencing solutions for generators and engines, featuring both industrial mufflers and residential mufflers.",
+                  "highlights": [
+                    "Industrial & residential"
+                  ],
+                  "id": "mep-epc-mufflers",
+                  "image": "/assets/products/mufflers.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "renewable-energy",
+          "name": "Renewable Energy",
+          "shortName": "Renewable Energy",
+          "description": "Grid-connected, hybrid, and storage-backed solar systems engineered for industrial and commercial loads.",
+          "accent": "amber",
+          "image": "/assets/hero/solar.jpg",
+          "subCategories": [
+            {
+              "id": "solar",
+              "name": "Solar Power",
+              "products": [
+                {
+                  "title": "On-Grid Solar Power Plant",
+                  "writeUp": "Grid-connected solar PV systems designed to maximize clean energy generation and reduce operating costs.",
+                  "id": "renewable-energy-on-grid-solar-power-plant",
+                  "image": "/assets/products/on-grid-solar.jpg"
+                },
+                {
+                  "title": "Hybrid Solar Power Solution",
+                  "writeUp": "Hybrid solar systems combining solar, battery, and grid or generator power for uninterrupted operation.",
+                  "highlights": [
+                    "Solar + battery + grid"
+                  ],
+                  "id": "renewable-energy-hybrid-solar-power-solution",
+                  "image": "/assets/products/hybrid-solar.jpg"
+                }
+              ]
+            },
+            {
+              "id": "storage",
+              "name": "Energy Storage",
+              "products": [
+                {
+                  "title": "Energy Storage System (ESS)",
+                  "writeUp": "Battery energy storage solutions for peak shaving, backup power, and renewable energy optimization.",
+                  "highlights": [
+                    "Peak shaving",
+                    "Backup power"
+                  ],
+                  "id": "renewable-energy-energy-storage-system-ess",
+                  "image": "/assets/products/energy-storage.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nalco",
+          "name": "NALCO Water Treatment",
+          "shortName": "NALCO",
+          "description": "Authorized NALCO (Ecolab) chemistry and on-site water testing instruments for boiler, cooling tower, RO, and closed-loop programs.",
+          "accent": "purple",
+          "image": "/assets/hero/water.jpg",
+          "subCategories": [
+            {
+              "id": "chemicals",
+              "name": "Water Treatment Chemicals",
+              "products": [
+                {
+                  "title": "Boiler Water Treatment Chemicals",
+                  "writeUp": "NALCO boiler water treatment chemistry for industrial boiler feed, internal, and blowdown programs.",
+                  "id": "nalco-boiler-water-treatment-chemicals",
+                  "image": "/assets/slider/water/01.jpg"
+                },
+                {
+                  "title": "Cooling Tower Chemicals",
+                  "writeUp": "NALCO cooling tower chemicals for microbiological control, corrosion inhibition, and water conservation.",
+                  "id": "nalco-cooling-tower-chemicals",
+                  "image": "/assets/slider/water/02.jpg"
+                },
+                {
+                  "title": "RO Water Treatment Chemicals",
+                  "writeUp": "NALCO RO membrane antiscalant, cleaning, and biocidal chemistry for reverse osmosis systems.",
+                  "id": "nalco-ro-water-treatment-chemicals",
+                  "image": "/assets/slider/water/03.jpg"
+                },
+                {
+                  "title": "Engine Coolant Chemical",
+                  "writeUp": "NALCO engine coolant chemistry for closed-loop industrial engine cooling systems.",
+                  "id": "nalco-engine-coolant-chemical",
+                  "image": "/assets/slider/water/04.jpg"
+                },
+                {
+                  "title": "Closed Circuit Chemicals",
+                  "writeUp": "NALCO closed circuit chemicals for heating, cooling, and recirculating water systems.",
+                  "id": "nalco-closed-circuit-chemicals",
+                  "image": "/assets/slider/water/01.jpg"
+                }
+              ]
+            },
+            {
+              "id": "testing",
+              "name": "Water Testing Instruments",
+              "products": [
+                {
+                  "title": "Water Test Kits",
+                  "writeUp": "Field water analysis instruments for on-site testing of boiler, cooling tower, and treated water systems.",
+                  "highlights": [
+                    "DR 900 meter (HAC)",
+                    "TDS & PH meter",
+                    "Conductivity meter",
+                    "Iron & hardness test kits",
+                    "Phosphate test kit"
+                  ],
+                  "id": "nalco-water-test-kits",
+                  "image": "/assets/slider/water/02.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "servicesCta": {
+      "eyebrow": "Get Started",
+      "heading": "Tell Us About\nYour Project",
+      "intro": "Discuss your engineering requirements with BTEL's team. We'll provide a technical proposal tailored to your project scope.",
+      "ctaLabel": "Get a Free Consultation →",
+      "ctaHref": "/contact"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "title": "After Sales Support",
+  "sections": {
+    "hero": {
+      "accent": "cyan",
+      "badge": "24/7 · Nationwide Coverage",
+      "breadcrumbLabel": "After Sales Support",
+      "headingLine1": "After Sales",
+      "headingHighlight": "Support",
+      "headingSuffix": "& Service",
+      "subhead": "Our commitment doesn't end at project handover. BTEL provides nationwide, round-the-clock after-sales support ensuring reliable operation, timely service, and lasting customer confidence — for every solution we deliver.",
+      "image": "/assets/hero/after-sales.jpg",
+      "stats": []
+    },
+    "stats": {
+      "stats": [
+        { "value": "24", "accent": "/7", "description": "Round-the-clock support nationwide" },
+        { "value": "<24", "accent": "h", "description": "Emergency response dispatch time target" },
+        { "value": "145", "accent": "+", "description": "Field engineers & technicians across Bangladesh" },
+        { "value": "60", "accent": "+", "description": "Active clients with support agreements" }
+      ]
+    },
+    "services": {
+      "eyebrow": "What We Offer",
+      "heading": "Five Pillars of After-Sales Excellence",
+      "intro": "From planned maintenance to emergency response — BTEL's post-delivery service team is built to keep your systems running at peak performance.",
+      "cards": [
+        { "icon": "wrench", "title": "Unparalleled Technical Expertise", "description": "Our service engineers are factory-trained on every solution BTEL delivers — from substation protection systems to solar inverters. You get the same expertise post-delivery as during installation.", "accentColor": "#0ea5b5" },
+        { "icon": "handshake", "title": "Embracing Commitments", "description": "We safeguard every sale with extensive after-sales service coverage. AMC agreements, spare parts provisioning, and scheduled maintenance visits keep your assets in peak operating condition.", "accentColor": "#0ea5b5" },
+        { "icon": "target", "title": "Precision Engineering", "description": "BTEL's service team pursues work perfection relentlessly — diagnosing root causes, not just symptoms. We close every ticket only when the client confirms satisfaction.", "accentColor": "#0ea5b5" },
+        { "icon": "clock", "title": "24/7 Effortless Vigilance", "description": "Emergency calls receive immediate dispatch from our nearest field team. Service excellence is measured round the clock — nights, weekends, and public holidays included.", "accentColor": "#0ea5b5" },
+        { "icon": "bolt", "title": "Resolute Emergency Response", "description": "Critical failures demand immediate action. BTEL's emergency response protocol ensures breakdowns are attended on the same day — preventing production loss and safety hazards.", "accentColor": "#0ea5b5" },
+        { "icon": "checklist", "title": "Annual Maintenance Contracts", "description": "Planned, predictive, and preventive maintenance under structured AMC agreements — with defined SLAs, response times, and compliance reporting. Budget with certainty.", "highlight": true, "accentColor": "#0ea5b5" }
+      ]
+    },
+    "process": {
+      "eyebrow": "How We Work",
+      "heading": "Our Service Process",
+      "intro": "From the moment you log a request to confirmed resolution — BTEL's service process is structured, transparent, and accountable.",
+      "steps": [
+        { "icon": "phone", "title": "Log a Request", "description": "Call, email, or fill the online form. Your request is logged immediately in our service system and acknowledged within 1 hour.", "accentColor": "#0a9e88" },
+        { "icon": "target", "title": "Assessment & Dispatch", "description": "A technical lead evaluates the issue and dispatches the right engineer with the right tools — within agreed response timelines.", "accentColor": "#9fb9fc" },
+        { "icon": "wrench", "title": "On-Site Resolution", "description": "Our field engineer diagnoses, repairs, and tests to confirm full restoration. Emergency spare parts are stocked centrally for rapid deployment.", "accentColor": "#e08a00" },
+        { "icon": "shield", "title": "Closure & Report", "description": "A service report is issued confirming root cause, work done, and recommendations. Ticket closes only on client sign-off.", "accentColor": "#0a9e88" }
+      ]
+    },
+    "coverage": {
+      "cardHeading": "NATIONWIDE COVERAGE",
+      "cardIntro": "BTEL field engineers are positioned across Bangladesh's major industrial zones and cities — ensuring rapid response anywhere in the country.",
+      "headingLine1": "Wherever Your Facility,",
+      "headingLine2": "We're There",
+      "intro": "BTEL's service network covers all major industrial belts in Bangladesh — from the Dhaka Export Processing Zone to the Chittagong port industrial corridor and beyond.",
+      "regions": ["Dhaka", "Chittagong", "Gazipur", "Narayanganj", "Sylhet", "Khulna", "Rajshahi", "Comilla", "Narsingdi", "All EPZs"],
+      "points": [
+        { "icon": "factory", "title": "Industrial Zones", "description": "All EPZs, SEZs, and private industrial parks. Our engineers are familiar with on-site protocols for multinational factory environments.", "accentColor": "#9fb9fc" },
+        { "icon": "sun", "title": "Solar Plant O&M", "description": "Scheduled operations and maintenance visits for all BTEL-installed solar plants — inverter checks, panel cleaning, string testing, and yield optimization.", "accentColor": "#9fb9fc" },
+        { "icon": "bolt", "title": "Substation & Switchgear AMC", "description": "Preventive maintenance programs for 11kV/33kV substations, transformers, HV/LV panels, and SCADA systems — keeping your power infrastructure reliable.", "accentColor": "#9fb9fc" }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Contact Our Service Team",
+      "headingLine1": "Need Service Support?",
+      "headingLine2": "We Respond Fast.",
+      "intro": "Log a service request online, call our direct service line, or reach out for an AMC agreement.",
+      "options": [
+        { "icon": "whatsapp", "title": "Emergency Line", "description": "Available 24/7 for critical failures", "value": "+88 01755-515151", "href": "https://wa.me/8801755515151", "accentColor": "#25D366" },
+        { "icon": "mail", "title": "Service Email", "description": "Log a non-urgent request", "value": "info@btraceng.com", "href": "mailto:info@btraceng.com", "accentColor": "#0a9e88" }
+      ],
+      "ctaLabel": "Submit a Service Request Online →",
+      "ctaHref": "/contact"
+    }
+  }
+}

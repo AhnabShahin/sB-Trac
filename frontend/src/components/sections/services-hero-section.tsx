@@ -1,13 +1,18 @@
 import Link from "next/link";
-import { getAtAGlanceFacts } from "@/data/company";
-import { getServiceBannerSlides } from "@/data/site";
+import { getProductsServicesContent } from "@/data/pages";
+import type { HeroSlide } from "@/data/site";
 import { ServicesHeroContent } from "@/components/sections/services-hero-content";
 import { HeroBackgroundSlider } from "@/components/sections/hero-background-slider";
 
 export async function ServicesHeroSection() {
-  const [facts, bannerSlides] = await Promise.all([getAtAGlanceFacts(), getServiceBannerSlides()]);
-  const divisionsCount = facts.find((f) => f.label === "Service Divisions")?.value ?? "5 Divisions";
-  const certification = facts.find((f) => f.label === "Certification")?.value ?? "ISO 9001:2015";
+  const content = await getProductsServicesContent();
+  const c = content?.servicesHero;
+  if (!c) return null;
+
+  const bannerSlides: HeroSlide[] = (c.banners ?? []).map((src) => ({
+    type: "image",
+    src,
+  }));
 
   return (
     <section
@@ -42,25 +47,27 @@ export async function ServicesHeroSection() {
           <span className="text-[#94A3B8]">Products &amp; Services</span>
         </nav>
 
-        <div
-          data-hero-item
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal/25 bg-teal/[0.08] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-teal"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-teal" />
-          {divisionsCount} · {certification}
-        </div>
+        {c.badge ? (
+          <div
+            data-hero-item
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal/25 bg-teal/[0.08] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-teal"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-teal" />
+            {c.badge}
+          </div>
+        ) : null}
 
         <h1
           data-hero-item
           className="mb-6 font-display text-[clamp(40px,5.8vw,68px)] font-extrabold leading-[1.02] text-white"
         >
-          Products <span className="text-teal">&amp;</span> Services
+          {c.headingPrefix}
+          <span className="text-teal">{c.headingHighlight}</span>
+          {c.headingSuffix}
         </h1>
 
         <p data-hero-item className="max-w-2xl text-base leading-[1.75] text-[#94A3B8] sm:text-lg">
-          B-Trac Engineering Ltd. delivers five core engineering service
-          divisions — spanning power systems, renewable energy, MEP,
-          industrial water treatment, and nationwide after-sales support.
+          {c.subhead}
         </p>
       </ServicesHeroContent>
     </section>

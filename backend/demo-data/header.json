@@ -1,0 +1,17 @@
+{
+  "title": "Header",
+  "sections": {
+    "header": {
+      "logo": "/logo.png",
+      "navLinks": [
+        { "label": "Home", "href": "/" },
+        { "label": "Products & Services", "href": "/products-services" },
+        { "label": "Projects", "href": "/projects" },
+        { "label": "Partners", "href": "/partners" },
+        { "label": "Clients", "href": "/clients" }
+      ],
+      "ctaLabel": "Contact Us →",
+      "ctaHref": "/contact"
+    }
+  }
+}

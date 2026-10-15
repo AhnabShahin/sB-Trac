@@ -9,55 +9,24 @@ import {
   savePage,
   type PageListEntry,
 } from "@/services/content";
-import { HeroForm } from "@/components/admin/forms/hero-form";
-import { ClientMarqueeForm } from "@/components/admin/forms/client-marquee-form";
-import { PrincipleForm } from "@/components/admin/forms/principle-form";
-import { StatBandForm } from "@/components/admin/forms/stat-band-form";
-import { FoundationForm } from "@/components/admin/forms/foundation-form";
-import { IsoForm } from "@/components/admin/forms/iso-form";
-import { StrengthForm } from "@/components/admin/forms/strength-form";
-import { TimelineForm } from "@/components/admin/forms/timeline-form";
-import { ProjectsForm } from "@/components/admin/forms/projects-form";
-import { SupportForm } from "@/components/admin/forms/support-form";
-import { PartnerCtaForm } from "@/components/admin/forms/partner-cta-form";
-import type { HomeSections } from "@/data/content-types";
-
-const EDITABLE = "home";
-
-// Editor nav IDs. Most map 1:1 to a `HomeSections` key; `stats` and `foundation`
-// are sub-editors that both write slices of the single `principle` object, so the
-// nav can split that one section into three screens without splitting the data.
-type SectionId =
-  | keyof HomeSections
-  | "stats"
-  | "foundation";
-
-// Section order + labels for the editor nav. Matches the order on the live page.
-const SECTIONS: { key: SectionId; label: string }[] = [
-  { key: "hero", label: "Hero" },
-  { key: "clientMarquee", label: "Client Logos" },
-  { key: "principle", label: "Who We Are" },
-  { key: "stats", label: "Stat Band" },
-  { key: "foundation", label: "Vision / Mission / Values" },
-  { key: "isoBand", label: "ISO Band" },
-  { key: "strength", label: "Our Strength" },
-  { key: "timeline", label: "Our Journey" },
-  { key: "projects", label: "Project Portfolio" },
-  { key: "support", label: "After-Sales" },
-  { key: "partnerCta", label: "Ready to Partner" },
-];
+import { PAGE_CONFIGS } from "@/components/admin/page-configs";
 
 type Mode = "list" | "edit";
+// A page's content is an open { sectionKey -> data } map — each page defines its
+// own keys, so the workspace stays page-agnostic and the per-section forms own
+// the real types.
+type Sections = Record<string, unknown>;
 
 export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
   const [pages, setPages] = useState<PageListEntry[]>([]);
-  const [mode, setMode] = useState<Mode>(
-    initialSlug === EDITABLE ? "edit" : "list",
-  );
-  const [active, setActive] = useState<SectionId>("hero");
+  const initialEditable = initialSlug && PAGE_CONFIGS[initialSlug] ? initialSlug : null;
+  const [mode, setMode] = useState<Mode>(initialEditable ? "edit" : "list");
+  const [activeSlug, setActiveSlug] = useState<string>(initialEditable ?? "home");
+  const config = PAGE_CONFIGS[activeSlug];
+  const [active, setActive] = useState<string>(config?.sections[0]?.id ?? "");
 
-  const [content, setContent] = useState<HomeSections>({});
-  const [demo, setDemo] = useState<HomeSections | null>(null);
+  const [content, setContent] = useState<Sections>({});
+  const [demo, setDemo] = useState<Sections | null>(null);
   // Serialized last-saved content. Save is only enabled while the live form
   // differs from this, so an untouched page can't be re-saved for no reason.
   const [savedSnapshot, setSavedSnapshot] = useState<string>("{}");
@@ -71,12 +40,12 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
   const editorLoading = mode === "edit" && !contentLoaded && !error;
 
   // Each view loads only its own data, once. The list view fetches just the
-  // pages list; the editor fetches just the home sections. Neither pulls the
-  // other's data, so /pages and /pages/home each make a single request.
+  // pages list; the editor fetches just the active page's sections. Neither pulls
+  // the other's data, so /pages and /pages/<slug> each make a single request.
   useEffect(() => {
     if (mode !== "edit" || contentLoaded) return;
     let cancelled = false;
-    getPage<HomeSections>(EDITABLE)
+    getPage<Sections>(activeSlug)
       .then((page) => {
         if (cancelled) return;
         const sections = page.sections ?? {};
@@ -88,7 +57,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
     return () => {
       cancelled = true;
     };
-  }, [mode, contentLoaded]);
+  }, [mode, contentLoaded, activeSlug]);
 
   useEffect(() => {
     if (mode !== "list" || pages.length) return;
@@ -101,16 +70,20 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
     };
   }, [mode, pages.length]);
 
-  function updateSection<K extends keyof HomeSections>(
-    key: K,
-    next: HomeSections[K],
-  ) {
+  function updateSection(key: string, next: unknown) {
     setContent((c) => ({ ...c, [key]: next }));
     setStatus(null);
   }
 
   function openEditor(slug: string) {
-    if (slug !== EDITABLE) return;
+    const target = PAGE_CONFIGS[slug];
+    if (!target) return;
+    setActiveSlug(slug);
+    setActive(target.sections[0]?.id ?? "");
+    setContent({});
+    setDemo(null);
+    setSavedSnapshot("{}");
+    setContentLoaded(false);
     setMode("edit");
     setStatus(null);
     setError(null);
@@ -131,7 +104,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
       // The server materializes demo-sourced media into storage, so the saved
       // sections can differ from what we sent — adopt the response as the new
       // baseline so the form shows the storage URLs and stays "not dirty".
-      const res = await savePage<HomeSections>(EDITABLE, { sections: content });
+      const res = await savePage<Sections>(activeSlug, { sections: content });
       const saved = res.sections ?? content;
       setContent(saved);
       setSavedSnapshot(JSON.stringify(saved));
@@ -151,7 +124,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
     if (!d) {
       setSaving(true);
       try {
-        const res = await getDemo<HomeSections>(EDITABLE);
+        const res = await getDemo<Sections>(activeSlug);
         d = res?.sections ?? null;
         setDemo(d);
       } catch (e) {
@@ -171,7 +144,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
     setError(null);
     setStatus(null);
     try {
-      const res = await applyDemo<HomeSections>(EDITABLE);
+      const res = await applyDemo<Sections>(activeSlug);
       if (res.sections) {
         setContent(res.sections);
         setSavedSnapshot(JSON.stringify(res.sections));
@@ -185,37 +158,22 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
   }
 
   function renderActiveForm() {
-    switch (active) {
-      case "hero":
-        return <HeroForm value={content.hero} onChange={(n) => updateSection("hero", n)} slug={EDITABLE} />;
-      case "clientMarquee":
-        return <ClientMarqueeForm value={content.clientMarquee} onChange={(n) => updateSection("clientMarquee", n)} slug={EDITABLE} />;
-      case "principle":
-        return <PrincipleForm value={content.principle} onChange={(n) => updateSection("principle", n)} slug={EDITABLE} />;
-      case "stats":
-        return <StatBandForm value={content.principle} onChange={(n) => updateSection("principle", n)} slug={EDITABLE} />;
-      case "foundation":
-        return <FoundationForm value={content.principle} onChange={(n) => updateSection("principle", n)} slug={EDITABLE} />;
-      case "isoBand":
-        return <IsoForm value={content.isoBand} onChange={(n) => updateSection("isoBand", n)} slug={EDITABLE} />;
-      case "strength":
-        return <StrengthForm value={content.strength} onChange={(n) => updateSection("strength", n)} slug={EDITABLE} />;
-      case "timeline":
-        return <TimelineForm value={content.timeline} onChange={(n) => updateSection("timeline", n)} slug={EDITABLE} />;
-      case "projects":
-        return <ProjectsForm value={content.projects} onChange={(n) => updateSection("projects", n)} slug={EDITABLE} />;
-      case "support":
-        return <SupportForm value={content.support} onChange={(n) => updateSection("support", n)} slug={EDITABLE} />;
-      case "partnerCta":
-        return <PartnerCtaForm value={content.partnerCta} onChange={(n) => updateSection("partnerCta", n)} slug={EDITABLE} />;
-      default:
-        return null;
-    }
+    const section = config?.sections.find((s) => s.id === active);
+    if (!section) return null;
+    return section.render(
+      content[section.dataKey],
+      (next) => updateSection(section.dataKey, next),
+      activeSlug,
+    );
   }
 
   if (mode === "list") {
+    const mainPages = pages.filter((p) => !p.group);
+    const productPages = pages.filter((p) => p.group === "products");
+    const globalPages = pages.filter((p) => p.group === "global");
+
     return (
-      <div className="mx-auto max-w-3xl pt-4 sm:pt-6 lg:pt-8">
+      <div className="pt-4 sm:pt-6 lg:pt-8">
         <header className="mb-6">
           <h1 className="font-display text-2xl font-bold text-offwhite">Pages</h1>
           <p className="mt-1 text-sm text-muted">
@@ -226,11 +184,27 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
         {pages.length === 0 ? (
           <p className="text-sm text-muted">Loading…</p>
         ) : (
-          <ul className="space-y-2.5">
-            {pages.map((page) => (
-              <PageRow key={page.slug} page={page} onOpen={openEditor} />
-            ))}
-          </ul>
+          <div className="space-y-8">
+            <PageList pages={mainPages} onOpen={openEditor} />
+
+            {productPages.length > 0 ? (
+              <section>
+                <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">
+                  Products &amp; Services pages
+                </h2>
+                <PageList pages={productPages} onOpen={openEditor} />
+              </section>
+            ) : null}
+
+            {globalPages.length > 0 ? (
+              <section>
+                <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">
+                  Site-wide
+                </h2>
+                <PageList pages={globalPages} onOpen={openEditor} />
+              </section>
+            ) : null}
+          </div>
         )}
       </div>
     );
@@ -260,7 +234,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
                 Pages
               </button>
               <span className="text-muted/40">/</span>
-              <span className="font-display font-bold text-offwhite">Home</span>
+              <span className="font-display font-bold text-offwhite">{config?.title ?? activeSlug}</span>
             </nav>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -300,13 +274,13 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
         <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[240px_minmax(0,1fr)]">
           {/* Section nav */}
           <nav className="mb-5 flex gap-2 overflow-x-auto pb-1 lg:sticky lg:top-[92px] lg:mb-0 lg:max-h-[calc(100vh-180px)] lg:flex-col lg:self-start lg:overflow-y-auto lg:pb-0">
-            {SECTIONS.map((s) => (
+            {config?.sections.map((s) => (
               <button
-                key={s.key}
+                key={s.id}
                 type="button"
-                onClick={() => setActive(s.key)}
+                onClick={() => setActive(s.id)}
                 className={`shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors lg:w-full ${
-                  active === s.key
+                  active === s.id
                     ? "bg-teal/15 text-teal-light"
                     : "text-muted hover:bg-white/5 hover:text-offwhite"
                 }`}
@@ -324,6 +298,26 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
   );
 }
 
+// A full-width list — each row spans the whole available width (no more
+// max-w-3xl column stranding the list in a narrow strip with empty margins
+// on either side), with the section count shown so a row carries more than
+// just a title before the Edit action.
+function PageList({
+  pages,
+  onOpen,
+}: {
+  pages: PageListEntry[];
+  onOpen: (slug: string) => void;
+}) {
+  return (
+    <ul className="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+      {pages.map((page) => (
+        <PageRow key={page.slug} page={page} onOpen={onOpen} />
+      ))}
+    </ul>
+  );
+}
+
 function PageRow({
   page,
   onOpen,
@@ -338,10 +332,8 @@ function PageRow({
         type="button"
         onClick={() => page.editable && onOpen(page.slug)}
         disabled={!page.editable}
-        className={`group flex w-full items-center gap-4 rounded-xl border border-border bg-card px-4 py-3.5 text-left transition-all ${
-          page.editable
-            ? "hover:-translate-y-px hover:border-teal/40 hover:bg-card/80"
-            : "cursor-not-allowed opacity-55"
+        className={`group flex w-full items-center gap-4 px-4 py-3.5 text-left transition-colors ${
+          page.editable ? "hover:bg-white/[0.04]" : "cursor-not-allowed opacity-55"
         }`}
       >
         <span
@@ -355,6 +347,9 @@ function PageRow({
           <div className="font-medium text-offwhite">{page.title}</div>
           <div className="truncate text-xs text-muted">{page.url}</div>
         </div>
+        <span className="hidden shrink-0 text-xs text-muted sm:block">
+          {page.sections.length} section{page.sections.length === 1 ? "" : "s"}
+        </span>
         {page.editable ? (
           <span className="shrink-0 text-xs font-semibold text-teal-light transition-transform group-hover:translate-x-0.5">
             Edit →

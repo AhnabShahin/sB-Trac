@@ -1,0 +1,10 @@
+{
+  "title": "Footer",
+  "sections": {
+    "footer": {
+      "logo": "/logo.png",
+      "copyrightText": "B-Trac Engineering Ltd. · A Bangla Trac Group Company",
+      "badges": ["ISO 9001:2015", "EPC Licensed", "Since 2009"]
+    }
+  }
+}

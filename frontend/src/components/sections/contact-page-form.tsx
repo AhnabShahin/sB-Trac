@@ -3,17 +3,71 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { SERVICE_OPTIONS, BUDGET_OPTIONS } from "@/data/contact";
+import type { ContactFormContent } from "@/data/content-types";
+import { submitInquiry } from "@/services/inquiries";
 
 const inputClasses =
   "w-full rounded-md border border-border bg-white/[0.04] px-3.5 py-3 text-sm text-white placeholder:text-muted outline-none transition-colors focus:border-teal";
 
-export function ContactPageForm({ header }: { header?: ReactNode }) {
+export function ContactPageForm({
+  header,
+  content,
+}: {
+  header?: ReactNode;
+  content?: ContactFormContent;
+}) {
+  const services = content?.services?.length ? content.services : SERVICE_OPTIONS;
+  const budgets = content?.budgets?.length ? content.budgets : BUDGET_OPTIONS;
+  const heading = content?.heading || "Send an Inquiry";
+  const intro =
+    content?.intro ||
+    "Our engineering team reviews every inquiry and responds within 24 hours.";
+  const consentLabel =
+    content?.consentLabel ||
+    "I agree to be contacted by BTEL's engineering team regarding this inquiry and related services.";
+  const submitLabel = content?.submitLabel || "Submit Inquiry →";
+  const footnote =
+    content?.footnote ||
+    "We typically respond within 24 hours · All inquiries are treated confidentially";
+  const successTitle = content?.successTitle || "Inquiry Received";
+  const successBody =
+    content?.successBody ||
+    "Thank you — our engineering team will get back to you within 24 hours.";
+
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const reducedMotion = useReducedMotion();
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    try {
+      await submitInquiry({
+        full_name: String(fd.get("fullName") ?? "").trim(),
+        company: String(fd.get("company") ?? "").trim(),
+        email: String(fd.get("email") ?? "").trim(),
+        phone: String(fd.get("phone") ?? "").trim() || undefined,
+        service: String(fd.get("service") ?? ""),
+        location: String(fd.get("location") ?? "").trim() || undefined,
+        budget: String(fd.get("budget") ?? "") || undefined,
+        message: String(fd.get("message") ?? "").trim(),
+        newsletter: fd.get("newsletter") === "on",
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        (err as Error)?.message ??
+          "Something went wrong. Please try again or call us directly.",
+      );
+    } finally {
+      setBusy(false);
+    }
   }
 
   if (submitted) {
@@ -29,11 +83,8 @@ export function ContactPageForm({ header }: { header?: ReactNode }) {
             <path d="m5 13 4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h3 className="mt-5 font-display text-lg font-bold text-white">Inquiry Received</h3>
-        <p className="mt-2 max-w-xs text-sm text-muted">
-          Thank you — our engineering team will get back to you within 24
-          hours.
-        </p>
+        <h3 className="mt-5 font-display text-lg font-bold text-white">{successTitle}</h3>
+        <p className="mt-2 max-w-xs text-sm text-muted">{successBody}</p>
       </motion.div>
     );
   }
@@ -41,11 +92,8 @@ export function ContactPageForm({ header }: { header?: ReactNode }) {
   return (
     <form onSubmit={handleSubmit} className="rounded-[10px] border border-border bg-card p-9">
       {header}
-      <div className="mb-1 font-display text-2xl font-bold text-white">Send an Inquiry</div>
-      <p className="mb-6 text-[13px] text-muted">
-        Our engineering team reviews every inquiry and responds within 24
-        hours.
-      </p>
+      <div className="mb-1 font-display text-2xl font-bold text-white">{heading}</div>
+      <p className="mb-6 text-[13px] text-muted">{intro}</p>
 
       <div className="mb-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
@@ -85,7 +133,7 @@ export function ContactPageForm({ header }: { header?: ReactNode }) {
           <option value="" disabled className="bg-navy">
             Select a service division
           </option>
-          {SERVICE_OPTIONS.map((opt) => (
+          {services.map((opt) => (
             <option key={opt} value={opt} className="bg-navy">
               {opt}
             </option>
@@ -108,7 +156,7 @@ export function ContactPageForm({ header }: { header?: ReactNode }) {
             <option value="" className="bg-navy">
               Select range
             </option>
-            {BUDGET_OPTIONS.map((opt) => (
+            {budgets.map((opt) => (
               <option key={opt} value={opt} className="bg-navy">
                 {opt}
               </option>
@@ -139,25 +187,28 @@ export function ContactPageForm({ header }: { header?: ReactNode }) {
           className="mt-0.5 h-4 w-4 shrink-0 accent-teal"
         />
         <label htmlFor="newsletter" className="text-[13px] leading-[1.5] text-muted">
-          I agree to be contacted by BTEL&apos;s engineering team regarding
-          this inquiry and related services.
+          {consentLabel}
         </label>
       </div>
 
+      {error ? (
+        <p className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-[13px] text-red-300">
+          {error}
+        </p>
+      ) : null}
+
       <motion.button
         type="submit"
+        disabled={busy}
         data-cursor-interactive
-        whileHover={reducedMotion ? undefined : { y: -2 }}
-        whileTap={reducedMotion ? undefined : { scale: 0.98 }}
+        whileHover={reducedMotion || busy ? undefined : { y: -2 }}
+        whileTap={reducedMotion || busy ? undefined : { scale: 0.98 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="w-full rounded-md bg-teal px-6 py-3.5 text-[15px] font-semibold tracking-[0.3px] text-white transition-colors hover:bg-teal-dark"
+        className="w-full rounded-md bg-teal px-6 py-3.5 text-[15px] font-semibold tracking-[0.3px] text-white transition-colors hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Submit Inquiry →
+        {busy ? "Submitting…" : submitLabel}
       </motion.button>
-      <p className="mt-3 text-center text-[11px] text-muted">
-        We typically respond within 24 hours · All inquiries are treated
-        confidentially
-      </p>
+      <p className="mt-3 text-center text-[11px] text-muted">{footnote}</p>
     </form>
   );
 }
