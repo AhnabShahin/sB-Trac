@@ -166,3 +166,15 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Admin modal entrance (overridden by the reduced-motion reset above). */
+@keyframes btel-modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes btel-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.btel-modal-panel { animation: btel-modal-in 0.2s ease-out; }
+.btel-modal-scrim { animation: btel-fade-in 0.2s ease-out; }

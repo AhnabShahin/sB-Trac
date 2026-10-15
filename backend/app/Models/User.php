@@ -25,6 +25,8 @@ class User extends Authenticatable
         'role',
         'is_active',
         'can_reset_passwords',
+        'can_edit_profiles',
+        'is_owner',
     ];
 
     /**
@@ -49,6 +51,8 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_active' => 'boolean',
             'can_reset_passwords' => 'boolean',
+            'can_edit_profiles' => 'boolean',
+            'is_owner' => 'boolean',
         ];
     }
 }

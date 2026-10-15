@@ -3,10 +3,12 @@
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +23,9 @@ Route::get('/pages/{slug}', [PageController::class, 'show']);
 // Public, write-only: the /contact inquiry form submits here. Reading the
 // submissions back is admin-only (below).
 Route::post('/inquiries', [InquiryController::class, 'store']);
+
+// Public, read-only site settings (identity, contact, social, SEO defaults).
+Route::get('/settings', [SettingsController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn (Request $request) => $request->user());
@@ -52,5 +57,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/users/{user}', [AdminUserController::class, 'show']);
         Route::patch('/users/{user}', [AdminUserController::class, 'update']);
         Route::post('/users/{user}/reset-password', [AdminUserController::class, 'resetPassword']);
+
+        // Site-wide settings (identity, contact, social, SEO defaults).
+        Route::get('/settings', [AdminSettingsController::class, 'show']);
+        Route::put('/settings', [AdminSettingsController::class, 'update']);
     });
 });

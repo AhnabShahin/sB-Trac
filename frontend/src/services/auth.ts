@@ -17,6 +17,8 @@ export interface AuthUser {
   email: string;
   role: string;
   can_reset_passwords?: boolean;
+  can_edit_profiles?: boolean;
+  is_owner?: boolean;
 }
 
 export interface LoginPayload {

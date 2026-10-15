@@ -12,6 +12,8 @@ export interface AdminUser {
   role: string;
   is_active: boolean;
   can_reset_passwords: boolean;
+  can_edit_profiles: boolean;
+  is_owner: boolean;
   created_at: string;
 }
 
@@ -22,6 +24,7 @@ export interface CreateUserPayload {
   role?: string;
   is_active?: boolean;
   can_reset_passwords?: boolean;
+  can_edit_profiles?: boolean;
 }
 
 export interface UpdateUserPayload {
@@ -30,6 +33,7 @@ export interface UpdateUserPayload {
   role?: string;
   is_active?: boolean;
   can_reset_passwords?: boolean;
+  can_edit_profiles?: boolean;
 }
 
 async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {

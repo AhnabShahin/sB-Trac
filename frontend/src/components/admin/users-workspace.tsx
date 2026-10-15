@@ -2,6 +2,17 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { getCurrentUser, type AuthUser } from "@/services/auth";
+import { Modal } from "@/components/admin/modal";
+import {
+  Field,
+  GhostButton,
+  PrimaryButton,
+  ReadRow,
+  Section,
+  TextInput,
+  Toggle,
+  initials,
+} from "@/components/admin/form-ui";
 import {
   createUser,
   listUsers,
@@ -16,6 +27,25 @@ function formatDate(iso: string): string {
   return d.toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
 }
 
+// Permission model — mirror of backend App\Http\Controllers\Admin\UserController.
+function canEditProfileOf(me: AuthUser | null, u: AdminUser): boolean {
+  if (!me) return false;
+  if (me.id === u.id) return true;
+  if (u.is_owner) return false;
+  return Boolean(me.is_owner) || Boolean(me.can_edit_profiles);
+}
+function canManage(me: AuthUser | null, u: AdminUser): boolean {
+  if (!me) return false;
+  if (u.is_owner) return Boolean(me.is_owner) && me.id === u.id;
+  return Boolean(me.is_owner);
+}
+function canResetPasswordOf(me: AuthUser | null, u: AdminUser): boolean {
+  if (!me) return false;
+  if (u.is_owner) return me.id === u.id;
+  if (me.id === u.id) return true;
+  return Boolean(me.is_owner) || Boolean(me.can_reset_passwords);
+}
+
 export function UsersWorkspace() {
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [me, setMe] = useState<AuthUser | null>(null);
@@ -23,7 +53,6 @@ export function UsersWorkspace() {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<AdminUser | null>(null);
   const [creating, setCreating] = useState(false);
-  const [busyId, setBusyId] = useState<number | null>(null);
 
   const load = useCallback(() => {
     setLoading(true);
@@ -42,41 +71,36 @@ export function UsersWorkspace() {
     load();
   }, [load]);
 
-  function openUser(user: AdminUser) {
-    setSelected(user);
-  }
+  const meIsOwner = Boolean(me?.is_owner);
 
-  async function toggleActive(user: AdminUser) {
-    setBusyId(user.id);
-    try {
-      const { data } = await updateUser(user.id, { is_active: !user.is_active });
-      setUsers((prev) => prev.map((u) => (u.id === data.id ? data : u)));
-      setSelected((s) => (s && s.id === data.id ? data : s));
-    } catch (e) {
-      setError((e as Error)?.message ?? "Update failed.");
-    } finally {
-      setBusyId(null);
-    }
+  function onSaved(updated: AdminUser) {
+    setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+    setSelected((s) => (s && s.id === updated.id ? updated : s));
   }
-
-  const canResetOthers = Boolean(me?.can_reset_passwords);
 
   return (
     <div className="mx-auto max-w-5xl pt-4 sm:pt-6 lg:pt-8">
-      <header className="mb-6 flex items-start justify-between gap-4">
+      <header className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-offwhite">Users</h1>
-          <p className="mt-1 text-sm text-muted">
-            Everyone with access to this admin panel. Create new users, set permissions, and activate or deactivate accounts.
+          <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted">
+            Everyone with access to this admin panel. {meIsOwner
+              ? "As the owner you can create users, grant permissions, and reset passwords."
+              : "You can edit your own profile" + (me?.can_edit_profiles ? " and other users' profiles" : "") + (me?.can_reset_passwords ? ", and reset passwords." : ".")}
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => setCreating(true)}
-          className="shrink-0 rounded-lg bg-teal px-4 py-2.5 text-sm font-semibold text-navy transition-colors hover:bg-teal-dark"
-        >
-          New user
-        </button>
+        {meIsOwner ? (
+          <button
+            type="button"
+            onClick={() => setCreating(true)}
+            className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-semibold text-navy transition-colors hover:bg-teal-dark"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-4 w-4">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+            New user
+          </button>
+        ) : null}
       </header>
 
       {error ? (
@@ -86,7 +110,11 @@ export function UsersWorkspace() {
       ) : null}
 
       {loading ? (
-        <p className="text-sm text-muted">Loading…</p>
+        <div className="space-y-2.5">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="h-16 animate-pulse rounded-xl border border-border bg-card" />
+          ))}
+        </div>
       ) : users.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-navy/30 px-4 py-12 text-center text-sm text-muted">
           No users yet.
@@ -94,11 +122,11 @@ export function UsersWorkspace() {
       ) : (
         <div className="overflow-hidden rounded-xl border border-border">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+            <table className="w-full min-w-[720px] border-collapse text-left text-sm">
               <thead>
                 <tr className="border-b border-border bg-navy2 text-[11px] uppercase tracking-wide text-muted">
-                  <th className="px-4 py-3 font-semibold">Name / Email</th>
-                  <th className="px-4 py-3 font-semibold">Can reset passwords</th>
+                  <th className="px-4 py-3 font-semibold">User</th>
+                  <th className="px-4 py-3 font-semibold">Permissions</th>
                   <th className="px-4 py-3 font-semibold">Created</th>
                   <th className="px-4 py-3 font-semibold">Status</th>
                 </tr>
@@ -107,28 +135,30 @@ export function UsersWorkspace() {
                 {users.map((user) => (
                   <tr
                     key={user.id}
-                    onClick={() => openUser(user)}
+                    onClick={() => setSelected(user)}
                     className="cursor-pointer border-b border-border/60 bg-card transition-colors last:border-0 hover:bg-white/[0.03]"
                   >
                     <td className="px-4 py-3">
-                      <div className="font-medium text-offwhite">
-                        {user.name}
-                        {me?.id === user.id ? <span className="ml-2 text-xs text-muted">(you)</span> : null}
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal/15 text-xs font-bold text-teal-light">
+                          {initials(user.name)}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5 font-medium text-offwhite">
+                            <span className="truncate">{user.name}</span>
+                            {me?.id === user.id ? <span className="text-xs font-normal text-muted">(you)</span> : null}
+                            {user.is_owner ? <OwnerPill /> : null}
+                          </div>
+                          <div className="truncate text-xs text-muted">{user.email}</div>
+                        </div>
                       </div>
-                      <div className="text-xs text-muted">{user.email}</div>
                     </td>
-                    <td className="px-4 py-3 text-muted">{user.can_reset_passwords ? "Yes" : "No"}</td>
+                    <td className="px-4 py-3">
+                      <PermissionChips user={user} />
+                    </td>
                     <td className="px-4 py-3 text-xs text-muted">{formatDate(user.created_at)}</td>
                     <td className="px-4 py-3">
-                      <span
-                        className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-                          user.is_active
-                            ? "border-teal/40 bg-teal/15 text-teal-light"
-                            : "border-border bg-white/5 text-muted"
-                        }`}
-                      >
-                        {user.is_active ? "Active" : "Deactivated"}
-                      </span>
+                      <StatusBadge active={user.is_active} />
                     </td>
                   </tr>
                 ))}
@@ -138,23 +168,15 @@ export function UsersWorkspace() {
         </div>
       )}
 
-      {selected ? (
-        <UserDetail
-          user={selected}
-          me={me}
-          canResetOthers={canResetOthers}
-          busy={busyId === selected.id}
-          onClose={() => setSelected(null)}
-          onToggleActive={() => toggleActive(selected)}
-          onSaved={(updated) => {
-            setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
-            setSelected(updated);
-          }}
-        />
-      ) : null}
+      <UserDetailModal
+        user={selected}
+        me={me}
+        onClose={() => setSelected(null)}
+        onSaved={onSaved}
+      />
 
       {creating ? (
-        <CreateUserDrawer
+        <CreateUserModal
           onClose={() => setCreating(false)}
           onCreated={(user) => {
             setUsers((prev) => [...prev, user].sort((a, b) => a.name.localeCompare(b.name)));
@@ -166,47 +188,157 @@ export function UsersWorkspace() {
   );
 }
 
-function UserDetail({
+function OwnerPill() {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full border border-amber/40 bg-amber/15 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-2.5 w-2.5">
+        <path d="m12 2 2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L3.2 7.7l5.4-.8z" />
+      </svg>
+      Owner
+    </span>
+  );
+}
+
+function StatusBadge({ active }: { active: boolean }) {
+  return (
+    <span
+      className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+        active ? "border-teal/40 bg-teal/15 text-teal-light" : "border-border bg-white/5 text-muted"
+      }`}
+    >
+      {active ? "Active" : "Deactivated"}
+    </span>
+  );
+}
+
+function PermissionChips({ user }: { user: AdminUser }) {
+  if (user.is_owner) {
+    return <span className="text-xs text-muted">All permissions</span>;
+  }
+  const chips: string[] = [];
+  if (user.can_edit_profiles) chips.push("Edit profiles");
+  if (user.can_reset_passwords) chips.push("Reset passwords");
+  if (chips.length === 0) return <span className="text-xs text-muted/70">Own profile only</span>;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {chips.map((c) => (
+        <span key={c} className="rounded-md border border-border bg-navy/60 px-2 py-0.5 text-[11px] font-medium text-offwhite/80">
+          {c}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function UserDetailModal({
   user,
   me,
-  canResetOthers,
-  busy,
   onClose,
-  onToggleActive,
+  onSaved,
+}: {
+  user: AdminUser | null;
+  me: AuthUser | null;
+  onClose: () => void;
+  onSaved: (user: AdminUser) => void;
+}) {
+  return (
+    <Modal
+      open={Boolean(user)}
+      onClose={onClose}
+      title={user?.name ?? ""}
+      description={user?.email}
+      size="md"
+      icon={
+        <span className="text-sm font-bold">{user ? initials(user.name) : ""}</span>
+      }
+    >
+      {user ? <UserDetailBody key={user.id} user={user} me={me} onSaved={onSaved} /> : null}
+    </Modal>
+  );
+}
+
+function UserDetailBody({
+  user,
+  me,
   onSaved,
 }: {
   user: AdminUser;
   me: AuthUser | null;
-  canResetOthers: boolean;
-  busy: boolean;
-  onClose: () => void;
-  onToggleActive: () => void;
   onSaved: (user: AdminUser) => void;
 }) {
+  const isSelf = me?.id === user.id;
+  const editProfile = canEditProfileOf(me, user);
+  const manage = canManage(me, user);
+  const resetPw = canResetPasswordOf(me, user);
+
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
+  const [savingProfile, setSavingProfile] = useState(false);
+  const [profileError, setProfileError] = useState<string | null>(null);
+  const [profileOk, setProfileOk] = useState(false);
+
   const [canReset, setCanReset] = useState(user.can_reset_passwords);
-  const [saving, setSaving] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
+  const [canEdit, setCanEdit] = useState(user.can_edit_profiles);
+  const [savingPerms, setSavingPerms] = useState(false);
+  const [permsError, setPermsError] = useState<string | null>(null);
+  const [permsOk, setPermsOk] = useState(false);
+
+  const [togglingActive, setTogglingActive] = useState(false);
 
   const [password, setPassword] = useState("");
   const [resetting, setResetting] = useState(false);
   const [resetMessage, setResetMessage] = useState<string | null>(null);
 
-  const isSelf = me?.id === user.id;
-  const dirty = name !== user.name || email !== user.email || canReset !== user.can_reset_passwords;
+  // State initializes from props; the parent keys this component by user id, so
+  // opening a different user remounts it with fresh state (no sync effect).
+  const profileDirty = name !== user.name || email !== user.email;
+  const permsDirty = canReset !== user.can_reset_passwords || canEdit !== user.can_edit_profiles;
 
-  async function save(e: FormEvent) {
+  async function saveProfile(e: FormEvent) {
     e.preventDefault();
-    setSaving(true);
-    setSaveError(null);
+    setSavingProfile(true);
+    setProfileError(null);
+    setProfileOk(false);
     try {
-      const { data } = await updateUser(user.id, { name, email, can_reset_passwords: canReset });
+      const { data } = await updateUser(user.id, { name, email });
+      onSaved(data);
+      setProfileOk(true);
+    } catch (e) {
+      setProfileError((e as Error)?.message ?? "Save failed.");
+    } finally {
+      setSavingProfile(false);
+    }
+  }
+
+  async function savePerms(e: FormEvent) {
+    e.preventDefault();
+    setSavingPerms(true);
+    setPermsError(null);
+    setPermsOk(false);
+    try {
+      const { data } = await updateUser(user.id, {
+        can_reset_passwords: canReset,
+        can_edit_profiles: canEdit,
+      });
+      onSaved(data);
+      setPermsOk(true);
+    } catch (e) {
+      setPermsError((e as Error)?.message ?? "Save failed.");
+    } finally {
+      setSavingPerms(false);
+    }
+  }
+
+  async function toggleActive() {
+    setTogglingActive(true);
+    setPermsError(null);
+    try {
+      const { data } = await updateUser(user.id, { is_active: !user.is_active });
       onSaved(data);
     } catch (e) {
-      setSaveError((e as Error)?.message ?? "Save failed.");
+      setPermsError((e as Error)?.message ?? "Update failed.");
     } finally {
-      setSaving(false);
+      setTogglingActive(false);
     }
   }
 
@@ -229,94 +361,120 @@ function UserDetail({
     }
   }
 
-  const canReveal = isSelf || canResetOthers;
+  const ownerLocked = user.is_owner && !isSelf;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-      <aside className="relative flex h-full w-full max-w-md flex-col border-l border-border bg-navy2 shadow-2xl">
-        <div className="flex items-start justify-between gap-3 border-b border-border px-5 py-4">
-          <div className="min-w-0">
-            <h2 className="truncate font-display text-lg font-bold text-offwhite">{user.name}</h2>
-            <p className="truncate text-xs text-muted">{user.email}</p>
-          </div>
-          <button type="button" onClick={onClose} aria-label="Close" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:text-offwhite">
-            ✕
-          </button>
-        </div>
+    <div className="space-y-6">
+      {ownerLocked ? (
+        <p className="flex items-start gap-2 rounded-lg border border-amber/30 bg-amber/10 px-3 py-2.5 text-xs leading-relaxed text-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="mt-0.5 h-4 w-4 shrink-0">
+            <rect x="5" y="11" width="14" height="9" rx="2" />
+            <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+          </svg>
+          This is the owner account. Only the owner can change its profile, permissions and password.
+        </p>
+      ) : null}
 
-        <div className="flex-1 space-y-6 overflow-y-auto px-5 py-5">
-          <form onSubmit={save} className="space-y-3">
+      {/* Profile */}
+      <Section title="Profile">
+        {editProfile ? (
+          <form onSubmit={saveProfile} className="space-y-3">
             <Field label="Name">
               <TextInput value={name} onChange={setName} />
             </Field>
             <Field label="Email">
               <TextInput value={email} onChange={setEmail} type="email" />
             </Field>
-            <label className="flex items-center gap-2 text-xs font-medium text-muted">
-              <input type="checkbox" checked={canReset} onChange={(e) => setCanReset(e.target.checked)} />
-              Can reset other users&apos; passwords
-            </label>
-            {saveError ? <p className="text-xs text-red-300">{saveError}</p> : null}
-            <button
-              type="submit"
-              disabled={!dirty || saving}
-              className="w-full rounded-lg bg-teal px-3 py-2 text-xs font-semibold text-navy transition-colors hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              {saving ? "Saving…" : "Save changes"}
-            </button>
+            {profileError ? <p className="text-xs text-red-300">{profileError}</p> : null}
+            {profileOk ? <p className="text-xs text-teal-light">Profile saved.</p> : null}
+            <PrimaryButton type="submit" disabled={!profileDirty || savingProfile}>
+              {savingProfile ? "Saving…" : "Save profile"}
+            </PrimaryButton>
           </form>
+        ) : (
+          <dl className="space-y-2 text-sm">
+            <ReadRow label="Name" value={user.name} />
+            <ReadRow label="Email" value={user.email} />
+            <p className="pt-1 text-xs text-muted">You don&apos;t have permission to edit this profile.</p>
+          </dl>
+        )}
+      </Section>
 
-          <div className="border-t border-border pt-5">
-            <div className="mb-2 text-[11px] font-bold uppercase tracking-wide text-muted">Status</div>
-            <button
-              type="button"
-              disabled={isSelf || busy}
-              onClick={onToggleActive}
-              title={isSelf ? "You can't deactivate your own account." : undefined}
-              className={`w-full rounded-lg border px-3 py-2 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
-                user.is_active
-                  ? "border-red-500/30 text-red-300 hover:bg-red-500/10"
-                  : "border-teal/40 text-teal-light hover:bg-teal/10"
-              }`}
-            >
-              {user.is_active ? "Deactivate account" : "Activate account"}
-            </button>
+      {/* Permissions */}
+      <Section title="Permissions & role">
+        {user.is_owner ? (
+          <p className="text-xs leading-relaxed text-muted">
+            The owner holds every permission by default and cannot have them revoked.
+          </p>
+        ) : manage ? (
+          <form onSubmit={savePerms} className="space-y-3">
+            <Toggle
+              checked={canEdit}
+              onChange={setCanEdit}
+              label="Can edit other users' profiles"
+              hint="Edit any non-owner user's name and email."
+            />
+            <Toggle
+              checked={canReset}
+              onChange={setCanReset}
+              label="Can reset other users' passwords"
+              hint="Set a new password for any non-owner user."
+            />
+            {permsError ? <p className="text-xs text-red-300">{permsError}</p> : null}
+            {permsOk ? <p className="text-xs text-teal-light">Permissions saved.</p> : null}
+            <PrimaryButton type="submit" disabled={!permsDirty || savingPerms}>
+              {savingPerms ? "Saving…" : "Save permissions"}
+            </PrimaryButton>
+          </form>
+        ) : (
+          <div className="space-y-2">
+            <PermissionChips user={user} />
+            <p className="text-xs text-muted">Only the owner can change permissions.</p>
           </div>
+        )}
+      </Section>
 
-          {canReveal ? (
-            <form onSubmit={submitReset} className="border-t border-border pt-5">
-              <div className="mb-2 text-[11px] font-bold uppercase tracking-wide text-muted">
-                {isSelf ? "Change my password" : "Reset password"}
-              </div>
-              <Field label="New password" hint="At least 8 characters.">
-                <TextInput value={password} onChange={setPassword} type="password" placeholder="••••••••" />
-              </Field>
-              {resetMessage ? (
-                <p className={`mt-2 text-xs ${resetMessage === "Password updated." ? "text-teal-light" : "text-red-300"}`}>
-                  {resetMessage}
-                </p>
-              ) : null}
-              <button
-                type="submit"
-                disabled={resetting || password.length === 0}
-                className="mt-2 w-full rounded-lg border border-border px-3 py-2 text-xs font-medium text-offwhite transition-colors hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {resetting ? "Updating…" : "Update password"}
-              </button>
-            </form>
-          ) : (
-            <p className="border-t border-border pt-5 text-xs text-muted">
-              You don&apos;t have permission to reset this user&apos;s password.
-            </p>
-          )}
-        </div>
-      </aside>
+      {/* Status — owner-managed, never for the owner row or yourself */}
+      {manage && !user.is_owner && !isSelf ? (
+        <Section title="Account status">
+          <button
+            type="button"
+            disabled={togglingActive}
+            onClick={toggleActive}
+            className={`w-full rounded-lg border px-3 py-2 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+              user.is_active
+                ? "border-red-500/30 text-red-300 hover:bg-red-500/10"
+                : "border-teal/40 text-teal-light hover:bg-teal/10"
+            }`}
+          >
+            {togglingActive ? "Updating…" : user.is_active ? "Deactivate account" : "Activate account"}
+          </button>
+        </Section>
+      ) : null}
+
+      {/* Password */}
+      {resetPw ? (
+        <Section title={isSelf ? "Change my password" : "Reset password"}>
+          <form onSubmit={submitReset} className="space-y-2">
+            <Field label="New password" hint="At least 8 characters.">
+              <TextInput value={password} onChange={setPassword} type="password" placeholder="••••••••" />
+            </Field>
+            {resetMessage ? (
+              <p className={`text-xs ${resetMessage === "Password updated." ? "text-teal-light" : "text-red-300"}`}>
+                {resetMessage}
+              </p>
+            ) : null}
+            <GhostButton type="submit" disabled={resetting || password.length === 0}>
+              {resetting ? "Updating…" : "Update password"}
+            </GhostButton>
+          </form>
+        </Section>
+      ) : null}
     </div>
   );
 }
 
-function CreateUserDrawer({
+function CreateUserModal({
   onClose,
   onCreated,
 }: {
@@ -327,6 +485,7 @@ function CreateUserDrawer({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [canReset, setCanReset] = useState(false);
+  const [canEdit, setCanEdit] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -335,7 +494,13 @@ function CreateUserDrawer({
     setSubmitting(true);
     setError(null);
     try {
-      const { data } = await createUser({ name, email, password, can_reset_passwords: canReset });
+      const { data } = await createUser({
+        name,
+        email,
+        password,
+        can_reset_passwords: canReset,
+        can_edit_profiles: canEdit,
+      });
       onCreated(data);
     } catch (e) {
       setError((e as Error)?.message ?? "Could not create the user.");
@@ -344,73 +509,43 @@ function CreateUserDrawer({
     }
   }
 
+  const valid = Boolean(name) && Boolean(email) && password.length >= 8;
+
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-      <aside className="relative flex h-full w-full max-w-md flex-col border-l border-border bg-navy2 shadow-2xl">
-        <div className="flex items-start justify-between gap-3 border-b border-border px-5 py-4">
-          <h2 className="font-display text-lg font-bold text-offwhite">New user</h2>
-          <button type="button" onClick={onClose} aria-label="Close" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:text-offwhite">
-            ✕
-          </button>
+    <Modal
+      open
+      onClose={onClose}
+      title="New user"
+      description="Create an admin account and set its permissions."
+      size="md"
+      icon={
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" className="h-5 w-5">
+          <circle cx="9" cy="8" r="3.5" />
+          <path d="M2.5 20c0-3.3 2.9-6 6.5-6s6.5 2.7 6.5 6M19 8v6M22 11h-6" />
+        </svg>
+      }
+    >
+      <form onSubmit={submit} className="space-y-4">
+        <Field label="Name">
+          <TextInput value={name} onChange={setName} placeholder="Full name" />
+        </Field>
+        <Field label="Email">
+          <TextInput value={email} onChange={setEmail} type="email" placeholder="name@company.com" />
+        </Field>
+        <Field label="Password" hint="At least 8 characters.">
+          <TextInput value={password} onChange={setPassword} type="password" placeholder="••••••••" />
+        </Field>
+        <div className="space-y-3 rounded-lg border border-border bg-navy/40 p-3">
+          <p className="text-[11px] font-bold uppercase tracking-wide text-muted">Permissions</p>
+          <Toggle checked={canEdit} onChange={setCanEdit} label="Can edit other users' profiles" />
+          <Toggle checked={canReset} onChange={setCanReset} label="Can reset other users' passwords" />
         </div>
-
-        <form onSubmit={submit} className="flex-1 space-y-3 overflow-y-auto px-5 py-5">
-          <Field label="Name">
-            <TextInput value={name} onChange={setName} placeholder="Full name" />
-          </Field>
-          <Field label="Email">
-            <TextInput value={email} onChange={setEmail} type="email" placeholder="name@company.com" />
-          </Field>
-          <Field label="Password" hint="At least 8 characters.">
-            <TextInput value={password} onChange={setPassword} type="password" placeholder="••••••••" />
-          </Field>
-          <label className="flex items-center gap-2 text-xs font-medium text-muted">
-            <input type="checkbox" checked={canReset} onChange={(e) => setCanReset(e.target.checked)} />
-            Can reset other users&apos; passwords
-          </label>
-          {error ? <p className="text-xs text-red-300">{error}</p> : null}
-          <button
-            type="submit"
-            disabled={submitting || !name || !email || password.length < 8}
-            className="w-full rounded-lg bg-teal px-3 py-2.5 text-sm font-semibold text-navy transition-colors hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {submitting ? "Creating…" : "Create user"}
-          </button>
-        </form>
-      </aside>
-    </div>
+        {error ? <p className="text-xs text-red-300">{error}</p> : null}
+        <PrimaryButton type="submit" disabled={submitting || !valid}>
+          {submitting ? "Creating…" : "Create user"}
+        </PrimaryButton>
+      </form>
+    </Modal>
   );
 }
 
-function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 block text-xs font-medium text-muted">{label}</span>
-      {children}
-      {hint ? <span className="mt-1 block text-[11px] text-muted">{hint}</span> : null}
-    </label>
-  );
-}
-
-function TextInput({
-  value,
-  onChange,
-  type = "text",
-  placeholder,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  type?: string;
-  placeholder?: string;
-}) {
-  return (
-    <input
-      type={type}
-      value={value}
-      placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-border bg-navy px-3.5 py-2.5 text-sm text-offwhite placeholder:text-muted/60 outline-none transition-all focus:border-teal/60 focus:ring-2 focus:ring-teal/15"
-    />
-  );
-}

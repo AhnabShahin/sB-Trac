@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LogoutButton } from "@/components/admin/logout-button";
+import { ProfileMenu } from "@/components/admin/profile-menu";
 import { cn } from "@/lib/utils";
 
 type IconProps = { className?: string };
@@ -74,14 +75,14 @@ const NAV: { label: string; href: string; icon: keyof typeof ICONS; enabled: boo
   { label: "Pages", href: "/pages", icon: "pages", enabled: true },
   { label: "Inquiries", href: "/inquiries", icon: "inquiries", enabled: true },
   { label: "Users", href: "/users", icon: "users", enabled: true },
-  { label: "Menu", href: "#", icon: "menu", enabled: false },
-  { label: "Settings", href: "#", icon: "settings", enabled: false },
+  { label: "Settings", href: "/settings", icon: "settings", enabled: true },
 ];
 
 function titleFor(pathname: string): string {
   if (pathname.startsWith("/pages")) return "Pages";
   if (pathname.startsWith("/inquiries")) return "Inquiries";
   if (pathname.startsWith("/users")) return "Users";
+  if (pathname.startsWith("/settings")) return "Settings";
   if (pathname.startsWith("/dashboard")) return "Dashboard";
   return "Admin Panel";
 }
@@ -235,7 +236,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               {titleFor(pathname)}
             </h1>
           </div>
-          <LogoutButton />
+          <div className="flex items-center gap-2 sm:gap-3">
+            <ProfileMenu />
+            <LogoutButton />
+          </div>
         </header>
         {/* No top padding here: the editor's sticky toolbar pins to `top-0`, and a
             top padding would leave a band above it where scrolled content shows

@@ -41,6 +41,8 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'role' => $user->role,
                 'can_reset_passwords' => $user->can_reset_passwords,
+                'can_edit_profiles' => $user->can_edit_profiles,
+                'is_owner' => $user->is_owner,
             ],
             'token' => $token,
         ]);

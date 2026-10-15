@@ -40,19 +40,26 @@ class CreateAdmin extends Command
             return self::FAILURE;
         }
 
+        // The first CLI-created admin becomes the protected owner ("artisan")
+        // with the full permission set — only this account can grant permissions
+        // to and manage other users. Any later CLI admin is a normal admin.
         // The User model casts `password => 'hashed'`, so the plain value is
-        // hashed on save. The CLI-created admin can reset anyone's password —
-        // further users created from the admin panel default to false.
+        // hashed on save.
+        $isFirstOwner = ! User::where('is_owner', true)->exists();
+
         $user = User::create([
             'name' => $name,
             'email' => $email,
             'password' => $password,
-            'role' => 'admin',
+            'role' => $isFirstOwner ? 'owner' : 'admin',
             'is_active' => true,
+            'is_owner' => $isFirstOwner,
             'can_reset_passwords' => true,
+            'can_edit_profiles' => $isFirstOwner,
         ]);
 
-        $this->info("Admin created: {$user->email} (id {$user->id})");
+        $label = $isFirstOwner ? 'Owner' : 'Admin';
+        $this->info("{$label} created: {$user->email} (id {$user->id})");
 
         return self::SUCCESS;
     }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { Modal } from "@/components/admin/modal";
 import {
   deleteInquiry,
   listInquiries,
@@ -302,43 +303,20 @@ function InquiryDetail({
   onDelete: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-      <aside className="relative flex h-full w-full max-w-md flex-col border-l border-border bg-navy2 shadow-2xl">
-        <div className="flex items-start justify-between gap-3 border-b border-border px-5 py-4">
-          <div className="min-w-0">
-            <h2 className="truncate font-display text-lg font-bold text-offwhite">{inquiry.full_name}</h2>
-            <p className="truncate text-xs text-muted">{inquiry.company}</p>
-          </div>
-          <button type="button" onClick={onClose} aria-label="Close" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:text-offwhite">
-            ✕
-          </button>
-        </div>
-
-        <div className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
-          <div className="flex items-center gap-2">
-            <span className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${STATUS_BADGE[inquiry.status]}`}>
-              {inquiry.status}
-            </span>
-            <span className="text-xs text-muted">{formatDate(inquiry.created_at)}</span>
-          </div>
-
-          <DetailRow label="Email" value={inquiry.email} href={`mailto:${inquiry.email}`} />
-          {inquiry.phone ? <DetailRow label="Phone" value={inquiry.phone} href={`tel:${inquiry.phone}`} /> : null}
-          <DetailRow label="Service" value={inquiry.service} />
-          {inquiry.location ? <DetailRow label="Location" value={inquiry.location} /> : null}
-          {inquiry.budget ? <DetailRow label="Budget" value={inquiry.budget} /> : null}
-          <DetailRow label="Newsletter opt-in" value={inquiry.newsletter ? "Yes" : "No"} />
-
-          <div>
-            <div className="mb-1 text-[11px] font-bold uppercase tracking-wide text-muted">Message</div>
-            <p className="whitespace-pre-line rounded-lg border border-border bg-card px-3.5 py-3 text-sm leading-relaxed text-offwhite/90">
-              {inquiry.message}
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-3 border-t border-border px-5 py-4">
+    <Modal
+      open
+      onClose={onClose}
+      title={inquiry.full_name || "Inquiry"}
+      description={inquiry.company}
+      size="md"
+      icon={
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+          <path d="M3 5h18v14H3z" />
+          <path d="m3 6 9 7 9-7" />
+        </svg>
+      }
+      footer={
+        <div className="space-y-3">
           <div className="flex flex-wrap gap-2">
             <StatusButton active={inquiry.status === "new"} disabled={busy} onClick={() => onStatus("new")}>Mark new</StatusButton>
             <StatusButton active={inquiry.status === "read"} disabled={busy} onClick={() => onStatus("read")}>Mark read</StatusButton>
@@ -353,8 +331,31 @@ function InquiryDetail({
             Delete inquiry
           </button>
         </div>
-      </aside>
-    </div>
+      }
+    >
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <span className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${STATUS_BADGE[inquiry.status]}`}>
+            {inquiry.status}
+          </span>
+          <span className="text-xs text-muted">{formatDate(inquiry.created_at)}</span>
+        </div>
+
+        <DetailRow label="Email" value={inquiry.email} href={`mailto:${inquiry.email}`} />
+        {inquiry.phone ? <DetailRow label="Phone" value={inquiry.phone} href={`tel:${inquiry.phone}`} /> : null}
+        <DetailRow label="Service" value={inquiry.service} />
+        {inquiry.location ? <DetailRow label="Location" value={inquiry.location} /> : null}
+        {inquiry.budget ? <DetailRow label="Budget" value={inquiry.budget} /> : null}
+        <DetailRow label="Newsletter opt-in" value={inquiry.newsletter ? "Yes" : "No"} />
+
+        <div>
+          <div className="mb-1 text-[11px] font-bold uppercase tracking-wide text-muted">Message</div>
+          <p className="whitespace-pre-line rounded-lg border border-border bg-card px-3.5 py-3 text-sm leading-relaxed text-offwhite/90">
+            {inquiry.message}
+          </p>
+        </div>
+      </div>
+    </Modal>
   );
 }
 

@@ -17,7 +17,8 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/pages") ||
     pathname.startsWith("/inquiries") ||
-    pathname.startsWith("/users");
+    pathname.startsWith("/users") ||
+    pathname.startsWith("/settings");
   const isLoginRoute = pathname === "/login";
 
   if (isAdminRoute && !token) {
@@ -37,5 +38,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/pages/:path*", "/inquiries/:path*", "/users/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/pages/:path*", "/inquiries/:path*", "/users/:path*", "/settings/:path*", "/login"],
 };
