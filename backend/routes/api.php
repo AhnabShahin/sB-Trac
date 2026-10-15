@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\PageController;
@@ -42,5 +43,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/inquiries/{inquiry}', [AdminInquiryController::class, 'show']);
         Route::patch('/inquiries/{inquiry}', [AdminInquiryController::class, 'update']);
         Route::delete('/inquiries/{inquiry}', [AdminInquiryController::class, 'destroy']);
+
+        // Admin user management (list/create/edit profile + permissions,
+        // active/deactivate, password reset). No delete — deactivate instead,
+        // so a user's postmeta `updated_by` trail stays intact.
+        Route::get('/users', [AdminUserController::class, 'index']);
+        Route::post('/users', [AdminUserController::class, 'store']);
+        Route::get('/users/{user}', [AdminUserController::class, 'show']);
+        Route::patch('/users/{user}', [AdminUserController::class, 'update']);
+        Route::post('/users/{user}/reset-password', [AdminUserController::class, 'resetPassword']);
     });
 });

@@ -8,6 +8,7 @@ import {
   listPages,
   savePage,
   type PageListEntry,
+  type SectionMeta,
 } from "@/services/content";
 import { PAGE_CONFIGS } from "@/components/admin/page-configs";
 
@@ -26,6 +27,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
   const [active, setActive] = useState<string>(config?.sections[0]?.id ?? "");
 
   const [content, setContent] = useState<Sections>({});
+  const [sectionsMeta, setSectionsMeta] = useState<Record<string, SectionMeta>>({});
   const [demo, setDemo] = useState<Sections | null>(null);
   // Serialized last-saved content. Save is only enabled while the live form
   // differs from this, so an untouched page can't be re-saved for no reason.
@@ -50,6 +52,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
         if (cancelled) return;
         const sections = page.sections ?? {};
         setContent(sections);
+        setSectionsMeta(page.sectionsMeta ?? {});
         setSavedSnapshot(JSON.stringify(sections));
         setContentLoaded(true);
       })
@@ -107,6 +110,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
       const res = await savePage<Sections>(activeSlug, { sections: content });
       const saved = res.sections ?? content;
       setContent(saved);
+      setSectionsMeta(res.sectionsMeta ?? sectionsMeta);
       setSavedSnapshot(JSON.stringify(saved));
       setStatus("Saved — the live site now serves this content.");
     } catch (e) {
@@ -147,6 +151,7 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
       const res = await applyDemo<Sections>(activeSlug);
       if (res.sections) {
         setContent(res.sections);
+        setSectionsMeta(res.sectionsMeta ?? {});
         setSavedSnapshot(JSON.stringify(res.sections));
       }
       setStatus("Demo applied — media copied to storage and saved to the site.");
@@ -291,7 +296,10 @@ export function PagesWorkspace({ initialSlug }: { initialSlug?: string }) {
           </nav>
 
           {/* Active section form */}
-          <div className="min-w-0">{renderActiveForm()}</div>
+          <div className="min-w-0">
+            <LastUpdatedNote meta={sectionsMeta[config?.sections.find((s) => s.id === active)?.dataKey ?? ""]} />
+            {renderActiveForm()}
+          </div>
         </div>
       )}
     </div>
@@ -361,6 +369,22 @@ function PageRow({
         )}
       </button>
     </li>
+  );
+}
+
+function LastUpdatedNote({ meta }: { meta?: SectionMeta }) {
+  if (!meta?.updated_at) return null;
+  const when = new Date(meta.updated_at).toLocaleString(undefined, {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return (
+    <p className="mb-4 text-xs text-muted">
+      Last updated {meta.updated_by ? <>by <span className="font-medium text-offwhite/80">{meta.updated_by.name}</span></> : null} on {when}
+    </p>
   );
 }
 

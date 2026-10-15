@@ -13,6 +13,7 @@ class PostMeta extends Model
         'post_id',
         'meta_key',
         'meta_value',
+        'updated_by',
     ];
 
     // Section payloads are stored as JSON text and handed back as arrays.
@@ -23,5 +24,10 @@ class PostMeta extends Model
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function updater(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

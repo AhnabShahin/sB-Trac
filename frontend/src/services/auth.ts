@@ -16,6 +16,7 @@ export interface AuthUser {
   name: string;
   email: string;
   role: string;
+  can_reset_passwords?: boolean;
 }
 
 export interface LoginPayload {
@@ -84,6 +85,26 @@ export function setAuthCookie(token: string): void {
 export function clearAuthCookie(): void {
   if (typeof document === "undefined") return;
   document.cookie = `${AUTH_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax`;
+}
+
+// The signed-in user, from the Sanctum `/user` route. Used client-side to
+// gate UI (e.g. only show "reset password" for others when permitted).
+export async function getCurrentUser(): Promise<AuthUser> {
+  const token = getAuthToken();
+  const res = await fetch(`${API_BASE}/user`, {
+    headers: {
+      Accept: "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new ApiError(data?.message ?? "Could not load your session.", res.status);
+  }
+
+  return data as AuthUser;
 }
 
 export function getAuthToken(): string | null {

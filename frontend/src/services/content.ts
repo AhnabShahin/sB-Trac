@@ -20,12 +20,19 @@ export interface PageListEntry {
   parent?: string;
 }
 
+export interface SectionMeta {
+  updated_at: string | null;
+  updated_by: { id: number; name: string } | null;
+}
+
 export interface AdminPage<T = Record<string, unknown>> {
   slug: string;
   title: string | null;
   editable?: boolean;
   sectionKeys?: string[];
   sections: T;
+  /** Per-section "who last saved this, and when" — keyed the same as `sections`. */
+  sectionsMeta?: Record<string, SectionMeta>;
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {

@@ -39,6 +39,17 @@ function InquiriesIcon({ className }: IconProps) {
   );
 }
 
+function UsersIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M2.5 20c0-3.3 2.9-6 6.5-6s6.5 2.7 6.5 6" />
+      <path d="M16.5 4.6a3.5 3.5 0 0 1 0 6.9" />
+      <path d="M19.5 20c0-2.6-1.8-4.8-4.3-5.6" />
+    </svg>
+  );
+}
+
 function MenuIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -56,12 +67,13 @@ function SettingsIcon({ className }: IconProps) {
   );
 }
 
-const ICONS = { dashboard: DashboardIcon, pages: PagesIcon, inquiries: InquiriesIcon, menu: MenuIcon, settings: SettingsIcon } as const;
+const ICONS = { dashboard: DashboardIcon, pages: PagesIcon, inquiries: InquiriesIcon, users: UsersIcon, menu: MenuIcon, settings: SettingsIcon } as const;
 
 const NAV: { label: string; href: string; icon: keyof typeof ICONS; enabled: boolean }[] = [
   { label: "Dashboard", href: "/dashboard", icon: "dashboard", enabled: true },
   { label: "Pages", href: "/pages", icon: "pages", enabled: true },
   { label: "Inquiries", href: "/inquiries", icon: "inquiries", enabled: true },
+  { label: "Users", href: "/users", icon: "users", enabled: true },
   { label: "Menu", href: "#", icon: "menu", enabled: false },
   { label: "Settings", href: "#", icon: "settings", enabled: false },
 ];
@@ -69,6 +81,7 @@ const NAV: { label: string; href: string; icon: keyof typeof ICONS; enabled: boo
 function titleFor(pathname: string): string {
   if (pathname.startsWith("/pages")) return "Pages";
   if (pathname.startsWith("/inquiries")) return "Inquiries";
+  if (pathname.startsWith("/users")) return "Users";
   if (pathname.startsWith("/dashboard")) return "Dashboard";
   return "Admin Panel";
 }

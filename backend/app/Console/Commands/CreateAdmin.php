@@ -41,12 +41,15 @@ class CreateAdmin extends Command
         }
 
         // The User model casts `password => 'hashed'`, so the plain value is
-        // hashed on save.
+        // hashed on save. The CLI-created admin can reset anyone's password —
+        // further users created from the admin panel default to false.
         $user = User::create([
             'name' => $name,
             'email' => $email,
             'password' => $password,
             'role' => 'admin',
+            'is_active' => true,
+            'can_reset_passwords' => true,
         ]);
 
         $this->info("Admin created: {$user->email} (id {$user->id})");

@@ -24,7 +24,7 @@ class PageController extends Controller
     {
         $entry = $this->registryEntry($slug);
 
-        $post = Post::where('post_type', 'page')->where('slug', $slug)->with('meta')->first();
+        $post = Post::where('post_type', 'page')->where('slug', $slug)->with('meta.updater')->first();
 
         return response()->json([
             'slug' => $slug,
@@ -32,6 +32,7 @@ class PageController extends Controller
             'editable' => $entry['editable'],
             'sectionKeys' => $entry['sections'],
             'sections' => $post ? $post->sections() : (object) [],
+            'sectionsMeta' => $post ? $post->sectionsMeta() : (object) [],
         ]);
     }
 
@@ -55,7 +56,7 @@ class PageController extends Controller
         // never persists a read-only demo reference.
         $sections = $this->media->materializeDemo($slug, $data['sections']);
 
-        $post = $this->upsert($slug, $entry, $data['title'] ?? null, $sections);
+        $post = $this->upsert($slug, $entry, $data['title'] ?? null, $sections, $request->user()->id);
 
         $this->media->collectGarbage($oldSections, $post->sections());
 
@@ -63,6 +64,7 @@ class PageController extends Controller
             'slug' => $post->slug,
             'title' => $post->title,
             'sections' => $post->sections(),
+            'sectionsMeta' => $post->sectionsMeta(),
         ]);
     }
 
@@ -80,7 +82,7 @@ class PageController extends Controller
     }
 
     /** Write the demo snapshot into the DB (seed/reset a page to its demo content). */
-    public function applyDemo(string $slug): JsonResponse
+    public function applyDemo(Request $request, string $slug): JsonResponse
     {
         $entry = $this->registryEntry($slug);
         $this->assertEditable($entry);
@@ -94,28 +96,29 @@ class PageController extends Controller
         // Copy the demo's media into storage and swap /assets paths for managed
         // storage URLs before persisting, so the live site serves from storage.
         $sections = $this->media->materializeDemo($slug, $demo['sections'] ?? []);
-        $post = $this->upsert($slug, $entry, $demo['title'] ?? null, $sections);
+        $post = $this->upsert($slug, $entry, $demo['title'] ?? null, $sections, $request->user()->id);
 
         return response()->json([
             'slug' => $post->slug,
             'title' => $post->title,
             'sections' => $post->sections(),
+            'sectionsMeta' => $post->sectionsMeta(),
         ]);
     }
 
     /**
      * @param  array<string, mixed>  $sections
      */
-    private function upsert(string $slug, array $entry, ?string $title, array $sections): Post
+    private function upsert(string $slug, array $entry, ?string $title, array $sections, int $updatedBy): Post
     {
         $post = Post::firstOrNew(['post_type' => 'page', 'slug' => $slug]);
         $post->title = $title ?? $post->title ?? $entry['title'];
         $post->status = $post->status ?? 'published';
         $post->save();
 
-        $post->writeSections($sections);
+        $post->writeSections($sections, $updatedBy);
 
-        return $post->fresh('meta');
+        return $post->fresh('meta.updater');
     }
 
     /** @return array{slug:string,title:string,url:string,editable:bool,sections:array} */

@@ -23,6 +23,15 @@ class AuthController extends Controller
         }
 
         $user = $request->user();
+
+        if (! $user->is_active) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'email' => ['This account has been deactivated.'],
+            ]);
+        }
+
         $token = $user->createToken('admin-portal')->plainTextToken;
 
         return response()->json([
@@ -31,6 +40,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'role' => $user->role,
+                'can_reset_passwords' => $user->can_reset_passwords,
             ],
             'token' => $token,
         ]);

@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
             $table->string('meta_key');
             $table->longText('meta_value')->nullable();
+            // Who last saved this section — surfaced in the admin editor next to
+            // each section and kept even if that user is later removed.
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
 
             $table->unique(['post_id', 'meta_key']);

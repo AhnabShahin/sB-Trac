@@ -18,6 +18,14 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('admin');
+            // Deactivated users are blocked at login (AuthController) but kept
+            // around rather than deleted, so their postmeta `updated_by` trail
+            // stays intact.
+            $table->boolean('is_active')->default(true);
+            // Permission: may reset ANOTHER user's password (resetting your own
+            // is always allowed). Kept as a single flag rather than a roles/
+            // permissions table — there's only this one gated action today.
+            $table->boolean('can_reset_passwords')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
