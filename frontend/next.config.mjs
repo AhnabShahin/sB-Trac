@@ -11,6 +11,11 @@ const nextConfig = {
         port: "8000",
         pathname: "/storage/**",
       },
+      {
+        protocol: "https",
+        hostname: "api-btrac.missandmrselegancebd.com",
+        pathname: "/storage/**",
+      },
     ],
     // The backend storage disk runs on localhost in dev, which Next 16 blocks
     // from the image optimizer as a private IP (SSRF guard). The remotePattern
