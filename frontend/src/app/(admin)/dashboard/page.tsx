@@ -106,7 +106,7 @@ export default function DashboardPage() {
             >
               Review inquiries
               {(counts?.inquiriesNew ?? 0) > 0 ? (
-                <span className="rounded-full bg-amber px-1.5 py-0.5 text-[10px] font-bold text-navy">{counts?.inquiriesNew}</span>
+                <span className="rounded-full bg-amber px-1.5 py-0.5 text-[12px] font-bold text-navy">{counts?.inquiriesNew}</span>
               ) : null}
             </Link>
           </div>

@@ -63,12 +63,12 @@ export function TrackRecordCards({
             <div className={cn("mb-2 font-display text-[44px] font-extrabold leading-none", item.accent)}>
               {item.tag}
             </div>
-            <h3 className="mb-2 font-display text-[17px] font-bold text-white">{item.title}</h3>
-            <p className="text-[13px] leading-[1.65] text-muted">{item.description}</p>
+            <h3 className="mb-2 font-display text-[19px] font-bold text-white">{item.title}</h3>
+            <p className="text-[15px] leading-[1.65] text-muted">{item.description}</p>
 
             {/* Makes the card's purpose explicit — it is a jump to a filtered
                 list, not a dead-end summary. */}
-            <span className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold text-white/70 transition-colors group-hover:text-white">
+            <span className="mt-6 inline-flex items-center gap-2 text-[14px] font-semibold text-white/70 transition-colors group-hover:text-white">
               View {count} project{count !== 1 ? "s" : ""}
               <span
                 aria-hidden="true"

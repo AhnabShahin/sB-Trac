@@ -66,7 +66,7 @@ export function ContactFormForm({
         description="The 'Project Budget' dropdown choices."
         items={v.budgets}
         onChange={(budgets) => set({ budgets })}
-        placeholder="1 Cr – 5 Cr"
+        placeholder="$1M – $5M"
       />
     </div>
   );

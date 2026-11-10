@@ -41,7 +41,7 @@ export default async function AfterSalesServicePage() {
               fill
               priority
               loading="eager"
-              className="object-cover object-center opacity-50"
+              className="object-cover object-center opacity-[0.66] blur-[3px] scale-[1.06]"
               sizes="100vw"
             />
           </div>
@@ -50,13 +50,13 @@ export default async function AfterSalesServicePage() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(14,21,40,0.65) 0%, rgba(14,21,40,0.85) 60%, rgba(14,21,40,0.98) 100%), radial-gradient(ellipse 50% 60% at 80% 40%, rgba(14,165,181,0.14) 0%, transparent 60%)",
+                "linear-gradient(180deg, rgba(22,33,63,0.46) 0%, rgba(22,33,63,0.60) 60%, rgba(22,33,63,0.82) 100%), radial-gradient(ellipse 50% 60% at 80% 40%, rgba(14,165,181,0.14) 0%, transparent 60%)",
             }}
           />
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20 lg:py-24">
             <ServiceDetailHero accent="cyan" maxWidth="max-w-3xl">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -106,7 +106,7 @@ export default async function AfterSalesServicePage() {
                   {stat.value}
                   <span className="text-teal">{stat.accent}</span>
                 </div>
-                <div className="mt-2 text-[13px] leading-[1.5] text-muted">{stat.description}</div>
+                <div className="mt-2 text-[15px] leading-[1.5] text-muted">{stat.description}</div>
               </div>
             ))}
           </StaggerGroup>
@@ -117,7 +117,7 @@ export default async function AfterSalesServicePage() {
         <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-cyan">{services.eyebrow}</div>
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-cyan">{services.eyebrow}</div>
               <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
                 {services.heading}
               </h2>
@@ -171,7 +171,7 @@ export default async function AfterSalesServicePage() {
         <section className="bg-navy2 px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal className="mx-auto max-w-xl text-center">
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-cyan">{process.eyebrow}</div>
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-cyan">{process.eyebrow}</div>
               <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
                 {process.heading}
               </h2>
@@ -201,14 +201,14 @@ export default async function AfterSalesServicePage() {
                     >
                       {Icon ? <Icon width={26} height={26} /> : null}
                       <span
-                        className="absolute -right-1.5 -top-1.5 flex h-[22px] w-[22px] items-center justify-center rounded-full font-display text-[11px] font-extrabold text-white"
+                        className="absolute -right-1.5 -top-1.5 flex h-[22px] w-[22px] items-center justify-center rounded-full font-display text-[13px] font-extrabold text-white"
                         style={{ background: accent }}
                       >
                         {i + 1}
                       </span>
                     </div>
-                    <h3 className="mb-2 font-display text-[17px] font-bold text-white">{step.title}</h3>
-                    <p className="text-[13px] leading-[1.6] text-muted">{step.description}</p>
+                    <h3 className="mb-2 font-display text-[19px] font-bold text-white">{step.title}</h3>
+                    <p className="text-[15px] leading-[1.6] text-muted">{step.description}</p>
                   </div>
                 );
               })}
@@ -265,7 +265,7 @@ export default async function AfterSalesServicePage() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-cyan">Coverage Details</div>
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-cyan">Coverage Details</div>
               <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
                 {coverage.headingLine1}
                 <br />
@@ -291,7 +291,7 @@ export default async function AfterSalesServicePage() {
                           <Icon width={20} height={20} />
                         </div>
                         <div>
-                          <h3 className="mb-1 font-display text-[17px] font-bold text-white">{point.title}</h3>
+                          <h3 className="mb-1 font-display text-[19px] font-bold text-white">{point.title}</h3>
                           <p className="text-sm leading-[1.6] text-muted">{point.description}</p>
                         </div>
                       </div>
@@ -310,7 +310,7 @@ export default async function AfterSalesServicePage() {
           style={{ background: "linear-gradient(135deg, var(--color-navy2), var(--color-navy))" }}
         >
           <Reveal className="mx-auto max-w-2xl">
-            <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-cyan">{cta.eyebrow}</div>
+            <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-cyan">{cta.eyebrow}</div>
             <h2 className="mb-4 font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-[1.1] text-white">
               {cta.headingLine1}
               <br />
@@ -339,14 +339,14 @@ export default async function AfterSalesServicePage() {
                       >
                         <Icon width={20} height={20} />
                       </div>
-                      <div className="mb-1 font-display text-[17px] font-bold text-white">{option.title}</div>
-                      <div className="mb-4 text-[13px] text-muted">{option.description}</div>
+                      <div className="mb-1 font-display text-[19px] font-bold text-white">{option.title}</div>
+                      <div className="mb-4 text-[15px] text-muted">{option.description}</div>
                       <a
                         href={option.href}
                         target={option.href.startsWith("http") ? "_blank" : undefined}
                         rel={option.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         data-cursor-interactive
-                        className="inline-block border-b pb-px text-[13px] font-semibold transition-colors"
+                        className="inline-block border-b pb-px text-[15px] font-semibold transition-colors"
                         style={{ borderColor: iconChip(option.accentColor, 0.4), color: option.accentColor }}
                       >
                         {option.value}
@@ -362,7 +362,7 @@ export default async function AfterSalesServicePage() {
                 <Link
                   href={cta.ctaHref || "/contact"}
                   data-cursor-interactive
-                  className="inline-flex items-center gap-2 rounded bg-teal px-8 py-3.5 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-teal-dark"
+                  className="inline-flex items-center gap-2 rounded bg-teal px-8 py-3.5 text-[17px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-teal-dark"
                 >
                   {cta.ctaLabel}
                 </Link>

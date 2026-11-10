@@ -151,7 +151,7 @@ export async function ClientIndustryBands({
                       {industry}
                     </Heading>
                     <div
-                      className={`mt-0.5 text-[13px] ${
+                      className={`mt-0.5 text-[15px] ${
                         // `text-muted` (#6b7a8f) is 4.04:1 on off-white — just under
                         // the 4.5 needed for 13px text — so the light band uses the
                         // slate that measures 7.00:1 instead.
@@ -171,7 +171,7 @@ export async function ClientIndustryBands({
                     }`}
                   />
                   <div
-                    className={`mt-1 text-[11px] font-bold uppercase tracking-[1.5px] ${
+                    className={`mt-1 text-[13px] font-bold uppercase tracking-[1.5px] ${
                       countAccent[meta.accent]
                     }`}
                   >

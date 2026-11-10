@@ -87,7 +87,7 @@ export function PrincipleForm({
                 <div key={i} className="grid grid-cols-[1fr_1fr_auto_auto] items-center gap-2 rounded-lg border border-border/60 bg-navy/40 p-2">
                   <input className={inputCls} value={fact.label} placeholder="Founded" onChange={(e) => upd({ label: e.target.value })} />
                   <input className={inputCls} value={fact.value} placeholder="2009" onChange={(e) => upd({ value: e.target.value })} />
-                  <label className="flex items-center gap-1.5 whitespace-nowrap px-1 text-[11px] text-muted">
+                  <label className="flex items-center gap-1.5 whitespace-nowrap px-1 text-[13px] text-muted">
                     <input type="checkbox" checked={!!fact.accent} onChange={(e) => upd({ accent: e.target.checked })} /> accent
                   </label>
                   <button type="button" aria-label="Remove" onClick={() => set({ facts: v.facts.filter((_, idx) => idx !== i) })} className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-sm text-muted transition-colors hover:border-red-500/40 hover:text-red-300">✕</button>

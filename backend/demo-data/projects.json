@@ -3,7 +3,7 @@
   "sections": {
     "projectsHero": {
       "accent": "blue",
-      "badge": "38+ Projects · BDT 400+ Cr Delivered",
+      "badge": "38+ Projects · $400M+ Delivered",
       "headingLine1": "Work That",
       "headingHighlight": "Speaks",
       "headingSuffix": "For Itself",
@@ -14,8 +14,9 @@
       "stats": [
         {
           "value": 500,
-          "suffix": "Cr+",
-          "description": "Total PO value\ndelivered (BDT)"
+          "prefix": "$",
+          "suffix": "M+",
+          "description": "Total PO value\ndelivered (USD)"
         },
         {
           "value": 38,
@@ -42,7 +43,7 @@
           "statusLabel": "MEP · Ongoing",
           "title": "Factory Conversion MEP Works",
           "client": "British American Tobacco Bangladesh (BATB)",
-          "metric": "BDT 91 Cr",
+          "metric": "$91M",
           "valueCr": 91,
           "status": "Ongoing",
           "featured": true,
@@ -66,7 +67,7 @@
           "statusLabel": "MEP / EPC · Completed 2023",
           "title": "BATB SMD Savar MEP Works",
           "client": "British American Tobacco Bangladesh (BATB)",
-          "metric": "BDT 185.98 Cr",
+          "metric": "$185.98M",
           "valueCr": 185.98,
           "status": "Completed",
           "featured": true,
@@ -79,7 +80,7 @@
           "statusLabel": "Solar Power · Completed 2023",
           "title": "1575 kWp Solar Power Plant",
           "client": "Sharmin Group",
-          "metric": "BDT 7 Cr",
+          "metric": "$7M",
           "valueCr": 7,
           "status": "Completed",
           "image": "/assets/slider/solar/02.jpg"
@@ -197,7 +198,7 @@
           "accent": "teal",
           "filter": "mep",
           "title": "Largest EPC Contracts",
-          "description": "BTEL's MEP division has delivered the company's highest-value projects — including the BDT 185.98 Cr BATB Savar facility and a BDT 91 Cr ongoing factory conversion. Both are among the largest private MEP contracts in Bangladesh."
+          "description": "BTEL's MEP division has delivered the company's highest-value projects — including the $185.98M BATB Savar facility and a $91M ongoing factory conversion. Both are among the largest private MEP contracts in Bangladesh."
         },
         {
           "tag": "Solar",

@@ -18,7 +18,7 @@ export async function ServicesCtaSection() {
       <AnimatedGlow />
 
       <Reveal className="relative z-1 mx-auto max-w-2xl">
-        <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+        <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
           {c.eyebrow}
         </div>
         <h2 className="mb-4 whitespace-pre-line font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-[1.1] text-white">

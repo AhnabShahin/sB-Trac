@@ -36,7 +36,7 @@ export async function ContactSection() {
       <div className="relative z-1 mx-auto grid max-w-6xl grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
         <div>
           <Reveal>
-            <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+            <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
               Get In Touch
             </div>
             <h2 className="mb-4 font-display text-[clamp(36px,4vw,52px)] font-extrabold leading-[1.05] text-white">
@@ -59,7 +59,7 @@ export async function ContactSection() {
                     <Icon width={18} height={18} />
                   </div>
                   <div>
-                    <div className="mb-[3px] text-[11px] uppercase tracking-wide text-muted">
+                    <div className="mb-[3px] text-[13px] uppercase tracking-wide text-muted">
                       {row.label}
                     </div>
                     <div className="text-sm font-medium text-white transition-colors duration-300 group-hover:text-blue-light">

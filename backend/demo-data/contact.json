@@ -26,11 +26,11 @@
         "Multiple Services"
       ],
       "budgets": [
-        "Under 50 Lakh",
-        "50 Lakh – 1 Cr",
-        "1 Cr – 5 Cr",
-        "5 Cr – 20 Cr",
-        "20 Cr+",
+        "Under $0.5M",
+        "$0.5M – $1M",
+        "$1M – $5M",
+        "$5M – $20M",
+        "$20M+",
         "Prefer not to say"
       ],
       "consentLabel": "I agree to be contacted by BTEL's engineering team regarding this inquiry and related services.",
@@ -75,7 +75,7 @@
         },
         {
           "question": "What is the minimum project size BTEL takes on?",
-          "answer": "BTEL works with projects of all sizes — from a single transformer to a BDT 185 Cr MEP contract. For chemical supply, there's no minimum order. Contact us to discuss your specific requirements."
+          "answer": "BTEL works with projects of all sizes — from a single transformer to a $185M MEP contract. For chemical supply, there's no minimum order. Contact us to discuss your specific requirements."
         },
         {
           "question": "Is BTEL ISO certified?",

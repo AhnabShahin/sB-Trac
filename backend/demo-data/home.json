@@ -30,8 +30,9 @@
         },
         {
           "value": 500,
-          "suffix": "Cr+",
-          "label": "Total PO Value (BDT)"
+          "prefix": "$",
+          "suffix": "M+",
+          "label": "Total PO Value (USD)"
         },
         {
           "value": 16,
@@ -124,7 +125,7 @@
         },
         {
           "label": "Largest Project",
-          "value": "BDT 185 Cr (BATB, 2023)",
+          "value": "$185M (BATB, 2023)",
           "accent": true
         }
       ],
@@ -140,8 +141,8 @@
           "description": "Projects delivered & ongoing across all five divisions"
         },
         {
-          "value": "BDT 500",
-          "accent": "Cr+",
+          "value": "$500",
+          "accent": "M+",
           "description": "Total purchase order value delivered to date"
         },
         {
@@ -259,8 +260,8 @@
         },
         {
           "year": "2023",
-          "title": "Became one of the largest MEP Solution provider for BATB with a project valued at BDT 185 Cr.",
-          "description": "Delivered the largest single project in BTEL history — British American Tobacco Bangladesh Savar Factory MEP, at BDT 185 Cr.",
+          "title": "Became one of the largest MEP Solution provider for BATB with a project valued at $185M.",
+          "description": "Delivered the largest single project in BTEL history — British American Tobacco Bangladesh Savar Factory MEP, at $185M.",
           "image": "/assets/timeline/2023.jpg"
         }
       ]
@@ -277,7 +278,7 @@
           "countSuffix": "projects",
           "highlightLabel": "Highest Value",
           "title": "Completed Substation & Switchgear System at MJL, Bangladesh",
-          "metric": "BDT 5.82 Cr",
+          "metric": "$5.82M",
           "href": "/projects?filter=substation#portfolio",
           "image": "/assets/hero/substation.jpg"
         },
@@ -288,7 +289,7 @@
           "countSuffix": "projects",
           "highlightLabel": "Highest Value",
           "title": "5MWP Solar Power Plant for Akij Textile Mills Ltd.",
-          "metric": "BDT 7 Cr",
+          "metric": "$7M",
           "href": "/projects?filter=solar#portfolio",
           "image": "/assets/hero/solar.jpg"
         },
@@ -310,7 +311,7 @@
           "countSuffix": "Customer Delivered",
           "highlightLabel": "Value",
           "title": "1.5+ Tones",
-          "metric": "BDT 18.5 Lac",
+          "metric": "$185K",
           "href": "/projects?filter=water-treatment#portfolio",
           "image": "/assets/hero/water.jpg"
         }
@@ -320,7 +321,7 @@
       "eyebrow": "Ready to Partner?",
       "headingLine1": "Let's Engineer Your Next Project",
       "headingLine2": "From Design to Commissioning",
-      "body": "Five engineering divisions under one roof — substation & switchgear, solar power, MEP/EPC, water treatment, and lifetime after-sales support. Since 2009, BTEL has delivered BDT 500 Cr+ in projects for 60+ of Bangladesh's most demanding industrial clients, with design, procurement, installation, and commissioning handled entirely in-house.",
+      "body": "Five engineering divisions under one roof — substation & switchgear, solar power, MEP/EPC, water treatment, and lifetime after-sales support. Since 2009, BTEL has delivered $500M+ in projects for 60+ of Bangladesh's most demanding industrial clients, with design, procurement, installation, and commissioning handled entirely in-house.",
       "ctaLabel": "Explore Products & Services →",
       "ctaHref": "/products-services"
     },

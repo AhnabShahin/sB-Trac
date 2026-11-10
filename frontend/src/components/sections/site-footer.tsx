@@ -36,7 +36,7 @@ export async function SiteFooter() {
         />
       </FooterHomeLink>
 
-      <div className="text-[13px] text-muted">
+      <div className="text-[15px] text-muted">
         © {new Date().getFullYear()} {copyrightText}
       </div>
 
@@ -44,7 +44,7 @@ export async function SiteFooter() {
         {badges.map((badge) => (
           <span
             key={badge}
-            className="rounded border border-border bg-white/5 px-3 py-1.5 text-[11px] font-bold tracking-[0.5px] text-muted"
+            className="rounded border border-border bg-white/5 px-3 py-1.5 text-[13px] font-bold tracking-[0.5px] text-muted"
           >
             {badge}
           </span>

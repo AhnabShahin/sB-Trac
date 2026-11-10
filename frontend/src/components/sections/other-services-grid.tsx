@@ -17,7 +17,7 @@ export function OtherServicesGrid({ content }: { content: OtherServicesSectionCo
     <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal>
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-blue-light">
+          <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-blue-light">
             {content.eyebrow}
           </div>
           <h2 className="mb-10 font-display text-[clamp(28px,3.2vw,38px)] font-extrabold leading-[1.1] text-white">
@@ -52,7 +52,7 @@ export function OtherServicesGrid({ content }: { content: OtherServicesSectionCo
                 >
                   {card.title}
                 </h3>
-                <p className="mb-1 text-[13px] leading-[1.5] text-muted">{card.description}</p>
+                <p className="mb-1 text-[15px] leading-[1.5] text-muted">{card.description}</p>
                 <span
                   aria-hidden="true"
                   className="absolute bottom-6 right-6 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"

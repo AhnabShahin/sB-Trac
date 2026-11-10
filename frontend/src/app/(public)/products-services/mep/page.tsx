@@ -43,7 +43,7 @@ export default async function MepServicePage() {
               fill
               priority
               loading="eager"
-              className="object-cover object-center opacity-50"
+              className="object-cover object-center opacity-[0.66] blur-[3px] scale-[1.06]"
               sizes="100vw"
             />
           </div>
@@ -58,7 +58,7 @@ export default async function MepServicePage() {
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20">
             <ServiceDetailHero accent="amber">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -124,7 +124,7 @@ export default async function MepServicePage() {
                     {pillar.letter}
                   </div>
                   <h3 className="mb-2 font-display text-lg font-bold text-white">{pillar.name}</h3>
-                  <p className="text-[13px] leading-[1.6] text-muted">{pillar.description}</p>
+                  <p className="text-[15px] leading-[1.6] text-muted">{pillar.description}</p>
                 </div>
               ))}
             </StaggerGroup>
@@ -137,7 +137,7 @@ export default async function MepServicePage() {
           <div className="mx-auto max-w-5xl">
             {services ? (
               <Reveal>
-                <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-amber">
+                <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-amber">
                   {services.eyebrow}
                 </div>
                 <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
@@ -178,9 +178,9 @@ export default async function MepServicePage() {
                       </div>
                       <div>
                         <h3 className="mb-1.5 font-display text-lg font-bold text-white">{service.title}</h3>
-                        <p className="text-[13px] leading-[1.65] text-[#94A3B8]">{service.description}</p>
+                        <p className="text-[15px] leading-[1.65] text-[#94A3B8]">{service.description}</p>
                         <span
-                          className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-semibold transition-transform duration-300 group-hover:translate-x-0.5"
+                          className="mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-300 group-hover:translate-x-0.5"
                           style={{ color: service.accentColor }}
                         >
                           View products
@@ -214,7 +214,7 @@ export default async function MepServicePage() {
         <section className="bg-navy px-6 py-20 sm:px-12 lg:px-20">
           <div className="mx-auto max-w-5xl text-center">
             <Reveal>
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">{brands.eyebrow}</div>
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">{brands.eyebrow}</div>
               <h2 className="mb-8 font-display text-2xl font-extrabold text-white">{brands.heading}</h2>
             </Reveal>
             <div className="flex flex-wrap justify-center gap-3">

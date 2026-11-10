@@ -10,7 +10,7 @@ export async function ClientsSection() {
     <section id="clients" className="border-t border-border bg-navy">
       <div className="px-6 pb-14 pt-24 sm:px-12 lg:px-20">
         <Reveal className="mx-auto max-w-xl text-center">
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+          <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
             Trusted By
           </div>
           <h2 className="font-display text-[clamp(36px,4vw,52px)] font-extrabold leading-[1.05] text-white">

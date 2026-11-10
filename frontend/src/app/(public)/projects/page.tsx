@@ -84,7 +84,7 @@ export default async function ProjectsPage() {
                 fill
                 priority
                 loading="eager"
-                className="bg-ken-burns object-cover object-center opacity-50 will-change-transform"
+                className="bg-ken-burns object-cover object-center opacity-[0.66] blur-[3px] will-change-transform"
                 sizes="100vw"
               />
             </div>
@@ -109,7 +109,7 @@ export default async function ProjectsPage() {
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20">
             <ServiceDetailHero accent={hero.accent} maxWidth="max-w-3xl">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -163,7 +163,7 @@ export default async function ProjectsPage() {
                   className="font-display text-[clamp(30px,3.2vw,40px)] font-extrabold leading-none text-white"
                   suffixClassName="text-teal"
                 />
-                <div className="mt-2 whitespace-pre-line text-[13px] leading-[1.5] text-muted">
+                <div className="mt-2 whitespace-pre-line text-sm font-medium leading-[1.5] text-slate-300">
                   {stat.description}
                 </div>
               </div>
@@ -184,7 +184,7 @@ export default async function ProjectsPage() {
         <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal className="mx-auto max-w-xl text-center">
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
                 {trackRecord.eyebrow}
               </div>
               <h2 className="font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
@@ -208,7 +208,7 @@ export default async function ProjectsPage() {
       {cta ? (
         <section className="bg-navy2 px-6 py-20 text-center sm:px-12 lg:px-20">
           <Reveal className="mx-auto max-w-2xl">
-            <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+            <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
               {cta.eyebrow}
             </div>
             <h2 className="mb-4 font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-[1.1] text-white">
@@ -225,7 +225,7 @@ export default async function ProjectsPage() {
                   <Link
                     href={cta.ctaHref || "#"}
                     data-cursor-interactive
-                    className="inline-block rounded-[4px] bg-blue-light px-8 py-3.5 text-[15px] font-semibold text-navy transition-colors hover:bg-blue2"
+                    className="inline-block rounded-[4px] bg-blue-light px-8 py-3.5 text-[17px] font-semibold text-navy transition-colors hover:bg-blue2"
                   >
                     {cta.ctaLabel}
                   </Link>

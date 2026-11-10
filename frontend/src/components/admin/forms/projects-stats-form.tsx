@@ -41,9 +41,9 @@ export function ProjectsStatsForm({
               return (
                 <RepeaterItem key={i} onRemove={() => set(v.stats.filter((_, idx) => idx !== i))}>
                   <div className="grid gap-3 sm:grid-cols-[5rem_5rem_5rem]">
-                    <Field label="Prefix"><TextInput value={stat.prefix ?? ""} onChange={(x) => upd({ prefix: x })} placeholder="BDT " /></Field>
+                    <Field label="Prefix"><TextInput value={stat.prefix ?? ""} onChange={(x) => upd({ prefix: x })} placeholder="$" /></Field>
                     <Field label="Value"><input type="number" className={inputCls} value={stat.value} onChange={(e) => upd({ value: Number(e.target.value) || 0 })} /></Field>
-                    <Field label="Suffix"><TextInput value={stat.suffix} onChange={(x) => upd({ suffix: x })} placeholder="Cr+" /></Field>
+                    <Field label="Suffix"><TextInput value={stat.suffix} onChange={(x) => upd({ suffix: x })} placeholder="M+" /></Field>
                   </div>
                   <Field label="Caption" hint="Use a line break (Enter) to split onto two lines.">
                     <TextArea value={stat.description} onChange={(x) => upd({ description: x })} rows={2} />

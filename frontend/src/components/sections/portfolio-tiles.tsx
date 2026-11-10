@@ -58,7 +58,7 @@ export function PortfolioTiles({ cards }: { cards: PortfolioCard[] }) {
           />
 
           <div className="relative z-10">
-            <div className="mb-1 text-[11px] font-bold uppercase tracking-[1.5px] text-muted">
+            <div className="mb-1 text-[13px] font-bold uppercase tracking-[1.5px] text-muted">
               {card.categoryLabel}
             </div>
             <div className={cn("mb-4 font-display text-3xl font-extrabold", ACCENT_TEXT[card.accent])}>
@@ -66,14 +66,14 @@ export function PortfolioTiles({ cards }: { cards: PortfolioCard[] }) {
             </div>
             {card.title ? (
               <div className="border-t border-border/80 pt-3">
-                <div className="mb-1 text-[10px] font-bold uppercase tracking-[1.5px] text-muted">
+                <div className="mb-1 text-[12px] font-bold uppercase tracking-[1.5px] text-muted">
                   {card.highlightLabel}
                 </div>
                 <div className="text-sm font-semibold text-white">{card.title}</div>
-                {card.metric && <div className="mt-0.5 text-[13px] text-muted">{card.metric}</div>}
+                {card.metric && <div className="mt-0.5 text-[15px] text-muted">{card.metric}</div>}
               </div>
             ) : (
-              <div className="border-t border-border/80 pt-3 text-[13px] text-muted">
+              <div className="border-t border-border/80 pt-3 text-[15px] text-muted">
                 Value details available on request
               </div>
             )}

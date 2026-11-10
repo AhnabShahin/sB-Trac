@@ -363,7 +363,7 @@ function PageRow({
             Edit →
           </span>
         ) : (
-          <span className="shrink-0 rounded-full bg-border/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted">
+          <span className="shrink-0 rounded-full bg-border/60 px-2 py-0.5 text-[12px] font-medium uppercase tracking-wide text-muted">
             soon
           </span>
         )}

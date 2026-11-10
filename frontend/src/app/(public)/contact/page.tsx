@@ -72,7 +72,7 @@ export default async function ContactPage() {
                 fill
                 priority
                 loading="eager"
-                className="object-cover object-center opacity-50"
+                className="object-cover object-center opacity-[0.66] blur-[3px] scale-[1.06]"
                 sizes="100vw"
               />
             </div>
@@ -90,7 +90,7 @@ export default async function ContactPage() {
             <ServiceDetailHero accent="teal" maxWidth="max-w-6xl">
               <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1fr_480px] lg:items-start lg:gap-16">
                 <div>
-                  <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+                  <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                     <Link href="/" className="transition-colors hover:text-white">
                       Home
                     </Link>
@@ -130,7 +130,7 @@ export default async function ContactPage() {
                   {hero.whatsappLinks.length > 0 ? (
                     <div data-hero-item className="mt-8">
                       {hero.whatsappEyebrow ? (
-                        <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-[#94A3B8]">
+                        <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-[#94A3B8]">
                           {hero.whatsappEyebrow}
                         </div>
                       ) : null}
@@ -152,10 +152,10 @@ export default async function ContactPage() {
                                 <WhatsappIcon width={24} height={24} />
                               </span>
                               <span className="relative flex flex-col leading-tight">
-                                <span className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#25D366] transition-colors duration-300 group-hover:text-white/90">
+                                <span className="text-[12px] font-bold uppercase tracking-[1.5px] text-[#25D366] transition-colors duration-300 group-hover:text-white/90">
                                   WhatsApp
                                 </span>
-                                <span className="mt-0.5 font-display text-[17px] font-bold text-white transition-colors duration-300 group-hover:text-navy">
+                                <span className="mt-0.5 font-display text-[19px] font-bold text-white transition-colors duration-300 group-hover:text-navy">
                                   {line.label}
                                 </span>
                               </span>
@@ -189,7 +189,7 @@ export default async function ContactPage() {
         >
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
                 {details.eyebrow}
               </div>
               <h2 className="mb-2 font-display text-[clamp(28px,3.2vw,38px)] font-extrabold leading-[1.1] text-white">
@@ -219,10 +219,10 @@ export default async function ContactPage() {
                       <Icon width={17} height={17} />
                     </span>
                     <div className="min-w-0">
-                      <div className="mb-0.5 text-[10px] font-bold uppercase tracking-[1.5px] text-muted">
+                      <div className="mb-0.5 text-[12px] font-bold uppercase tracking-[1.5px] text-muted">
                         {card.label}
                       </div>
-                      <div className={`text-[13px] font-semibold leading-[1.45] ${card.accent ? "text-teal" : "text-white"}`}>
+                      <div className={`text-[15px] font-semibold leading-[1.45] ${card.accent ? "text-teal" : "text-white"}`}>
                         {card.value}
                       </div>
                     </div>
@@ -266,7 +266,7 @@ export default async function ContactPage() {
                       rel="noopener noreferrer"
                       data-cursor-interactive
                       data-stagger-item
-                      className="group inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2.5 text-[13px] font-semibold text-[#94A3B8] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:text-white"
+                      className="group inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2.5 text-[15px] font-semibold text-[#94A3B8] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:text-white"
                     >
                       <Icon width={16} height={16} className="transition-transform duration-300 group-hover:scale-110" />
                       {social.label}
@@ -278,7 +278,7 @@ export default async function ContactPage() {
 
             {details.mapEmbedSrc ? (
               <Reveal delay={0.1} className="mt-6 overflow-hidden rounded-[10px] border border-border">
-                <div className="border-b border-border bg-white/[0.03] px-4 py-2.5 text-[11px] font-bold uppercase tracking-[1.5px] text-muted">
+                <div className="border-b border-border bg-white/[0.03] px-4 py-2.5 text-[13px] font-bold uppercase tracking-[1.5px] text-muted">
                   {details.mapLabel || "Head Office Location"}
                 </div>
                 <iframe
@@ -300,7 +300,7 @@ export default async function ContactPage() {
         <section className="bg-navy2 px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal className="mx-auto max-w-xl text-center">
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
                 {faq.eyebrow}
               </div>
               <h2 className="mb-3 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">

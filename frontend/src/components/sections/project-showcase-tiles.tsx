@@ -144,7 +144,7 @@ export function ProjectShowcaseTiles({ projects }: { projects: Project[] }) {
             />
 
             <div className="relative z-10">
-              <div className="mb-1 text-[11px] font-bold uppercase tracking-[1.5px] text-muted">
+              <div className="mb-1 text-[13px] font-bold uppercase tracking-[1.5px] text-muted">
                 {category.label}
               </div>
               <div className={cn("mb-4 font-display text-3xl font-extrabold", ACCENT_TEXT[category.accent])}>
@@ -152,14 +152,14 @@ export function ProjectShowcaseTiles({ projects }: { projects: Project[] }) {
               </div>
               {title ? (
                 <div className="border-t border-border/80 pt-3">
-                  <div className="mb-1 text-[10px] font-bold uppercase tracking-[1.5px] text-muted">
+                  <div className="mb-1 text-[12px] font-bold uppercase tracking-[1.5px] text-muted">
                     {label}
                   </div>
                   <div className="text-sm font-semibold text-white">{title}</div>
-                  {metric && <div className="mt-0.5 text-[13px] text-muted">{metric}</div>}
+                  {metric && <div className="mt-0.5 text-[15px] text-muted">{metric}</div>}
                 </div>
               ) : (
-                <div className="border-t border-border/80 pt-3 text-[13px] text-muted">
+                <div className="border-t border-border/80 pt-3 text-[15px] text-muted">
                   Value details available on request
                 </div>
               )}

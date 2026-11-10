@@ -30,7 +30,7 @@ export function StatBandForm({
         <div className="space-y-3">
           {stats.map((stat, i) => (
             <div key={i} className="rounded-xl border border-border/60 bg-navy/40 p-3.5">
-              <div className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted">
+              <div className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-muted">
                 Stat {i + 1}
               </div>
               <div className="grid grid-cols-[6rem_5rem_1fr] items-start gap-2">

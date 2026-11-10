@@ -156,7 +156,7 @@ export function InquiriesWorkspace() {
             >
               {tab.label}
               {typeof count === "number" ? (
-                <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${active ? "bg-teal/25 text-teal-light" : "bg-border/60 text-muted"}`}>
+                <span className={`rounded-full px-1.5 py-0.5 text-[12px] font-bold ${active ? "bg-teal/25 text-teal-light" : "bg-border/60 text-muted"}`}>
                   {count}
                 </span>
               ) : null}
@@ -211,7 +211,7 @@ export function InquiriesWorkspace() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] border-collapse text-left text-sm">
               <thead>
-                <tr className="border-b border-border bg-navy2 text-[11px] uppercase tracking-wide text-muted">
+                <tr className="border-b border-border bg-navy2 text-[13px] uppercase tracking-wide text-muted">
                   <th className="px-4 py-3 font-semibold">Name / Company</th>
                   <th className="px-4 py-3 font-semibold">Service</th>
                   <th className="px-4 py-3 font-semibold">Budget</th>
@@ -234,7 +234,7 @@ export function InquiriesWorkspace() {
                     <td className="px-4 py-3 text-muted">{inq.budget || "—"}</td>
                     <td className="px-4 py-3 text-xs text-muted">{formatDate(inq.created_at)}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${STATUS_BADGE[inq.status]}`}>
+                      <span className={`inline-block rounded-full border px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide ${STATUS_BADGE[inq.status]}`}>
                         {inq.status}
                       </span>
                     </td>
@@ -335,7 +335,7 @@ function InquiryDetail({
     >
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <span className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${STATUS_BADGE[inquiry.status]}`}>
+          <span className={`inline-block rounded-full border px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide ${STATUS_BADGE[inquiry.status]}`}>
             {inquiry.status}
           </span>
           <span className="text-xs text-muted">{formatDate(inquiry.created_at)}</span>
@@ -349,7 +349,7 @@ function InquiryDetail({
         <DetailRow label="Newsletter opt-in" value={inquiry.newsletter ? "Yes" : "No"} />
 
         <div>
-          <div className="mb-1 text-[11px] font-bold uppercase tracking-wide text-muted">Message</div>
+          <div className="mb-1 text-[13px] font-bold uppercase tracking-wide text-muted">Message</div>
           <p className="whitespace-pre-line rounded-lg border border-border bg-card px-3.5 py-3 text-sm leading-relaxed text-offwhite/90">
             {inquiry.message}
           </p>
@@ -362,7 +362,7 @@ function InquiryDetail({
 function DetailRow({ label, value, href }: { label: string; value: string; href?: string }) {
   return (
     <div>
-      <div className="mb-0.5 text-[11px] font-bold uppercase tracking-wide text-muted">{label}</div>
+      <div className="mb-0.5 text-[13px] font-bold uppercase tracking-wide text-muted">{label}</div>
       {href ? (
         <a href={href} className="break-words text-sm font-medium text-teal-light hover:underline">
           {value}

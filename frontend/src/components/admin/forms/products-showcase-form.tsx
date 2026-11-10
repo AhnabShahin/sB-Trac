@@ -281,11 +281,11 @@ function RowList<T>({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={t} alt="" className="h-10 w-10 shrink-0 rounded-md border border-border/60 object-cover" />
                 ) : (
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-dashed border-border bg-navy/40 text-[9px] text-muted">img</span>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-dashed border-border bg-navy/40 text-[11px] text-muted">img</span>
                 )
               ) : null}
               {badge?.(item) ? (
-                <span className="shrink-0 rounded bg-teal/15 px-2 py-1 text-[11px] font-bold uppercase tracking-wide text-teal-light">{badge(item)}</span>
+                <span className="shrink-0 rounded bg-teal/15 px-2 py-1 text-[13px] font-bold uppercase tracking-wide text-teal-light">{badge(item)}</span>
               ) : null}
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium text-offwhite">{title(item)}</span>

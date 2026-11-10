@@ -51,7 +51,7 @@ export default async function PartnersPage() {
                 fill
                 priority
                 loading="eager"
-                className="bg-ken-burns object-cover object-[70%_center] opacity-50 will-change-transform sm:object-center"
+                className="bg-ken-burns object-cover object-[70%_center] opacity-[0.66] blur-[3px] will-change-transform sm:object-center"
                 sizes="100vw"
               />
             </div>
@@ -61,7 +61,7 @@ export default async function PartnersPage() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(14,21,40,0.70) 0%, rgba(14,21,40,0.85) 60%, rgba(14,21,40,0.98) 100%), radial-gradient(ellipse 60% 60% at 80% 40%, rgba(10,158,136,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 10% 80%, rgba(159,185,252,0.08) 0%, transparent 60%)",
+                "linear-gradient(180deg, rgba(22,33,63,0.52) 0%, rgba(22,33,63,0.60) 60%, rgba(22,33,63,0.82) 100%), radial-gradient(ellipse 60% 60% at 80% 40%, rgba(10,158,136,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 10% 80%, rgba(159,185,252,0.08) 0%, transparent 60%)",
             }}
           />
           <div
@@ -76,7 +76,7 @@ export default async function PartnersPage() {
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20">
             <ServiceDetailHero accent={hero.accent} maxWidth="max-w-3xl">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -125,7 +125,7 @@ export default async function PartnersPage() {
       {cta ? (
         <section className="bg-navy px-6 py-24 text-center sm:px-12 lg:px-20 lg:py-28">
           <Reveal className="mx-auto max-w-2xl">
-            <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+            <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
               {cta.eyebrow}
             </div>
             <h2 className="mb-9 font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-[1.1] text-white">
@@ -137,7 +137,7 @@ export default async function PartnersPage() {
                   <Link
                     href={cta.primaryHref || "#"}
                     data-cursor-interactive
-                    className="inline-block rounded-[4px] bg-teal px-8 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-teal-dark"
+                    className="inline-block rounded-[4px] bg-teal px-8 py-3.5 text-[17px] font-semibold text-white transition-colors hover:bg-teal-dark"
                   >
                     {cta.primaryLabel}
                   </Link>
@@ -147,7 +147,7 @@ export default async function PartnersPage() {
                 <Link
                   href={cta.secondaryHref || "#"}
                   data-cursor-interactive
-                  className="text-[15px] font-medium text-white/80 transition-colors hover:text-teal"
+                  className="text-[17px] font-medium text-white/80 transition-colors hover:text-teal"
                 >
                   {cta.secondaryLabel}
                 </Link>

@@ -35,12 +35,12 @@ export function ProfileMenu() {
         className="flex items-center gap-2 rounded-lg border border-border bg-navy/40 py-1.5 pl-1.5 pr-2.5 text-left transition-colors hover:border-teal/40"
         title="My profile"
       >
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal/15 text-[11px] font-bold text-teal-light">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal/15 text-[13px] font-bold text-teal-light">
           {initials(me.name)}
         </span>
         <span className="hidden min-w-0 leading-tight sm:block">
           <span className="block max-w-[140px] truncate text-xs font-semibold text-offwhite">{me.name}</span>
-          <span className="block text-[10px] uppercase tracking-wide text-muted">
+          <span className="block text-[12px] uppercase tracking-wide text-muted">
             {me.is_owner ? "Owner" : me.role}
           </span>
         </span>

@@ -66,7 +66,7 @@ export function FaqAccordion({ faqs }: { faqs: ContactFaq[] }) {
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="overflow-hidden"
                 >
-                  <p className="px-6 pb-7 text-[13px] leading-[1.65] text-[#94A3B8]">
+                  <p className="px-6 pb-7 text-[15px] leading-[1.65] text-[#94A3B8]">
                     {faq.answer}
                   </p>
                 </motion.div>

@@ -38,7 +38,7 @@ export function ProjectsHeroForm({
       <SectionCard title="Hero heading" description="The page banner — badge, big heading and intro.">
         <div className="space-y-4">
           <div className="grid gap-3 sm:grid-cols-[1fr_9rem]">
-            <Field label="Badge"><TextInput value={v.badge} onChange={(x) => set({ badge: x })} placeholder="38+ Projects · BDT 400+ Cr Delivered" /></Field>
+            <Field label="Badge"><TextInput value={v.badge} onChange={(x) => set({ badge: x })} placeholder="38+ Projects · $400M+ Delivered" /></Field>
             <Field label="Accent colour"><Select value={v.accent} onChange={(x) => set({ accent: x as ProjectsAccent })} options={ACCENT_OPTIONS} /></Field>
           </div>
           <div>

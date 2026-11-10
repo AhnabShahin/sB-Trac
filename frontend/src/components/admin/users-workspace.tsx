@@ -124,7 +124,7 @@ export function UsersWorkspace() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] border-collapse text-left text-sm">
               <thead>
-                <tr className="border-b border-border bg-navy2 text-[11px] uppercase tracking-wide text-muted">
+                <tr className="border-b border-border bg-navy2 text-[13px] uppercase tracking-wide text-muted">
                   <th className="px-4 py-3 font-semibold">User</th>
                   <th className="px-4 py-3 font-semibold">Permissions</th>
                   <th className="px-4 py-3 font-semibold">Created</th>
@@ -190,7 +190,7 @@ export function UsersWorkspace() {
 
 function OwnerPill() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-amber/40 bg-amber/15 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber">
+    <span className="inline-flex items-center gap-1 rounded-full border border-amber/40 bg-amber/15 px-1.5 py-0.5 text-[12px] font-bold uppercase tracking-wide text-amber">
       <svg viewBox="0 0 24 24" fill="currentColor" className="h-2.5 w-2.5">
         <path d="m12 2 2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L3.2 7.7l5.4-.8z" />
       </svg>
@@ -202,7 +202,7 @@ function OwnerPill() {
 function StatusBadge({ active }: { active: boolean }) {
   return (
     <span
-      className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+      className={`inline-block rounded-full border px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide ${
         active ? "border-teal/40 bg-teal/15 text-teal-light" : "border-border bg-white/5 text-muted"
       }`}
     >
@@ -222,7 +222,7 @@ function PermissionChips({ user }: { user: AdminUser }) {
   return (
     <div className="flex flex-wrap gap-1.5">
       {chips.map((c) => (
-        <span key={c} className="rounded-md border border-border bg-navy/60 px-2 py-0.5 text-[11px] font-medium text-offwhite/80">
+        <span key={c} className="rounded-md border border-border bg-navy/60 px-2 py-0.5 text-[13px] font-medium text-offwhite/80">
           {c}
         </span>
       ))}
@@ -536,7 +536,7 @@ function CreateUserModal({
           <TextInput value={password} onChange={setPassword} type="password" placeholder="••••••••" />
         </Field>
         <div className="space-y-3 rounded-lg border border-border bg-navy/40 p-3">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-muted">Permissions</p>
+          <p className="text-[13px] font-bold uppercase tracking-wide text-muted">Permissions</p>
           <Toggle checked={canEdit} onChange={setCanEdit} label="Can edit other users' profiles" />
           <Toggle checked={canReset} onChange={setCanReset} label="Can reset other users' passwords" />
         </div>

@@ -2,14 +2,11 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useGSAP } from "@gsap/react";
-import { gsap, registerGsap } from "@/lib/gsap";
+import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { BoltIcon, SunIcon, CraneIcon, DropletIcon, WrenchIcon } from "@/components/ui/icons";
 import type { HeroServiceCard } from "@/data/content-types";
-
-registerGsap();
 
 const ICON_MAP = {
   bolt: BoltIcon,
@@ -19,218 +16,259 @@ const ICON_MAP = {
   wrench: WrenchIcon,
 } as const;
 
-// The icon chip is the accent at 15% — derived here so the admin only ever sets
-// one colour per card. Falls back to the raw value for non-hex input.
-function iconChip(accent: string): string {
-  const hex = accent.replace("#", "").trim();
-  const full = hex.length === 3 ? hex.split("").map((c) => c + c).join("") : hex;
-  if (!/^[0-9a-fA-F]{6}$/.test(full)) return accent;
-  const r = parseInt(full.slice(0, 2), 16);
-  const g = parseInt(full.slice(2, 4), 16);
-  const b = parseInt(full.slice(4, 6), 16);
-  return `rgba(${r},${g},${b},0.15)`;
+const CX = 220;
+const CY = 220;
+const R_OUT = 212;
+const R_IN = 102;
+const R_MID = (R_OUT + R_IN) / 2;
+const GAP = 2.2;
+
+// 0deg = 12 o'clock, clockwise — so the wheel reads like a clock/pizza.
+function polar(r: number, deg: number): [number, number] {
+  const a = ((deg - 90) * Math.PI) / 180;
+  return [CX + r * Math.cos(a), CY + r * Math.sin(a)];
 }
 
-/**
- * The hover-only artwork behind a service card.
- *
- * The reveal is gated on the bitmap's own `load` event rather than on hover
- * alone. It used to be driven purely by `group-hover:opacity-100`, so hovering
- * a card that had not been fetched yet animated the dark scrim in over an empty
- * tile and the photograph popped in a beat later — the "loading glitch". The
- * `<picture>` now stays mounted (so the browser keeps fetching it) behind an
- * inline `opacity: 0`, and that inline style is dropped only once the image has
- * loaded, so the two layers can never fade in over missing pixels.
- */
-function HeroCardHoverArt({
-  src,
-  title,
-  scrim,
-}: {
-  src: string;
-  title: string;
-  scrim: string;
-}) {
-  const [ready, setReady] = useState(false);
-
-  return (
-    <div
-      aria-hidden="true"
-      // Inline while loading so it outranks the `group-hover:opacity-100` class
-      // below; removed on load, handing control back to the hover transition.
-      style={ready ? undefined : { opacity: 0 }}
-      className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
-    >
-      {/* Hover Image Reveal (next/image negotiates WebP/AVIF from the one source). */}
-      <Image
-        src={src}
-        alt={`${title} Background`}
-        fill
-        sizes="(min-width: 1024px) 220px, 45vw"
-        className="scale-110 object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
-        loading="lazy"
-        decoding="async"
-        onLoad={() => setReady(true)}
-      />
-
-      {/* Dark Overlay Gradient on Hover for Maximum Legibility */}
-      <div className="absolute inset-0" style={{ background: scrim }} />
-    </div>
-  );
+function sectorPath(a0: number, a1: number): string {
+  const [x0o, y0o] = polar(R_OUT, a0);
+  const [x1o, y1o] = polar(R_OUT, a1);
+  const [x1i, y1i] = polar(R_IN, a1);
+  const [x0i, y0i] = polar(R_IN, a0);
+  const large = a1 - a0 <= 180 ? 0 : 1;
+  return `M ${x0o} ${y0o} A ${R_OUT} ${R_OUT} 0 ${large} 1 ${x1o} ${y1o} L ${x1i} ${y1i} A ${R_IN} ${R_IN} 0 ${large} 0 ${x0i} ${y0i} Z`;
 }
+
+interface Slice {
+  card: HeroServiceCard;
+  path: string;
+  mid: number;
+  cxPct: number;
+  cyPct: number;
+  lx: number;
+  ly: number;
+  Icon: (typeof ICON_MAP)[keyof typeof ICON_MAP];
+}
+
+function buildSlices(cards: HeroServiceCard[]): Slice[] {
+  const seg = 360 / cards.length;
+  return cards.map((card, i) => {
+    const a0 = i * seg + GAP / 2;
+    const a1 = (i + 1) * seg - GAP / 2;
+    const mid = (a0 + a1) / 2;
+    const [mx, my] = polar(R_MID, mid);
+    const rad = ((mid - 90) * Math.PI) / 180;
+    return {
+      card,
+      path: sectorPath(a0, a1),
+      mid,
+      cxPct: (mx / (CX * 2)) * 100,
+      cyPct: (my / (CY * 2)) * 100,
+      lx: Math.cos(rad),
+      ly: Math.sin(rad),
+      Icon: ICON_MAP[card.icon] ?? BoltIcon,
+    };
+  });
+}
+
+type Expanding = { href: string; accent: string; title: string; x: number; y: number; scale: number } | null;
 
 export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
+  const router = useRouter();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [expanding, setExpanding] = useState<Expanding>(null);
 
-  useGSAP(
-    () => {
-      if (!cardsRef.current) return;
-      const cards = Array.from(cardsRef.current.querySelectorAll<HTMLElement>("[data-scard]"));
+  if (cards.length === 0) return null;
 
-      if (reducedMotion) {
-        gsap.set(cards, { opacity: 1, rotateX: 0, rotateY: 0, y: 0 });
-        return;
-      }
+  const slices = buildSlices(cards);
+  const activeSlice = slices[Math.min(active, slices.length - 1)];
+  const activeCard = activeSlice.card;
 
-      gsap.set(cards, { transformPerspective: 600, transformOrigin: "50% 100%" });
-
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 40, rotateX: -70 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.85,
-          ease: "power3.out",
-          stagger: 0.1,
-          delay: 0.2,
-        }
-      );
-
-      if (!window.matchMedia("(pointer: fine)").matches) return;
-
-      const icons = cards.map((card) => card.querySelector<HTMLElement>("[data-scard-icon]"));
-
-      const resetTilt = (index: number) => {
-        gsap.to(cards[index], { rotateX: 0, rotateY: 0, scale: 1, duration: 0.5, ease: "power3.out", overwrite: true });
-        const icon = icons[index];
-        if (icon) {
-          gsap.to(icon, { x: 0, y: 0, scale: 1, duration: 0.4, ease: "power3.out", overwrite: true });
-        }
-      };
-
-      const onCardMove = (card: HTMLElement, index: number) => (e: PointerEvent) => {
-        const rect = card.getBoundingClientRect();
-        const px = (e.clientX - rect.left) / rect.width - 0.5;
-        const py = (e.clientY - rect.top) / rect.height - 0.5;
-
-        gsap.to(card, {
-          rotateX: py * -14,
-          rotateY: px * 14,
-          scale: 1.03,
-          duration: 0.5,
-          ease: "power3.out",
-          overwrite: true,
-        });
-
-        const icon = icons[index];
-        if (icon) {
-          gsap.to(icon, {
-            x: px * 10,
-            y: py * 10 - 4,
-            scale: 1.12,
-            duration: 0.4,
-            ease: "power3.out",
-            overwrite: true,
-          });
-        }
-      };
-
-      const cleanups = cards.map((card, index) => {
-        const move = onCardMove(card, index);
-        const enter = () => {
-          card.style.willChange = "transform";
-        };
-        const leave = () => {
-          resetTilt(index);
-          card.style.willChange = "auto";
-        };
-        card.addEventListener("pointerenter", enter, { passive: true });
-        card.addEventListener("pointermove", move, { passive: true });
-        card.addEventListener("pointerleave", leave, { passive: true });
-        return () => {
-          card.removeEventListener("pointerenter", enter);
-          card.removeEventListener("pointermove", move);
-          card.removeEventListener("pointerleave", leave);
-        };
-      });
-
-      return () => cleanups.forEach((cleanup) => cleanup());
-    },
-    { scope: containerRef, dependencies: [reducedMotion] }
-  );
+  const open = (slice: Slice) => {
+    if (reducedMotion || !wrapRef.current) {
+      router.push(slice.card.href || "#");
+      return;
+    }
+    const rect = wrapRef.current.getBoundingClientRect();
+    const x = rect.left + (slice.cxPct / 100) * rect.width;
+    const y = rect.top + (slice.cyPct / 100) * rect.height;
+    const corners = [
+      [0, 0],
+      [window.innerWidth, 0],
+      [0, window.innerHeight],
+      [window.innerWidth, window.innerHeight],
+    ];
+    const maxDist = Math.max(...corners.map(([cx, cy]) => Math.hypot(cx - x, cy - y)));
+    const base = 48;
+    const scale = Math.ceil((2 * maxDist) / base) + 1;
+    setExpanding({ href: slice.card.href || "#", accent: slice.card.accent, title: slice.card.title, x, y, scale });
+  };
 
   return (
-    <div ref={containerRef} className="w-full max-w-[440px]">
-      <div ref={cardsRef} className="grid grid-cols-2 gap-3">
-        {cards.map((card, i) => {
-          const Icon = ICON_MAP[card.icon] ?? BoltIcon;
-          return (
-            <Link
-              key={`${card.title}-${i}`}
-              href={card.href || "#"}
-              data-scard
-              data-cursor-interactive
-              // No `backdrop-blur` here. These five cards sit directly on top of the
-              // auto-playing hero video, so every blurred card forced the browser
-              // to re-snapshot and re-blur that video on each frame — five
-              // backdrop filters over live video. On top of that, the entrance
-              // timeline animates `opacity` 0->1 on these very elements, and
-              // animating opacity on a backdrop-filtered layer is a well-known
-              // source of flicker as the backdrop is re-rasterised mid-tween.
-              // The alpha is raised to make up for the lost frost; the backdrop
-              // behind the right-hand column is already darkened by the hero's
-              // gradient overlays, so legibility is unaffected.
-              className="group relative block cursor-pointer overflow-hidden rounded-lg border border-white/15 bg-navy/55 px-5 py-6 pb-7 transition-[background,border-color,box-shadow] duration-300 hover:border-white/30 hover:bg-navy/70 hover:shadow-lg"
-              style={card.wide ? { gridColumn: "span 2" } : undefined}
-            >
-              {card.image ? (
-                <HeroCardHoverArt
-                  src={card.image}
-                  title={card.title}
-                  scrim="linear-gradient(115deg, rgba(6,15,26,0.94) 15%, rgba(6,15,26,0.80) 55%, rgba(6,15,26,0.60) 100%)"
-                />
-              ) : null}
+    <div className="relative w-full">
+      <div ref={wrapRef} className="relative mx-auto aspect-square w-full max-w-[520px]">
+        <svg viewBox={`0 0 ${CX * 2} ${CY * 2}`} className="absolute inset-0 h-full w-full overflow-visible">
+          <defs>
+            {slices.map((s, i) => (
+              <radialGradient key={i} id={`slice-grad-${i}`} cx="50%" cy="50%" r="78%">
+                <stop offset="0%" stopColor={s.card.accent} stopOpacity={0.3} />
+                <stop offset="100%" stopColor={s.card.accent} stopOpacity={0.92} />
+              </radialGradient>
+            ))}
+          </defs>
 
-              <span
-                className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
-                style={{ background: card.accent }}
+          <circle cx={CX} cy={CY} r={R_IN - 6} fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth={1} />
+
+          {slices.map((s, i) => {
+            const isActive = i === active;
+            return (
+              <motion.path
+                key={`${s.card.title}-${i}`}
+                d={s.path}
+                role="link"
+                tabIndex={0}
+                aria-label={`${s.card.title} — ${s.card.subtitle}`}
+                data-cursor-interactive
+                fill={`url(#slice-grad-${i})`}
+                stroke={s.card.accent}
+                strokeWidth={isActive ? 2 : 1}
+                strokeOpacity={isActive ? 0.95 : 0.4}
+                className="cursor-pointer outline-none focus-visible:stroke-white"
+                style={{
+                  transformBox: "view-box",
+                  transformOrigin: `${CX}px ${CY}px`,
+                  filter: isActive ? `drop-shadow(0 0 16px ${s.card.accent}bb)` : "none",
+                }}
+                initial={reducedMotion ? false : { opacity: 0, scale: 0.6 }}
+                animate={{
+                  opacity: 1,
+                  scale: isActive ? 1.055 : 1,
+                  x: isActive ? s.lx * 8 : 0,
+                  y: isActive ? s.ly * 8 : 0,
+                  fillOpacity: isActive ? 1 : 0.8,
+                }}
+                transition={
+                  reducedMotion
+                    ? { duration: 0 }
+                    : { opacity: { duration: 0.5, delay: 0.15 + i * 0.08 }, default: { type: "spring", stiffness: 260, damping: 22 } }
+                }
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                onClick={() => open(s)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    open(s);
+                  }
+                }}
               />
-              <div className="relative z-10">
-                <div
-                  data-scard-icon
-                  className="mb-3.5 flex h-10 w-10 items-center justify-center rounded-lg"
-                  style={{ background: iconChip(card.accent), color: card.accent }}
+            );
+          })}
+        </svg>
+
+        {/* Icon + title per slice — HTML overlay at each centroid, clicks fall through. */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          {slices.map((s, i) => {
+            const isActive = i === active;
+            const Icon = s.Icon;
+            return (
+              <div
+                key={i}
+                className="absolute flex w-[96px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 text-center transition-transform duration-300"
+                style={{
+                  left: `${s.cxPct}%`,
+                  top: `${s.cyPct}%`,
+                  transform: `translate(-50%, -50%) translate(${isActive ? s.lx * 8 : 0}px, ${isActive ? s.ly * 8 : 0}px) scale(${isActive ? 1.08 : 1})`,
+                }}
+              >
+                <Icon width={24} height={24} className="text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.55)]" />
+                <span
+                  className={`font-display text-[12.5px] font-bold leading-[1.15] drop-shadow-[0_1px_3px_rgba(0,0,0,0.65)] ${
+                    isActive ? "text-white" : "text-white/85"
+                  }`}
                 >
-                  <Icon width={20} height={20} />
-                </div>
-                <div className="mb-1.5 font-display text-base font-bold leading-tight text-white">
-                  {card.title}
-                </div>
-                <div
-                  className="text-xs leading-relaxed text-muted transition-colors duration-500 group-hover:text-white/90"
-                  style={card.wide ? { maxWidth: "320px" } : undefined}
-                >
-                  {card.subtitle}
-                </div>
+                  {s.card.title}
+                </span>
               </div>
-            </Link>
-          );
-        })}
+            );
+          })}
+        </div>
+
+        {/* Center hub — subtitle detail + CTA for the active division. */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <button
+            type="button"
+            data-cursor-interactive
+            onClick={() => open(activeSlice)}
+            aria-label={`Open ${activeCard.title}`}
+            className="pointer-events-auto flex aspect-square w-[42%] cursor-pointer flex-col items-center justify-center rounded-full border border-white/12 bg-navy/75 px-4 text-center backdrop-blur-sm transition-colors hover:border-white/25"
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={active}
+                initial={reducedMotion ? false : { opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reducedMotion ? undefined : { opacity: 0, y: -6 }}
+                transition={{ duration: 0.25 }}
+                className="flex flex-col items-center"
+              >
+                <span className="font-display text-[16px] font-bold leading-tight text-white">
+                  {activeCard.title}
+                </span>
+                <span className="mt-1.5 max-w-[150px] text-[13px] leading-[1.4] text-slate-300">
+                  {activeCard.subtitle}
+                </span>
+                <span className="mt-2 inline-flex items-center gap-1 text-[13px] font-bold uppercase tracking-[0.12em] text-teal">
+                  View <span aria-hidden="true">→</span>
+                </span>
+              </motion.span>
+            </AnimatePresence>
+          </button>
+        </div>
       </div>
+
+      {/* Progressive-enhancement / SEO: real links to every division. */}
+      <ul className="sr-only">
+        {cards.map((card, i) => (
+          <li key={i}>
+            <Link href={card.href || "#"}>{card.title}</Link>
+          </li>
+        ))}
+      </ul>
+
+      <AnimatePresence>
+        {expanding ? (
+          <motion.div className="pointer-events-none fixed inset-0 z-[70]" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div
+              className="absolute rounded-full"
+              style={{
+                left: expanding.x,
+                top: expanding.y,
+                width: 48,
+                height: 48,
+                marginLeft: -24,
+                marginTop: -24,
+                background: expanding.accent,
+              }}
+              initial={{ scale: 1 }}
+              animate={{ scale: expanding.scale }}
+              transition={{ duration: 0.72, ease: [0.7, 0, 0.25, 1] }}
+              onAnimationComplete={() => router.push(expanding.href)}
+            />
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.3 }}
+            >
+              <span className="font-display text-[clamp(28px,5vw,56px)] font-extrabold tracking-tight text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.4)]">
+                {expanding.title}
+              </span>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

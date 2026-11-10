@@ -446,7 +446,7 @@ export function StrengthCloudView({ content }: { content: StrengthContent }) {
 
         {/* ---- Right: the content column ---- */}
         <div className="order-1 lg:order-2">
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal-light">
+          <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal-light">
             {content.eyebrow}
           </div>
           <h2
@@ -472,10 +472,10 @@ export function StrengthCloudView({ content }: { content: StrengthContent }) {
                     <Icon width={20} height={20} />
                   </div>
                   <div>
-                    <h3 className="mb-1.5 font-display text-[15px] font-bold text-white">
+                    <h3 className="mb-1.5 font-display text-[17px] font-bold text-white">
                       {pillar.title}
                     </h3>
-                    <p className="text-[13px] leading-[1.65] text-muted">
+                    <p className="text-[15px] leading-[1.65] text-muted">
                       {pillar.description}
                     </p>
                   </div>

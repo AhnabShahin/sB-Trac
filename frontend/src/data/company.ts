@@ -17,8 +17,8 @@ export async function getCompanyStats(): Promise<CompanyStat[]> {
       description: "Projects delivered & ongoing across all five divisions",
     },
     {
-      value: "BDT 500",
-      accent: "Cr+",
+      value: "$500",
+      accent: "M+",
       description: "Total purchase order value delivered to date",
     },
     {
@@ -85,7 +85,7 @@ export async function getAtAGlanceFacts(): Promise<AtAGlanceFact[]> {
     { label: "Certification", value: "ISO 9001:2015", accent: true },
     { label: "Headquarters", value: "Banani, Dhaka" },
     { label: "Service Divisions", value: "5 Divisions" },
-    { label: "Largest Project", value: "BDT 185 Cr (BATB, 2023)", accent: true },
+    { label: "Largest Project", value: "$185M (BATB, 2023)", accent: true },
   ];
 }
 
@@ -160,8 +160,8 @@ export async function getTimeline(): Promise<TimelineMilestone[]> {
     },
     {
       year: "2023",
-      title: "Became one of the largest MEP Solution provider for BATB with a project valued at BDT 185 Cr.",
-      description: "Delivered the largest single project in BTEL history — British American Tobacco Bangladesh Savar Factory MEP, at BDT 185 Cr.",
+      title: "Became one of the largest MEP Solution provider for BATB with a project valued at $185M.",
+      description: "Delivered the largest single project in BTEL history — British American Tobacco Bangladesh Savar Factory MEP, at $185M.",
       image: "/assets/timeline/2023.jpg",
       webpImage: "/assets/timeline/2023.webp",
     },
@@ -182,7 +182,7 @@ export interface Project {
   client: string;
   /** Category-appropriate metric: currency value (EPC/MEP), capacity (Solar), kVA (Substation), or tonnage (Water Treatment). */
   metric: string;
-  /** PO value in BDT Crore, used for showcase/highest-value ranking. Omit when no PO value applies (e.g. AMC-only after-sales work). */
+  /** PO value in USD millions (kept as the numeric value shown as $NM), used for showcase/highest-value ranking. Omit when no PO value applies (e.g. AMC-only after-sales work). */
   valueCr?: number;
   status: "Ongoing" | "Completed";
   /** Longer copy shown only on featured cards in the /projects portfolio grid. */
@@ -201,7 +201,7 @@ export async function getProjects(): Promise<Project[]> {
       statusLabel: "MEP · Ongoing",
       title: "Factory Conversion MEP Works",
       client: "British American Tobacco Bangladesh (BATB)",
-      metric: "BDT 91 Cr",
+      metric: "$91M",
       valueCr: 91,
       status: "Ongoing",
       featured: true,
@@ -228,7 +228,7 @@ export async function getProjects(): Promise<Project[]> {
       statusLabel: "MEP / EPC · Completed 2023",
       title: "BATB SMD Savar MEP Works",
       client: "British American Tobacco Bangladesh (BATB)",
-      metric: "BDT 185.98 Cr",
+      metric: "$185.98M",
       valueCr: 185.98,
       status: "Completed",
       featured: true,
@@ -243,7 +243,7 @@ export async function getProjects(): Promise<Project[]> {
       statusLabel: "Solar Power · Completed 2023",
       title: "1575 kWp Solar Power Plant",
       client: "Sharmin Group",
-      metric: "BDT 7 Cr",
+      metric: "$7M",
       valueCr: 7,
       status: "Completed",
       image: "/assets/slider/solar/02.jpg",

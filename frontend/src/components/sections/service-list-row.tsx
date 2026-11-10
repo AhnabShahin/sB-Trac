@@ -115,7 +115,7 @@ export function ServiceListRow({ service }: { service: ServiceRow }) {
 
         <div className="min-w-0">
           <div className="mb-2 flex flex-wrap items-baseline gap-2 sm:gap-3">
-            <span className="font-display text-[10px] font-bold tracking-[0.5px] text-muted">
+            <span className="font-display text-[12px] font-bold tracking-[0.5px] text-muted">
               {service.index}
             </span>
             <h3 className="font-display text-lg font-extrabold leading-tight text-white transition-colors duration-300 group-hover/row:text-teal sm:text-[22px]">
@@ -133,7 +133,7 @@ export function ServiceListRow({ service }: { service: ServiceRow }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.4, delay: 0.1 + tagIndex * 0.05, ease: "easeOut" }}
-                className="rounded-[3px] border border-teal/15 bg-teal/[0.08] px-2 py-[3px] text-[11px] font-semibold text-teal"
+                className="rounded-[3px] border border-teal/15 bg-teal/[0.08] px-2 py-[3px] text-[13px] font-semibold text-teal"
               >
                 {tag}
               </motion.span>

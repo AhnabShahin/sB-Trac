@@ -2,6 +2,7 @@ import clientsManifest from "@/data/clients.json";
 
 export interface HeroStat {
   value: number;
+  prefix?: string;
   suffix: string;
   label: string;
 }
@@ -42,7 +43,7 @@ export async function getHeroStats(): Promise<HeroStat[]> {
   return [
     { value: 60, suffix: "+", label: "Clients" },
     { value: 38, suffix: "+", label: "Projects" },
-    { value: 500, suffix: "Cr+", label: "Total PO Value (BDT)" },
+    { value: 500, prefix: "$", suffix: "M+", label: "Total PO Value (USD)" },
     { value: 16, suffix: "yr", label: "Years of Experience" },
   ];
 }

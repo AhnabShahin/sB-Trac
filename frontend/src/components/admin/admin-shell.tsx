@@ -164,7 +164,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                 >
                   <Icon className="h-5 w-5 shrink-0" />
                   <span className={cn("flex-1", collapsed && "md:hidden")}>{item.label}</span>
-                  <span className={cn("rounded bg-border/60 px-1.5 py-0.5 text-[10px] uppercase tracking-wide", collapsed && "md:hidden")}>
+                  <span className={cn("rounded bg-border/60 px-1.5 py-0.5 text-[12px] uppercase tracking-wide", collapsed && "md:hidden")}>
                     soon
                   </span>
                 </span>

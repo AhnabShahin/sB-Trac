@@ -39,11 +39,11 @@ export const SERVICE_OPTIONS = [
 export const CERT_BADGES = ["ISO 9001:2015", "EPC Licensed", "Since 2009"];
 
 export const BUDGET_OPTIONS = [
-  "Under 50 Lakh",
-  "50 Lakh – 1 Cr",
-  "1 Cr – 5 Cr",
-  "5 Cr – 20 Cr",
-  "20 Cr+",
+  "Under $0.5M",
+  "$0.5M – $1M",
+  "$1M – $5M",
+  "$5M – $20M",
+  "$20M+",
   "Prefer not to say",
 ];
 
@@ -129,7 +129,7 @@ export async function getContactFaqs(): Promise<ContactFaq[]> {
     {
       question: "What is the minimum project size BTEL takes on?",
       answer:
-        "BTEL works with projects of all sizes — from a single transformer to a BDT 185 Cr MEP contract. For chemical supply, there's no minimum order. Contact us to discuss your specific requirements.",
+        "BTEL works with projects of all sizes — from a single transformer to a $185M MEP contract. For chemical supply, there's no minimum order. Contact us to discuss your specific requirements.",
     },
     {
       question: "Is BTEL ISO certified?",

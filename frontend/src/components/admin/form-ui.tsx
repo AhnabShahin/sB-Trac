@@ -12,7 +12,7 @@ export function initials(name: string): string {
 export function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="border-t border-border pt-5 first:border-0 first:pt-0">
-      <div className="mb-3 text-[11px] font-bold uppercase tracking-wide text-muted">{title}</div>
+      <div className="mb-3 text-[13px] font-bold uppercase tracking-wide text-muted">{title}</div>
       {children}
     </section>
   );
@@ -32,7 +32,7 @@ export function Field({ label, hint, children }: { label: string; hint?: string;
     <label className="block">
       <span className="mb-1.5 block text-xs font-medium text-muted">{label}</span>
       {children}
-      {hint ? <span className="mt-1 block text-[11px] text-muted">{hint}</span> : null}
+      {hint ? <span className="mt-1 block text-[13px] text-muted">{hint}</span> : null}
     </label>
   );
 }
@@ -89,7 +89,7 @@ export function Toggle({
       </button>
       <span className="min-w-0">
         <span className="block text-sm font-medium text-offwhite">{label}</span>
-        {hint ? <span className="mt-0.5 block text-[11px] leading-relaxed text-muted">{hint}</span> : null}
+        {hint ? <span className="mt-0.5 block text-[13px] leading-relaxed text-muted">{hint}</span> : null}
       </span>
     </label>
   );

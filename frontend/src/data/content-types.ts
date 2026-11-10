@@ -9,6 +9,8 @@ import type { Project } from "@/data/company";
 
 export interface HeroStat {
   value: number;
+  /** Optional currency/unit prefix (e.g. "$"). Rendered before the number. */
+  prefix?: string;
   suffix: string;
   label: string;
 }

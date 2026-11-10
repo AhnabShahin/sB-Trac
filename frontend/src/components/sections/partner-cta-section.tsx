@@ -20,7 +20,7 @@ export async function PartnerCtaSection() {
       />
 
       <Reveal className="relative z-1 mx-auto max-w-3xl">
-        <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+        <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
           {c.eyebrow}
         </div>
         <h2 className="mb-5 font-display text-[clamp(28px,3.4vw,40px)] font-extrabold leading-[1.15] text-white">
@@ -38,7 +38,7 @@ export async function PartnerCtaSection() {
               <Link
                 href={c.ctaHref || "#"}
                 data-cursor-interactive
-                className="inline-block rounded-[4px] bg-blue-light px-8 py-3.5 text-[15px] font-semibold text-navy transition-colors hover:bg-blue2"
+                className="inline-block rounded-[4px] bg-blue-light px-8 py-3.5 text-[17px] font-semibold text-navy transition-colors hover:bg-blue2"
               >
                 {c.ctaLabel}
               </Link>

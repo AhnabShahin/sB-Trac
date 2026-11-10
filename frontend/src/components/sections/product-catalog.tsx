@@ -77,7 +77,7 @@ function FilterChip({
       aria-pressed={active}
       data-cursor-interactive
       className={cn(
-        "shrink-0 rounded-full border px-4 py-2 text-[13px] font-semibold tracking-[0.3px] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/60",
+        "shrink-0 rounded-full border px-4 py-2 text-[15px] font-semibold tracking-[0.3px] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/60",
         active
           ? "border-teal bg-teal/[0.14] text-white"
           : "border-white/12 bg-white/[0.04] text-[#94A3B8] hover:border-white/25 hover:text-white"
@@ -311,7 +311,7 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
             <div className="-mx-1 flex gap-2.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0">
               <FilterChip active={activeCategory === "all"} onClick={() => applyCategory("all")}>
                 All
-                <span className="ml-2 text-[11px] opacity-70">{totalProducts}</span>
+                <span className="ml-2 text-[13px] opacity-70">{totalProducts}</span>
               </FilterChip>
               {categories.map((category) => (
                 <FilterChip
@@ -320,7 +320,7 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
                   onClick={() => applyCategory(category.id)}
                 >
                   {category.shortName}
-                  <span className="ml-2 text-[11px] opacity-70">
+                  <span className="ml-2 text-[13px] opacity-70">
                     {countProducts(category)}
                   </span>
                 </FilterChip>
@@ -339,7 +339,7 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
                   placeholder="Search products…"
                   aria-label="Search products"
                   data-cursor-interactive
-                  className="w-full rounded-full border border-white/12 bg-white/[0.05] py-2.5 pl-10 pr-9 text-[13px] text-white transition-colors placeholder:text-muted hover:border-white/20 focus:border-teal/50 focus:outline-none focus:ring-2 focus:ring-teal/40 [&::-webkit-search-cancel-button]:hidden"
+                  className="w-full rounded-full border border-white/12 bg-white/[0.05] py-2.5 pl-10 pr-9 text-[15px] text-white transition-colors placeholder:text-muted hover:border-white/20 focus:border-teal/50 focus:outline-none focus:ring-2 focus:ring-teal/40 [&::-webkit-search-cancel-button]:hidden"
                 />
                 {query && (
                   <button
@@ -374,10 +374,10 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
 
       {visible.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-border bg-card/40 px-6 py-20 text-center">
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+          <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
             No matches
           </div>
-          <p className="mx-auto max-w-md text-[15px] leading-[1.7] text-[#94A3B8]">
+          <p className="mx-auto max-w-md text-[17px] leading-[1.7] text-[#94A3B8]">
             {query.trim()
               ? `Nothing matches “${query.trim()}”. Try a broader term, or reset the filters to see the full range.`
               : "This category has no products to show."}
@@ -387,7 +387,7 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
               type="button"
               onClick={resetFilters}
               data-cursor-interactive
-              className="mt-6 rounded-full border border-teal/40 bg-teal/[0.12] px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-teal/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/60"
+              className="mt-6 rounded-full border border-teal/40 bg-teal/[0.12] px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-teal/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/60"
             >
               Reset filters
             </button>
@@ -406,7 +406,7 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
                     only existed to sit it next to the count. */}
                 <span
                   className={cn(
-                    "mb-2 inline-block rounded-full bg-white/[0.06] px-3 py-1 text-[11px] font-bold uppercase tracking-[1.5px]",
+                    "mb-2 inline-block rounded-full bg-white/[0.06] px-3 py-1 text-[13px] font-bold uppercase tracking-[1.5px]",
                     ACCENT_TEXT[category.accent]
                   )}
                 >
@@ -418,7 +418,7 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
                 >
                   {category.name}
                 </h2>
-                <p className="mt-3 max-w-2xl text-[15px] leading-[1.7] text-[#94A3B8]">
+                <p className="mt-3 max-w-2xl text-[17px] leading-[1.7] text-[#94A3B8]">
                   {category.description}
                 </p>
               </div>
@@ -433,7 +433,7 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
                   className="scroll-mt-[164px]"
                 >
                   {/* Sub-category header */}
-                  <h3 className="mb-5 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[2px] text-[#94A3B8]">
+                  <h3 className="mb-5 flex items-center gap-3 text-[13px] font-bold uppercase tracking-[2px] text-[#94A3B8]">
                     <span className={cn("h-3.5 w-[2px] rounded-full", ACCENT_BG[category.accent])} />
                     {sub.name}
                   </h3>
@@ -476,15 +476,15 @@ export function ProductCatalog({ categories }: { categories: ProductCategory[] }
                         </div>
 
                         <div className="flex flex-1 flex-col p-5">
-                          <h4 className="mb-2 font-display text-[17px] font-extrabold leading-snug text-white">
+                          <h4 className="mb-2 font-display text-[19px] font-extrabold leading-snug text-white">
                             {product.title}
                           </h4>
-                          <p className="line-clamp-3 text-[13px] leading-[1.65] text-muted">
+                          <p className="line-clamp-3 text-[15px] leading-[1.65] text-muted">
                             {product.writeUp}
                           </p>
                           <span
                             className={cn(
-                              "mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold transition-transform duration-300 group-hover:translate-x-0.5",
+                              "mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-300 group-hover:translate-x-0.5",
                               ACCENT_TEXT[category.accent]
                             )}
                           >

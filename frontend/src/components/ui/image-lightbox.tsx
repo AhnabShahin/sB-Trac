@@ -132,7 +132,7 @@ export function ImageLightbox({
             </div>
 
             {displayImage.caption && (
-              <figcaption className="mt-3 text-center text-[13px] text-muted">
+              <figcaption className="mt-3 text-center text-[15px] text-muted">
                 {displayImage.caption}
               </figcaption>
             )}

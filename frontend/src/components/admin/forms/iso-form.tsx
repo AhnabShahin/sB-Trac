@@ -41,7 +41,7 @@ export function IsoForm({
               <TextInput value={v.headingHighlight} onChange={(x) => set({ headingHighlight: x })} placeholder="9001:2015" />
               <TextInput value={v.headingSuffix} onChange={(x) => set({ headingSuffix: x })} placeholder=" Certified" />
             </div>
-            <p className="mt-1.5 text-[11px] text-muted">
+            <p className="mt-1.5 text-[13px] text-muted">
               Middle part renders in <span className="text-teal-light">teal</span>.
             </p>
           </div>

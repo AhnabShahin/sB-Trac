@@ -41,7 +41,7 @@ export default async function WaterTreatmentServicePage() {
               fill
               priority
               loading="eager"
-              className="object-cover object-center opacity-50"
+              className="object-cover object-center opacity-[0.66] blur-[3px] scale-[1.06]"
               sizes="100vw"
             />
           </div>
@@ -50,13 +50,13 @@ export default async function WaterTreatmentServicePage() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(14,21,40,0.65) 0%, rgba(14,21,40,0.85) 60%, rgba(14,21,40,0.98) 100%), radial-gradient(ellipse 70% 70% at 75% 35%, rgba(124,58,237,0.18), transparent 70%)",
+                "linear-gradient(180deg, rgba(22,33,63,0.46) 0%, rgba(22,33,63,0.60) 60%, rgba(22,33,63,0.82) 100%), radial-gradient(ellipse 70% 70% at 75% 35%, rgba(124,58,237,0.18), transparent 70%)",
             }}
           />
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20">
             <ServiceDetailHero accent="purple" maxWidth="max-w-6xl">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -92,7 +92,7 @@ export default async function WaterTreatmentServicePage() {
           <div className="mx-auto max-w-6xl">
             {features ? (
               <Reveal className="mx-auto max-w-xl text-center">
-                <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-purple">
+                <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-purple">
                   {features.eyebrow}
                 </div>
                 <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
@@ -129,7 +129,7 @@ export default async function WaterTreatmentServicePage() {
                       <h3 className="mb-1.5 font-display text-base font-bold text-white">{feature.title}</h3>
                       <p className="text-xs leading-[1.6] text-[#94A3B8]">{feature.description}</p>
                       <span
-                        className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-semibold transition-transform duration-300 group-hover:translate-x-0.5"
+                        className="mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-300 group-hover:translate-x-0.5"
                         style={{ color: feature.accentColor }}
                       >
                         View products

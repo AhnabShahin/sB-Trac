@@ -84,7 +84,7 @@ export function HeroForm({
       <SectionCard
         title="Hero stats"
         description="The counter row (e.g. 60+ Clients)."
-        action={<AddButton label="Add stat" onClick={() => set({ stats: [...v.stats, { value: 0, suffix: "+", label: "" }] })} />}
+        action={<AddButton label="Add stat" onClick={() => set({ stats: [...v.stats, { value: 0, prefix: "", suffix: "+", label: "" }] })} />}
       >
         {v.stats.length === 0 ? (
           <EmptyRow text="No stats yet — add one, or load the demo." />
@@ -94,7 +94,8 @@ export function HeroForm({
               const upd = (patch: Partial<typeof stat>) =>
                 set({ stats: v.stats.map((s, idx) => (idx === i ? { ...s, ...patch } : s)) });
               return (
-                <div key={i} className="grid grid-cols-[5.5rem_5.5rem_1fr_auto] items-center gap-2 rounded-lg border border-border/60 bg-navy/40 p-2">
+                <div key={i} className="grid grid-cols-[3.5rem_5rem_4.5rem_1fr_auto] items-center gap-2 rounded-lg border border-border/60 bg-navy/40 p-2">
+                  <input className={inputCls} value={stat.prefix ?? ""} placeholder="$" onChange={(e) => upd({ prefix: e.target.value })} />
                   <input type="number" className={inputCls} value={stat.value} onChange={(e) => upd({ value: Number(e.target.value) || 0 })} />
                   <input className={inputCls} value={stat.suffix} placeholder="+" onChange={(e) => upd({ suffix: e.target.value })} />
                   <input className={inputCls} value={stat.label} placeholder="Clients" onChange={(e) => upd({ label: e.target.value })} />

@@ -18,7 +18,7 @@ export function LogoWall({ eyebrow, heading, description, logos }: LogoWallProps
   return (
     <div className="mx-auto max-w-6xl">
       <Reveal className="mx-auto mb-12 max-w-xl text-center">
-        <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+        <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
           {eyebrow}
         </div>
         <h2 className="font-display text-[clamp(30px,3.4vw,44px)] font-extrabold leading-[1.05] text-white">

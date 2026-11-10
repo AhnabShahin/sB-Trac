@@ -107,7 +107,7 @@ function SlideMedia({
           // `priority` is deprecated in Next 16 in favour of `preload`; only the
           // first slide is above the fold and should be fetched eagerly.
           preload={priority}
-          className="object-cover opacity-80"
+          className="object-cover opacity-90 blur-[3px]"
           style={{ objectPosition: "center 30%" }}
           sizes="100vw"
         />
@@ -117,7 +117,7 @@ function SlideMedia({
     return (
       <video
         {...dataAttr}
-        className="h-full w-full object-cover opacity-85 transition-opacity duration-700"
+        className="h-full w-full object-cover opacity-95 blur-[3px] transition-opacity duration-700"
         style={{ objectPosition: "center 30%" }}
         poster={slide.poster}
         autoPlay
@@ -142,7 +142,7 @@ function SlideMedia({
         // See the reduced-motion branch above: `preload` replaces the deprecated
         // `priority` in Next 16.
         preload={priority}
-        className="object-cover opacity-55"
+        className="object-cover opacity-75 blur-[3px]"
         style={{ objectPosition: "center 30%" }}
         sizes="100vw"
       />

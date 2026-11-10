@@ -88,10 +88,10 @@ export function PortfolioForm({
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Status label" hint="e.g. 'MEP · Ongoing' — the chip over the photo."><TextInput value={p.statusLabel} onChange={(x) => upd(open, { statusLabel: x })} placeholder="MEP · Ongoing" /></Field>
-              <Field label="Metric"><TextInput value={p.metric} onChange={(x) => upd(open, { metric: x })} placeholder="BDT 91 Cr" /></Field>
+              <Field label="Metric"><TextInput value={p.metric} onChange={(x) => upd(open, { metric: x })} placeholder="$91M" /></Field>
             </div>
             <div className="grid gap-3 sm:grid-cols-[10rem_1fr]">
-              <Field label="PO value (Cr)" hint="Sorts the grid. Optional."><input type="number" className={inputCls} value={p.valueCr ?? ""} onChange={(e) => upd(open, { valueCr: e.target.value === "" ? undefined : Number(e.target.value) })} /></Field>
+              <Field label="PO value (M)" hint="Sorts the grid. Optional."><input type="number" className={inputCls} value={p.valueCr ?? ""} onChange={(e) => upd(open, { valueCr: e.target.value === "" ? undefined : Number(e.target.value) })} /></Field>
               <label className="flex items-end gap-2 pb-2.5 text-xs font-medium text-muted">
                 <input type="checkbox" checked={!!p.featured} onChange={(e) => upd(open, { featured: e.target.checked })} />
                 Featured (wide card, shows description)
@@ -127,7 +127,7 @@ export function PortfolioForm({
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={t} alt="" className="h-10 w-14 shrink-0 rounded-md border border-border/60 object-cover" />
                     ) : (
-                      <span className="flex h-10 w-14 shrink-0 items-center justify-center rounded-md border border-dashed border-border bg-navy/40 text-[9px] text-muted">img</span>
+                      <span className="flex h-10 w-14 shrink-0 items-center justify-center rounded-md border border-dashed border-border bg-navy/40 text-[11px] text-muted">img</span>
                     )}
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-medium text-offwhite">{p.title || "Untitled project"}</span>

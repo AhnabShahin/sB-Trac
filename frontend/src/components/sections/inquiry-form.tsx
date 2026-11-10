@@ -111,7 +111,7 @@ export function InquiryForm() {
       <button
         type="submit"
         data-cursor-interactive
-        className="mt-1.5 w-full rounded-md bg-blue-light px-6 py-3.5 text-[15px] font-semibold tracking-[0.3px] text-navy transition-all hover:-translate-y-px hover:bg-blue2"
+        className="mt-1.5 w-full rounded-md bg-blue-light px-6 py-3.5 text-[17px] font-semibold tracking-[0.3px] text-navy transition-all hover:-translate-y-px hover:bg-blue2"
       >
         Submit Inquiry →
       </button>

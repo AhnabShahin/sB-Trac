@@ -218,7 +218,7 @@ export function ProjectDetailModal({
               <div className="mb-5 flex flex-wrap items-center gap-2.5 pr-10">
                 <span
                   className={cn(
-                    "rounded-full bg-white/[0.06] px-3 py-1 text-[11px] font-bold uppercase tracking-[1px]",
+                    "rounded-full bg-white/[0.06] px-3 py-1 text-[13px] font-bold uppercase tracking-[1px]",
                     ACCENT_TEXT[accent]
                   )}
                 >
@@ -226,7 +226,7 @@ export function ProjectDetailModal({
                 </span>
                 <span
                   className={cn(
-                    "rounded-full px-3 py-1 text-[11px] font-semibold tracking-[0.3px]",
+                    "rounded-full px-3 py-1 text-[13px] font-semibold tracking-[0.3px]",
                     STATUS_STYLES[displayProject.status]
                   )}
                 >
@@ -240,38 +240,38 @@ export function ProjectDetailModal({
               >
                 {displayProject.title}
               </h2>
-              <p className="mb-6 text-[14px] text-[#94A3B8]">{displayProject.client}</p>
+              <p className="mb-6 text-[16px] text-[#94A3B8]">{displayProject.client}</p>
 
               {displayProject.description && (
-                <p className="mb-7 text-[14px] leading-[1.75] text-[#B8C4D4]">
+                <p className="mb-7 text-[16px] leading-[1.75] text-[#B8C4D4]">
                   {displayProject.description}
                 </p>
               )}
 
               <div className="grid grid-cols-2 gap-5 border-t border-border pt-6 sm:grid-cols-3">
                 <div>
-                  <div className="mb-1 text-[10px] font-bold uppercase tracking-[1.5px] text-muted">
+                  <div className="mb-1 text-[12px] font-bold uppercase tracking-[1.5px] text-muted">
                     Scope / Capacity
                   </div>
-                  <div className="font-display text-[19px] font-bold text-white">
+                  <div className="font-display text-[21px] font-bold text-white">
                     {displayProject.metric}
                   </div>
                 </div>
                 {displayProject.valueCr !== undefined && (
                   <div>
-                    <div className="mb-1 text-[10px] font-bold uppercase tracking-[1.5px] text-muted">
+                    <div className="mb-1 text-[12px] font-bold uppercase tracking-[1.5px] text-muted">
                       Contract Value
                     </div>
-                    <div className="font-display text-[19px] font-bold text-white">
-                      BDT {displayProject.valueCr} Cr
+                    <div className="font-display text-[21px] font-bold text-white">
+                      ${displayProject.valueCr}M
                     </div>
                   </div>
                 )}
                 <div>
-                  <div className="mb-1 text-[10px] font-bold uppercase tracking-[1.5px] text-muted">
+                  <div className="mb-1 text-[12px] font-bold uppercase tracking-[1.5px] text-muted">
                     Timeline
                   </div>
-                  <div className="font-display text-[19px] font-bold text-white">
+                  <div className="font-display text-[21px] font-bold text-white">
                     {timelineDetail}
                   </div>
                 </div>
@@ -281,7 +281,7 @@ export function ProjectDetailModal({
                 <Link
                   href="/contact"
                   data-cursor-interactive
-                  className="inline-block rounded-[4px] bg-blue-light px-6 py-3 text-[14px] font-semibold text-navy transition-colors hover:bg-blue2"
+                  className="inline-block rounded-[4px] bg-blue-light px-6 py-3 text-[16px] font-semibold text-navy transition-colors hover:bg-blue2"
                 >
                   Discuss a Similar Project →
                 </Link>
@@ -289,7 +289,7 @@ export function ProjectDetailModal({
                   type="button"
                   onClick={onClose}
                   data-cursor-interactive
-                  className="text-[14px] font-medium text-white/70 transition-colors hover:text-white"
+                  className="text-[16px] font-medium text-white/70 transition-colors hover:text-white"
                 >
                   Close
                 </button>

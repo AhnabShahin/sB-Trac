@@ -24,7 +24,7 @@ export function HeroView({ content }: { content: HeroContent }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(14,21,40,0.35) 0%, rgba(14,21,40,0.55) 50%, rgba(14,21,40,0.85) 100%), linear-gradient(90deg, rgba(14,21,40,0.75) 0%, rgba(14,21,40,0.3) 55%, rgba(14,21,40,0.6) 100%)",
+            "linear-gradient(180deg, rgba(16,26,51,0.20) 0%, rgba(16,26,51,0.38) 50%, rgba(16,26,51,0.72) 100%), linear-gradient(90deg, rgba(16,26,51,0.64) 0%, rgba(16,26,51,0.14) 55%, rgba(16,26,51,0.42) 100%)",
         }}
       />
       <div
@@ -67,7 +67,7 @@ export function HeroView({ content }: { content: HeroContent }) {
         </Reveal>
 
         <Reveal y={20} delay={0.2}>
-          <p className="mb-10 max-w-[480px] text-[17px] leading-[1.7] text-[#C3CDDB] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]">
+          <p className="mb-10 max-w-[480px] text-[19px] leading-[1.7] text-[#C3CDDB] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]">
             {subhead}
           </p>
         </Reveal>
@@ -78,7 +78,7 @@ export function HeroView({ content }: { content: HeroContent }) {
               <Link
                 href={primaryCta.href || "#"}
                 data-cursor-interactive
-                className="inline-block rounded-[4px] bg-blue-light px-8 py-3.5 text-[15px] font-semibold text-navy transition-colors hover:bg-blue2"
+                className="inline-block rounded-[4px] bg-blue-light px-8 py-3.5 text-[17px] font-semibold text-navy transition-colors hover:bg-blue2"
               >
                 {primaryCta.label}
               </Link>
@@ -87,7 +87,7 @@ export function HeroView({ content }: { content: HeroContent }) {
               <a
                 href={secondaryCta.href || "#"}
                 data-cursor-interactive
-                className="group flex items-center gap-2 border-b border-white/20 pb-0.5 text-[15px] font-medium text-white transition-colors hover:border-teal hover:text-teal"
+                className="group flex items-center gap-2 border-b border-white/20 pb-0.5 text-[17px] font-medium text-white transition-colors hover:border-teal hover:text-teal"
               >
                 {secondaryCta.label}{" "}
                 <span className="transition-transform group-hover:translate-x-1">
@@ -106,11 +106,12 @@ export function HeroView({ content }: { content: HeroContent }) {
             <div key={`${stat.label}-${i}`} data-stagger-item>
               <Counter
                 value={stat.value}
+                prefix={stat.prefix}
                 suffix={stat.suffix}
                 className="font-display text-[38px] font-extrabold leading-none text-white"
                 suffixClassName="text-teal"
               />
-              <div className="mt-1 text-xs uppercase tracking-wide text-muted">
+              <div className="mt-1.5 text-[15px] font-semibold uppercase tracking-[0.1em] text-slate-300">
                 {stat.label}
               </div>
             </div>

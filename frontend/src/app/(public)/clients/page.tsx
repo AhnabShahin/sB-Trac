@@ -5,6 +5,7 @@ import { getClientsContent } from "@/data/pages";
 import type { ClientsTrustIcon, ProjectsAccent } from "@/data/content-types";
 import { ServiceDetailHero } from "@/components/sections/service-detail-hero";
 import { ClientIndustryBandsView } from "@/components/sections/client-industry-bands-view";
+import { TestimonialsSlider } from "@/components/sections/testimonials-slider";
 import { Reveal } from "@/components/ui/reveal";
 import { StaggerGroup } from "@/components/ui/stagger-group";
 import { Counter } from "@/components/ui/counter";
@@ -69,7 +70,7 @@ export default async function ClientsPage() {
                 fill
                 priority
                 loading="eager"
-                className="bg-ken-burns object-cover object-center opacity-50 will-change-transform"
+                className="bg-ken-burns object-cover object-center opacity-[0.66] blur-[3px] will-change-transform"
                 sizes="100vw"
               />
             </div>
@@ -79,7 +80,7 @@ export default async function ClientsPage() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(14,21,40,0.70) 0%, rgba(14,21,40,0.85) 60%, rgba(14,21,40,0.98) 100%), radial-gradient(ellipse 60% 70% at 80% 40%, rgba(10,158,136,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 10% 80%, rgba(159,185,252,0.08) 0%, transparent 60%)",
+                "linear-gradient(180deg, rgba(22,33,63,0.52) 0%, rgba(22,33,63,0.60) 60%, rgba(22,33,63,0.82) 100%), radial-gradient(ellipse 60% 70% at 80% 40%, rgba(10,158,136,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 10% 80%, rgba(159,185,252,0.08) 0%, transparent 60%)",
             }}
           />
           <div
@@ -94,7 +95,7 @@ export default async function ClientsPage() {
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20">
             <ServiceDetailHero accent={hero.accent} maxWidth="max-w-3xl">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -148,7 +149,7 @@ export default async function ClientsPage() {
                         <Icon width={20} height={20} className="shrink-0 text-teal" />
                         <div>
                           <div className="text-sm font-bold text-white">{badge.title}</div>
-                          <div className="text-[13px] text-muted">{badge.subtitle}</div>
+                          <div className="text-[15px] text-muted">{badge.subtitle}</div>
                         </div>
                       </div>
                     );
@@ -175,7 +176,7 @@ export default async function ClientsPage() {
                   className="font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-none text-white"
                   suffixClassName="text-teal"
                 />
-                <div className="mt-2 whitespace-pre-line text-[13px] leading-[1.4] text-muted">
+                <div className="mt-2 whitespace-pre-line text-[16px] font-medium leading-[1.4] text-slate-300">
                   {stat.label}
                 </div>
               </div>
@@ -190,7 +191,7 @@ export default async function ClientsPage() {
         <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal className="mx-auto max-w-xl text-center">
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
                 {testimonials.eyebrow}
               </div>
               <h2 className="font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
@@ -200,35 +201,7 @@ export default async function ClientsPage() {
               </h2>
             </Reveal>
 
-            <StaggerGroup
-              as="div"
-              itemSelector="[data-stagger-item]"
-              className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-3"
-            >
-              {testimonials.items.map((t) => (
-                <div
-                  key={t.author + t.role}
-                  data-stagger-item
-                  className="group relative rounded-[10px] border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-[0_12px_32px_rgba(10,158,136,0.12)]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 rounded-t-[10px] bg-teal transition-transform duration-300 group-hover:scale-x-100"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute right-5 top-3 font-serif text-6xl leading-none text-teal/15 transition-all duration-300 group-hover:-translate-y-1 group-hover:text-teal/30"
-                  >
-                    &rdquo;
-                  </span>
-                  <p className="relative mb-5 text-sm leading-[1.75] text-[#94A3B8] transition-colors duration-300 group-hover:text-[#C3CDDB]">
-                    {t.quote}
-                  </p>
-                  <div className="font-display text-[15px] font-bold text-white">{t.author}</div>
-                  <div className="mt-0.5 text-xs text-muted">{t.role}</div>
-                </div>
-              ))}
-            </StaggerGroup>
+            <TestimonialsSlider items={testimonials.items} />
           </div>
         </section>
       ) : null}
@@ -236,7 +209,7 @@ export default async function ClientsPage() {
       {cta ? (
         <section className="bg-navy2 px-6 py-20 text-center sm:px-12 lg:px-20">
           <Reveal className="mx-auto max-w-2xl">
-            <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+            <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
               {cta.eyebrow}
             </div>
             <h2 className="mb-4 font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-[1.1] text-white">
@@ -257,7 +230,7 @@ export default async function ClientsPage() {
                   <Link
                     href={cta.primaryHref || "#"}
                     data-cursor-interactive
-                    className="inline-block rounded-[4px] bg-teal px-8 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-teal-dark"
+                    className="inline-block rounded-[4px] bg-teal px-8 py-3.5 text-[17px] font-semibold text-white transition-colors hover:bg-teal-dark"
                   >
                     {cta.primaryLabel}
                   </Link>
@@ -267,7 +240,7 @@ export default async function ClientsPage() {
                 <Link
                   href={cta.secondaryHref || "#"}
                   data-cursor-interactive
-                  className="text-[15px] font-medium text-white/80 transition-colors hover:text-teal"
+                  className="text-[17px] font-medium text-white/80 transition-colors hover:text-teal"
                 >
                   {cta.secondaryLabel}
                 </Link>

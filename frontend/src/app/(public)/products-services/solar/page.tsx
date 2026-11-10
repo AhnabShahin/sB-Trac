@@ -50,7 +50,7 @@ export default async function SolarPage() {
               fill
               priority
               loading="eager"
-              className="object-cover object-center opacity-50"
+              className="object-cover object-center opacity-[0.66] blur-[3px] scale-[1.06]"
               sizes="100vw"
             />
           </div>
@@ -65,7 +65,7 @@ export default async function SolarPage() {
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20">
             <ServiceDetailHero accent="amber" maxWidth="max-w-3xl">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -97,7 +97,7 @@ export default async function SolarPage() {
                     <Link
                       href={hero.primaryCta.href}
                       data-cursor-interactive
-                      className="inline-block rounded bg-amber px-7 py-3.5 text-[15px] font-semibold text-navy transition-all hover:bg-amber-light"
+                      className="inline-block rounded bg-amber px-7 py-3.5 text-[17px] font-semibold text-navy transition-all hover:bg-amber-light"
                     >
                       {hero.primaryCta.label}
                     </Link>
@@ -106,7 +106,7 @@ export default async function SolarPage() {
                     <a
                       href={hero.secondaryCta.href}
                       data-cursor-interactive
-                      className="inline-block rounded border border-white/20 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:border-amber hover:text-amber"
+                      className="inline-block rounded border border-white/20 px-7 py-3.5 text-[17px] font-semibold text-white transition-colors hover:border-amber hover:text-amber"
                     >
                       {hero.secondaryCta.label}
                     </a>
@@ -122,7 +122,7 @@ export default async function SolarPage() {
         <section id="system-types" className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal className="mx-auto max-w-xl text-center">
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-amber">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-amber">
                 {systemTypes.eyebrow}
               </div>
               <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
@@ -156,17 +156,17 @@ export default async function SolarPage() {
                       <Icon width={28} height={28} />
                     </div>
                     <h3 className="mb-2 font-display text-xl font-extrabold text-white">{system.title}</h3>
-                    <p className="mb-4 text-[13px] leading-[1.65] text-[#94A3B8]">{system.description}</p>
+                    <p className="mb-4 text-[15px] leading-[1.65] text-[#94A3B8]">{system.description}</p>
                     <div className="flex flex-wrap items-center gap-3">
                       {system.tag ? (
                         <span
-                          className="rounded-[4px] px-2.5 py-1 text-[11px] font-bold tracking-[0.3px]"
+                          className="rounded-[4px] px-2.5 py-1 text-[13px] font-bold tracking-[0.3px]"
                           style={{ background: iconChip(system.accentColor, 0.15), color: system.accentColor }}
                         >
                           {system.tag}
                         </span>
                       ) : null}
-                      <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-white/70 transition-transform duration-300 group-hover:translate-x-0.5">
+                      <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/70 transition-transform duration-300 group-hover:translate-x-0.5">
                         View products
                         <span aria-hidden="true">→</span>
                       </span>
@@ -183,7 +183,7 @@ export default async function SolarPage() {
         <section className="bg-offwhite px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-[#059669]">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-[#059669]">
                 {features.eyebrow}
               </div>
               <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-navy">
@@ -215,7 +215,7 @@ export default async function SolarPage() {
                     </div>
                     <div>
                       <h3 className="mb-1.5 font-display text-lg font-bold text-navy">{feature.title}</h3>
-                      <p className="text-[13px] leading-[1.65] text-[#4A5568]">{feature.description}</p>
+                      <p className="text-[15px] leading-[1.65] text-[#4A5568]">{feature.description}</p>
                     </div>
                   </div>
                 );
@@ -230,7 +230,7 @@ export default async function SolarPage() {
           <div className="mx-auto max-w-6xl">
             {process ? (
               <Reveal className="mx-auto max-w-xl text-center">
-                <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-amber">
+                <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-amber">
                   {process.eyebrow}
                 </div>
                 <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
@@ -262,7 +262,7 @@ export default async function SolarPage() {
                     >
                       {String(i + 1).padStart(2, "0")}
                     </div>
-                    <h3 className="mb-1.5 font-display text-[15px] font-bold text-white">{step.title}</h3>
+                    <h3 className="mb-1.5 font-display text-[17px] font-bold text-white">{step.title}</h3>
                     <p className="text-xs leading-[1.5] text-muted">{step.description}</p>
                   </div>
                 ))}
@@ -294,7 +294,7 @@ export default async function SolarPage() {
         >
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
             <Reveal>
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-amber">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-amber">
                 {siteVisitCta.eyebrow}
               </div>
               <h2 className="mb-4 font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-[1.1] text-white">

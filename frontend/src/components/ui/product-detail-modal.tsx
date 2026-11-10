@@ -228,7 +228,7 @@ export function ProductDetailModal({
                 All four sides are padded here so the text clears both the image edge
                 on the left and the close button on the right at desktop widths. */}
             <div className="px-7 pb-8 pt-6 sm:px-9 sm:pb-9 lg:py-10 lg:pl-10 lg:pr-14">
-              <nav aria-label="Breadcrumb" className="mb-6 pr-12 text-[13px] text-muted lg:pr-0">
+              <nav aria-label="Breadcrumb" className="mb-6 pr-12 text-[15px] text-muted lg:pr-0">
                 <span className={cn("font-semibold", ACCENT_TEXT[accent])}>
                   {category.name}
                 </span>
@@ -245,7 +245,7 @@ export function ProductDetailModal({
 
               <div className="mb-6 h-px w-full bg-gradient-to-r from-white/20 via-white/10 to-transparent" />
 
-              <p className="text-[15px] leading-[1.8] text-[#C3CDDB] sm:text-base">
+              <p className="text-[17px] leading-[1.8] text-[#C3CDDB] sm:text-base">
                 {product.writeUp}
               </p>
 
@@ -254,7 +254,7 @@ export function ProductDetailModal({
                   {product.highlights.map((item) => (
                     <li
                       key={item}
-                      className="rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[12px] font-medium text-[#C3CDDB]"
+                      className="rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[14px] font-medium text-[#C3CDDB]"
                     >
                       {item}
                     </li>
@@ -266,11 +266,11 @@ export function ProductDetailModal({
                 <Link
                   href="/contact"
                   data-cursor-interactive
-                  className="inline-block rounded-[4px] bg-teal px-6 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-teal-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-block rounded-[4px] bg-teal px-6 py-3 text-[17px] font-semibold text-white transition-colors hover:bg-teal-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                 >
                   Request a Quote
                 </Link>
-                <span className="text-[13px] text-muted">
+                <span className="text-[15px] text-muted">
                   Listed under {category.shortName}
                 </span>
               </div>

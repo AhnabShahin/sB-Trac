@@ -10,14 +10,18 @@
      smear and a light seam around the header wordmark before hydration.
      The canvas is now navy from the very first paint, so the blur samples
      navy. Matches `--color-navy` below. */
-  --background: #101729;
-  --foreground: #101729;
+  --background: #16213f;
+  --foreground: #16213f;
 
-  /* Reference palette (Demo Referance/index.html :root) */
-  --color-navy: #101729;
-  --color-navy2: #182037;
-  --color-navy3: #090e1a;
-  --color-blue: #203169;
+  /* Royal-blue surface ramp. Lifted out of the old near-black navy
+     (`#101729`) to a clearly bluer, mid-dark base per the approved theme
+     direction — still a dark-mode product, but it now reads as blue rather
+     than black. The header/logo backdrop-blur reasoning above still holds:
+     the canvas paints this base from the first byte so the blur samples it. */
+  --color-navy: #16213f;
+  --color-navy2: #1f2c52;
+  --color-navy3: #101a33;
+  --color-blue: #28407d;
   --color-blue2: #849cdd;
   --color-blue-light: #9fb9fc;
   --color-teal: #0a9e88;
@@ -34,9 +38,9 @@
   --color-cyan: #0ea5b5;
   --color-cyan-dark: #0c8794;
   --color-offwhite: #f4f6f9;
-  --color-muted: #6b7a8f;
-  --color-border: #232f50;
-  --color-card: #161e36;
+  --color-muted: #8694ab;
+  --color-border: #33467e;
+  --color-card: #212f57;
 }
 
 @theme inline {
@@ -64,6 +68,17 @@
   --color-muted: var(--color-muted);
   --color-border: var(--color-border);
   --color-card: var(--color-card);
+
+  /* Site-wide +2px type bump (everything except the clamp-based h1/h2 display
+     headings, which set their own sizes). Overrides Tailwind's default text
+     scale so every text-xs…text-2xl utility reads two pixels larger. Line
+     heights keep their default ratios. */
+  --text-xs: 0.875rem;   /* 12 → 14 */
+  --text-sm: 1rem;       /* 14 → 16 */
+  --text-base: 1.125rem; /* 16 → 18 */
+  --text-lg: 1.25rem;    /* 18 → 20 */
+  --text-xl: 1.375rem;   /* 20 → 22 */
+  --text-2xl: 1.625rem;  /* 24 → 26 */
 
   --animate-marquee: marquee 30s linear infinite;
   --animate-pulse-dot: pulse-dot 2s infinite;

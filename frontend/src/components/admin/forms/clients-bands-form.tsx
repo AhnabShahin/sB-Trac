@@ -138,7 +138,7 @@ export function ClientsBandsForm({
             {list.map((g, i) => (
               <div key={i} className="group flex items-center gap-3 rounded-lg border border-border bg-navy/40 p-2.5 transition-colors hover:border-teal/40">
                 <button type="button" onClick={() => setOpen(i)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-navy text-[10px] font-bold uppercase text-muted">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-navy text-[12px] font-bold uppercase text-muted">
                     {g.clients.length}
                   </span>
                   <span className="min-w-0 flex-1">

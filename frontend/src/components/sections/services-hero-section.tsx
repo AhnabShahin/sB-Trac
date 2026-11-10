@@ -39,7 +39,7 @@ export async function ServicesHeroSection() {
       />
 
       <ServicesHeroContent>
-        <nav data-hero-item aria-label="Breadcrumb" className="mb-8 text-[13px] text-muted">
+        <nav data-hero-item aria-label="Breadcrumb" className="mb-8 text-[15px] text-muted">
           <Link href="/" className="transition-colors hover:text-white">
             Home
           </Link>
@@ -50,7 +50,7 @@ export async function ServicesHeroSection() {
         {c.badge ? (
           <div
             data-hero-item
-            className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal/25 bg-teal/[0.08] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-teal"
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal/25 bg-teal/[0.08] px-3.5 py-1.5 text-[13px] font-bold uppercase tracking-[1.5px] text-teal"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-teal" />
             {c.badge}

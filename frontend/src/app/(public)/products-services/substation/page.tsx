@@ -43,7 +43,7 @@ export default async function SubstationServicePage() {
               fill
               priority
               loading="eager"
-              className="object-cover object-center opacity-50"
+              className="object-cover object-center opacity-[0.66] blur-[3px] scale-[1.06]"
               sizes="100vw"
             />
           </div>
@@ -52,13 +52,13 @@ export default async function SubstationServicePage() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(14,21,40,0.65) 0%, rgba(14,21,40,0.85) 60%, rgba(14,21,40,0.98) 100%), radial-gradient(ellipse 70% 70% at 75% 35%, rgba(159,185,252,0.2), transparent 70%)",
+                "linear-gradient(180deg, rgba(22,33,63,0.46) 0%, rgba(22,33,63,0.60) 60%, rgba(22,33,63,0.82) 100%), radial-gradient(ellipse 70% 70% at 75% 35%, rgba(159,185,252,0.2), transparent 70%)",
             }}
           />
 
           <div className="relative z-1 px-6 py-20 sm:px-12 lg:px-20">
             <ServiceDetailHero accent="blue">
-              <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-muted">
+              <nav aria-label="Breadcrumb" className="mb-5 text-[15px] text-muted">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
@@ -107,7 +107,7 @@ export default async function SubstationServicePage() {
           <div className="mx-auto max-w-6xl">
             <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
               <div>
-                <div className="mb-2 text-[11px] font-bold uppercase tracking-[2px] text-blue-light">
+                <div className="mb-2 text-[13px] font-bold uppercase tracking-[2px] text-blue-light">
                   {capabilities.eyebrow}
                 </div>
                 <h2 className="font-display text-[clamp(26px,3vw,36px)] font-extrabold leading-[1.1] text-white">
@@ -115,7 +115,7 @@ export default async function SubstationServicePage() {
                 </h2>
               </div>
               {capabilities.intro ? (
-                <p className="max-w-md text-[13px] leading-[1.6] text-[#94A3B8]">{capabilities.intro}</p>
+                <p className="max-w-md text-[15px] leading-[1.6] text-[#94A3B8]">{capabilities.intro}</p>
               ) : null}
             </Reveal>
 
@@ -142,7 +142,7 @@ export default async function SubstationServicePage() {
                     </div>
                     <h3 className="mb-1.5 font-display text-base font-bold text-white">{card.title}</h3>
                     <p className="text-xs leading-[1.6] text-[#94A3B8]">{card.description}</p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold text-blue-light transition-transform duration-300 group-hover:translate-x-0.5">
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold text-blue-light transition-transform duration-300 group-hover:translate-x-0.5">
                       View products
                       <span aria-hidden="true">→</span>
                     </span>
@@ -159,7 +159,7 @@ export default async function SubstationServicePage() {
           <div className="mx-auto max-w-6xl">
             {features ? (
               <Reveal className="mx-auto max-w-2xl text-center">
-                <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-blue">
+                <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-blue">
                   {features.eyebrow}
                 </div>
                 <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-navy">
@@ -197,7 +197,7 @@ export default async function SubstationServicePage() {
                         <Icon width={22} height={22} />
                       </div>
                       <h3 className="mb-2 font-display text-lg font-extrabold text-navy">{feature.title}</h3>
-                      <p className="text-[13px] leading-[1.65] text-[#4A5568]">{feature.description}</p>
+                      <p className="text-[15px] leading-[1.65] text-[#4A5568]">{feature.description}</p>
                     </div>
                   );
                 })}
@@ -225,7 +225,7 @@ export default async function SubstationServicePage() {
         <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
           <div className="mx-auto max-w-6xl">
             <Reveal className="mx-auto max-w-2xl text-center">
-              <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-blue-light">
+              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-blue-light">
                 {specs.eyebrow}
               </div>
               <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">

@@ -76,7 +76,7 @@ export function ProjectsForm({
                   <Field label="Link"><TextInput value={card.href} onChange={(x) => upd({ href: x })} placeholder="/projects?filter=substation#portfolio" /></Field>
                   <div className="grid gap-3 sm:grid-cols-[1fr_1fr]">
                     <Field label="Highlight label"><TextInput value={card.highlightLabel} onChange={(x) => upd({ highlightLabel: x })} placeholder="Highest Value" /></Field>
-                    <Field label="Metric"><TextInput value={card.metric} onChange={(x) => upd({ metric: x })} placeholder="BDT 5.82 Cr" /></Field>
+                    <Field label="Metric"><TextInput value={card.metric} onChange={(x) => upd({ metric: x })} placeholder="$5.82M" /></Field>
                   </div>
                   <Field label="Highlight title (optional)"><TextArea value={card.title} onChange={(x) => upd({ title: x })} rows={2} /></Field>
                   <MediaField label="Background image" kind="image" slug={slug} value={card.image ?? ""} onChange={(x) => upd({ image: x })} />

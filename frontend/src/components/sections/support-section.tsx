@@ -19,7 +19,7 @@ export async function SupportSection() {
     <section id="aftersales" className="bg-navy px-6 py-20 sm:px-12 lg:px-20">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <Reveal>
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+          <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
             {c.eyebrow}
           </div>
           <h2 className="mb-4 whitespace-pre-line font-display text-[clamp(36px,4vw,52px)] font-extrabold leading-[1.05] text-white">
@@ -40,10 +40,10 @@ export async function SupportSection() {
                 <div className="mb-2.5 flex h-8 w-8 items-center justify-center text-teal transition-transform duration-300 group-hover:scale-110">
                   <Icon width={22} height={22} />
                 </div>
-                <div className="mb-1.5 font-display text-[15px] font-bold text-white">
+                <div className="mb-1.5 font-display text-[17px] font-bold text-white">
                   {feature.title}
                 </div>
-                <div className="text-[13px] leading-[1.6] text-muted">
+                <div className="text-[15px] leading-[1.6] text-muted">
                   {feature.description}
                 </div>
               </div>

@@ -119,7 +119,7 @@ export function ProjectPortfolioGrid({ projects }: { projects: Project[] }) {
       {/* The "Full Portfolio" eyebrow row was a `flex items-end justify-between` row that
           only ever held this one label, so it was spanning a full width to place a
           single short string. It is a plain block now. */}
-      <div className="mb-8 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+      <div className="mb-8 text-[13px] font-bold uppercase tracking-[2px] text-teal">
         Full Portfolio
       </div>
 
@@ -145,7 +145,7 @@ export function ProjectPortfolioGrid({ projects }: { projects: Project[] }) {
             data-cursor-interactive
             onClick={() => setSelection(filter.value)}
             className={cn(
-              "relative rounded px-4 py-1.5 text-[13px] font-medium transition-colors",
+              "relative rounded px-4 py-1.5 text-[15px] font-medium transition-colors",
               active === filter.value
                 ? "text-white"
                 : "text-muted hover:bg-white/5 hover:text-white"
@@ -214,7 +214,7 @@ export function ProjectPortfolioGrid({ projects }: { projects: Project[] }) {
                     className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent opacity-90"
                   />
                   <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                    <span className="rounded bg-navy/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[1px] text-teal backdrop-blur-md">
+                    <span className="rounded bg-navy/80 px-2.5 py-1 text-[12px] font-bold uppercase tracking-[1px] text-teal backdrop-blur-md">
                       {project.statusLabel.split("·")[0].trim()}
                     </span>
                   </div>
@@ -222,7 +222,7 @@ export function ProjectPortfolioGrid({ projects }: { projects: Project[] }) {
 
                 <div className="p-6 pt-2">
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="text-[11px] font-medium text-muted">
+                    <span className="text-[13px] font-medium text-muted">
                       {project.statusLabel.split("·")[1]?.trim()}
                     </span>
                   </div>
@@ -234,21 +234,21 @@ export function ProjectPortfolioGrid({ projects }: { projects: Project[] }) {
                   >
                     {project.title}
                   </h3>
-                  <p className="mb-4 text-[13px] text-[#94A3B8]">{project.client}</p>
+                  <p className="mb-4 text-[15px] text-[#94A3B8]">{project.client}</p>
 
                   {project.featured && project.description && (
-                    <p className="mb-4 text-[13px] leading-[1.6] text-[#94A3B8]">
+                    <p className="mb-4 text-[15px] leading-[1.6] text-[#94A3B8]">
                       {project.description}
                     </p>
                   )}
 
                   <div className="flex items-center justify-between border-t border-border pt-4">
-                    <span className="font-display text-[20px] font-extrabold text-white">
+                    <span className="font-display text-[22px] font-extrabold text-white">
                       {project.metric}
                     </span>
                     <span
                       className={cn(
-                        "rounded-full px-3 py-1 text-[11px] font-semibold tracking-[0.3px]",
+                        "rounded-full px-3 py-1 text-[13px] font-semibold tracking-[0.3px]",
                         STATUS_STYLES[project.status]
                       )}
                     >

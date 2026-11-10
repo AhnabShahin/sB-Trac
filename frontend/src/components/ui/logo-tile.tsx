@@ -107,7 +107,7 @@ export function LogoTile({ name, logoSrc, className = "", variant = "boxed" }: L
     return (
       <div className={`${tileClass} px-4 text-center ${className}`} title={name}>
         <span
-          className={`line-clamp-2 font-display text-[12px] font-extrabold uppercase tracking-wide ${
+          className={`line-clamp-2 font-display text-[14px] font-extrabold uppercase tracking-wide ${
             glass || bare ? "text-offwhite" : "text-[#0E2A47]"
           }`}
         >

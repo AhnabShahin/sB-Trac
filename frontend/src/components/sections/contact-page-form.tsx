@@ -93,7 +93,7 @@ export function ContactPageForm({
     <form onSubmit={handleSubmit} className="rounded-[10px] border border-border bg-card p-9">
       {header}
       <div className="mb-1 font-display text-2xl font-bold text-white">{heading}</div>
-      <p className="mb-6 text-[13px] text-muted">{intro}</p>
+      <p className="mb-6 text-[15px] text-muted">{intro}</p>
 
       <div className="mb-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
@@ -150,7 +150,7 @@ export function ContactPageForm({
         </div>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="budget" className="text-xs font-semibold uppercase tracking-wide text-muted">
-            Project Budget (BDT)
+            Project Budget (USD)
           </label>
           <select id="budget" name="budget" className={inputClasses} defaultValue="">
             <option value="" className="bg-navy">
@@ -186,13 +186,13 @@ export function ContactPageForm({
           name="newsletter"
           className="mt-0.5 h-4 w-4 shrink-0 accent-teal"
         />
-        <label htmlFor="newsletter" className="text-[13px] leading-[1.5] text-muted">
+        <label htmlFor="newsletter" className="text-[15px] leading-[1.5] text-muted">
           {consentLabel}
         </label>
       </div>
 
       {error ? (
-        <p className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-[13px] text-red-300">
+        <p className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-[15px] text-red-300">
           {error}
         </p>
       ) : null}
@@ -204,11 +204,11 @@ export function ContactPageForm({
         whileHover={reducedMotion || busy ? undefined : { y: -2 }}
         whileTap={reducedMotion || busy ? undefined : { scale: 0.98 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="w-full rounded-md bg-teal px-6 py-3.5 text-[15px] font-semibold tracking-[0.3px] text-white transition-colors hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-md bg-teal px-6 py-3.5 text-[17px] font-semibold tracking-[0.3px] text-white transition-colors hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-60"
       >
         {busy ? "Submitting…" : submitLabel}
       </motion.button>
-      <p className="mt-3 text-center text-[11px] text-muted">{footnote}</p>
+      <p className="mt-3 text-center text-[13px] text-muted">{footnote}</p>
     </form>
   );
 }

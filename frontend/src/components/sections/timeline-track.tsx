@@ -98,7 +98,7 @@ export function TimelineTrack({ milestones }: { milestones: TimelineMilestone[] 
             <h3 className="mb-1.5 font-display text-base font-extrabold text-white sm:text-lg">
               {milestone.title}
             </h3>
-            <p className="max-w-xl text-[13px] leading-[1.7] text-muted">
+            <p className="max-w-xl text-[15px] leading-[1.7] text-muted">
               {milestone.description}
             </p>
 

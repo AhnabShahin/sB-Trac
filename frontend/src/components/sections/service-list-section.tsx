@@ -12,7 +12,7 @@ export async function ServiceListSection() {
     <section id="services" className="bg-navy2 px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
       <div className="mx-auto max-w-5xl">
         <Reveal>
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-teal">
+          <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
             {c.eyebrow}
           </div>
           <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">

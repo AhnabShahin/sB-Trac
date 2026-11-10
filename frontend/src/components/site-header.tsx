@@ -31,7 +31,7 @@ const NAV_LINK_BASE_CLASS = "text-sm tracking-[0.3px] transition-colors";
 const NAV_LINK_CLASS = "font-medium text-[#475569] hover:text-[#0E2A47]";
 const NAV_LINK_ACTIVE_CLASS = "font-semibold text-[#0E2A47]";
 
-const MOBILE_LINK_BASE_CLASS = "border-b border-[#E2E8F0] px-2 py-3.5 text-[15px]";
+const MOBILE_LINK_BASE_CLASS = "border-b border-[#E2E8F0] px-2 py-3.5 text-[17px]";
 const MOBILE_LINK_CLASS = "font-medium text-[#475569] hover:text-teal-dark";
 const MOBILE_LINK_ACTIVE_CLASS = "font-semibold text-teal-dark";
 
@@ -237,7 +237,7 @@ export function SiteHeader({ content }: { content?: HeaderContent }) {
           href={ctaHref}
           onClick={(event) => handleNavClick(event, ctaHref)}
           data-cursor-interactive
-          className="hidden rounded-[4px] bg-teal px-[22px] py-[9px] text-[13px] font-semibold tracking-[0.3px] text-white transition-all hover:-translate-y-px hover:bg-teal-dark lg:inline-block"
+          className="hidden rounded-[4px] bg-teal px-[22px] py-[9px] text-[15px] font-semibold tracking-[0.3px] text-white transition-all hover:-translate-y-px hover:bg-teal-dark lg:inline-block"
         >
           {ctaLabel}
         </Link>

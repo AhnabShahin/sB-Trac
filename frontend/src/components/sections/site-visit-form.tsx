@@ -42,7 +42,7 @@ function FormTabs({
           data-cursor-interactive
           onClick={() => onChange(tab.key)}
           className={cn(
-            "relative rounded px-4 py-1.5 text-[13px] font-medium transition-colors",
+            "relative rounded px-4 py-1.5 text-[15px] font-medium transition-colors",
             mode === tab.key ? "text-navy" : "text-muted hover:text-white"
           )}
         >
@@ -230,7 +230,7 @@ export function SiteVisitForm({ content }: { content?: SiteVisitFormContent }) {
       </div>
 
       {error ? (
-        <p className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-[13px] text-red-300">
+        <p className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-[15px] text-red-300">
           {error}
         </p>
       ) : null}
@@ -239,7 +239,7 @@ export function SiteVisitForm({ content }: { content?: SiteVisitFormContent }) {
         type="submit"
         disabled={busy}
         data-cursor-interactive
-        className="mt-1.5 w-full rounded-md bg-amber px-6 py-3.5 text-[15px] font-semibold tracking-[0.3px] text-navy transition-all hover:-translate-y-px hover:bg-amber-dark hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-1.5 w-full rounded-md bg-amber px-6 py-3.5 text-[17px] font-semibold tracking-[0.3px] text-navy transition-all hover:-translate-y-px hover:bg-amber-dark hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
       >
         {busy ? "Submitting…" : submitLabel}
       </button>

@@ -19,7 +19,7 @@ export function Field({
     <label className="block">
       <span className="mb-1.5 block text-xs font-medium text-muted">{label}</span>
       {children}
-      {hint ? <span className="mt-1 block text-[11px] text-muted">{hint}</span> : null}
+      {hint ? <span className="mt-1 block text-[13px] text-muted">{hint}</span> : null}
     </label>
   );
 }
@@ -324,7 +324,7 @@ export function MediaField({
             )}
           </div>
         ) : (
-          <div className="flex h-16 w-24 shrink-0 items-center justify-center rounded-lg border border-dashed border-border bg-navy/40 text-[10px] text-muted">
+          <div className="flex h-16 w-24 shrink-0 items-center justify-center rounded-lg border border-dashed border-border bg-navy/40 text-[12px] text-muted">
             {kind}
           </div>
         )}
@@ -334,7 +334,7 @@ export function MediaField({
               <span className="min-w-0 flex-1 truncate text-sm font-medium text-offwhite" title={value}>
                 {name}
               </span>
-              <span className="shrink-0 rounded-full border border-border/70 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted">
+              <span className="shrink-0 rounded-full border border-border/70 px-2 py-0.5 text-[12px] font-medium uppercase tracking-wide text-muted">
                 {source}
               </span>
             </div>
