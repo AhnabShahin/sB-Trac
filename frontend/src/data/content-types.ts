@@ -409,6 +409,8 @@ export interface ClientTestimonialItem {
   quote: string;
   author: string;
   role: string;
+  /** Background photo for the testimonial card (served path, e.g. /assets/...). */
+  image: string;
 }
 
 export interface ClientsTestimonialsContent {

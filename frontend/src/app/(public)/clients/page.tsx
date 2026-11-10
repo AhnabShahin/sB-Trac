@@ -189,20 +189,12 @@ export default async function ClientsPage() {
 
       {testimonials && testimonials.items.length > 0 ? (
         <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
-          <div className="mx-auto max-w-6xl">
-            <Reveal className="mx-auto max-w-xl text-center">
-              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
-                {testimonials.eyebrow}
-              </div>
-              <h2 className="font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
-                {testimonials.headingLine1}
-                <br />
-                <span className="text-teal">{testimonials.headingHighlight}</span>
-              </h2>
-            </Reveal>
-
-            <TestimonialsSlider items={testimonials.items} />
-          </div>
+          <TestimonialsSlider
+            eyebrow={testimonials.eyebrow}
+            headingLine1={testimonials.headingLine1}
+            headingHighlight={testimonials.headingHighlight}
+            items={testimonials.items}
+          />
         </section>
       ) : null}
 

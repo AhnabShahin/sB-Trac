@@ -4,6 +4,7 @@ import {
   AddButton,
   EmptyRow,
   Field,
+  MediaField,
   RepeaterItem,
   SectionCard,
   TextArea,
@@ -21,6 +22,7 @@ export const EMPTY_CLIENTS_TESTIMONIALS: ClientsTestimonialsContent = {
 export function ClientsTestimonialsForm({
   value,
   onChange,
+  slug,
 }: {
   value: ClientsTestimonialsContent | undefined;
   onChange: (next: ClientsTestimonialsContent) => void;
@@ -48,7 +50,7 @@ export function ClientsTestimonialsForm({
       <SectionCard
         title="Testimonials"
         description="Quote cards."
-        action={<AddButton label="Add testimonial" onClick={() => setItems([...v.items, { quote: "", author: "", role: "" }])} />}
+        action={<AddButton label="Add testimonial" onClick={() => setItems([...v.items, { quote: "", author: "", role: "", image: "" }])} />}
       >
         {v.items.length === 0 ? (
           <EmptyRow text="No testimonials yet — add one, or load the demo." />
@@ -63,6 +65,7 @@ export function ClientsTestimonialsForm({
                     <Field label="Author"><TextInput value={item.author} onChange={(x) => upd({ author: x })} placeholder="Engineering Manager" /></Field>
                     <Field label="Role"><TextInput value={item.role} onChange={(x) => upd({ role: x })} placeholder="FMCG Multinational, Dhaka" /></Field>
                   </div>
+                  <MediaField label="Card background image" kind="image" slug={slug} value={item.image ?? ""} onChange={(x) => upd({ image: x })} />
                 </RepeaterItem>
               );
             })}

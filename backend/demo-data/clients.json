@@ -141,17 +141,20 @@
         {
           "quote": "BTEL delivered our 33KV substation on schedule and without compromise. Their team's technical depth and on-site coordination was outstanding throughout the project lifecycle.",
           "author": "Engineering Manager",
-          "role": "FMCG Multinational, Dhaka"
+          "role": "FMCG Multinational, Dhaka",
+          "image": "/assets/hero/substation.jpg"
         },
         {
           "quote": "We've worked with BTEL across three facility expansions. Their NALCO water treatment chemical supply and after-sales support has been consistently reliable — they genuinely understand our operational needs.",
           "author": "Facilities Director",
-          "role": "Pharmaceutical Group, Narayanganj"
+          "role": "Pharmaceutical Group, Narayanganj",
+          "image": "/assets/hero/water.jpg"
         },
         {
           "quote": "From generator EPC to HVAC commissioning, BTEL handled everything under one roof. The quality of execution and timeliness set them apart from other vendors we've worked with.",
           "author": "Project Director",
-          "role": "Industrial Conglomerate, Chittagong"
+          "role": "Industrial Conglomerate, Chittagong",
+          "image": "/assets/hero/mep.jpg"
         }
       ]
     },
