@@ -6,6 +6,7 @@ import { StrengthCloudSection } from "@/components/sections/strength-cloud-secti
 import { TimelineSection } from "@/components/sections/timeline-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { SupportSection } from "@/components/sections/support-section";
+import { TestimonialsHomeSection } from "@/components/sections/testimonials-home-section";
 import { PartnerCtaSection } from "@/components/sections/partner-cta-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 
@@ -20,6 +21,7 @@ export default function Home() {
       <TimelineSection />
       <ProjectsSection />
       <SupportSection />
+      <TestimonialsHomeSection />
       <PartnerCtaSection />
       <SiteFooter />
     </main>

@@ -77,11 +77,17 @@ export default async function SolarPage() {
                 <span className="text-[#94A3B8]">{hero.breadcrumbLabel}</span>
               </nav>
 
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber/30 bg-amber/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-amber">
+              <div
+                data-hero-item
+                className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-amber/30 bg-amber/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-amber"
+              >
                 {hero.badge}
               </div>
 
-              <h1 className="mb-6 font-display text-[clamp(40px,5.5vw,64px)] font-extrabold leading-[1.05] text-white">
+              <h1
+                data-hero-item
+                className="mb-6 font-display text-[clamp(40px,5.5vw,64px)] font-extrabold leading-[1.05] text-white"
+              >
                 {hero.headingLine1}
                 <br />
                 <span className="bg-gradient-to-r from-amber via-yellow-400 to-teal bg-clip-text text-transparent">
@@ -89,10 +95,12 @@ export default async function SolarPage() {
                 </span>
               </h1>
 
-              <p className="mb-9 text-lg leading-[1.75] text-[#C3CDDB]">{hero.subhead}</p>
+              <p data-hero-item className="mb-9 text-lg leading-[1.75] text-[#C3CDDB]">
+                {hero.subhead}
+              </p>
 
               {hero.primaryCta || hero.secondaryCta ? (
-                <div className="flex flex-wrap items-center gap-4">
+                <div data-hero-item className="flex flex-wrap items-center gap-4">
                   {hero.primaryCta ? (
                     <Link
                       href={hero.primaryCta.href}

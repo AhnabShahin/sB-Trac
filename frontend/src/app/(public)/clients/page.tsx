@@ -5,7 +5,7 @@ import { getClientsContent } from "@/data/pages";
 import type { ClientsTrustIcon, ProjectsAccent } from "@/data/content-types";
 import { ServiceDetailHero } from "@/components/sections/service-detail-hero";
 import { ClientIndustryBandsView } from "@/components/sections/client-industry-bands-view";
-import { TestimonialsSlider } from "@/components/sections/testimonials-slider";
+import { TestimonialCarousel } from "@/components/sections/testimonial-carousel";
 import { Reveal } from "@/components/ui/reveal";
 import { StaggerGroup } from "@/components/ui/stagger-group";
 import { Counter } from "@/components/ui/counter";
@@ -188,8 +188,8 @@ export default async function ClientsPage() {
       {bands.length > 0 ? <ClientIndustryBandsView industries={bands} headingAs="h2" /> : null}
 
       {testimonials && testimonials.items.length > 0 ? (
-        <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
-          <TestimonialsSlider
+        <section className="bg-navy py-24 lg:py-28">
+          <TestimonialCarousel
             eyebrow={testimonials.eyebrow}
             headingLine1={testimonials.headingLine1}
             headingHighlight={testimonials.headingHighlight}

@@ -68,12 +68,18 @@ export default async function WaterTreatmentServicePage() {
                 <span className="text-[#94A3B8]">{hero.breadcrumbLabel}</span>
               </nav>
 
-              <div className="mb-4 inline-flex items-center gap-2.5 rounded-full border border-purple/30 bg-purple/[0.1] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#A78BFA]">
+              <div
+                data-hero-item
+                className="mb-4 inline-flex w-fit items-center gap-2.5 rounded-full border border-purple/30 bg-purple/[0.1] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#A78BFA]"
+              >
                 <span className="h-1.5 w-1.5 rounded-full bg-purple" />
                 {hero.badge}
               </div>
 
-              <h1 className="mb-6 font-display text-[clamp(40px,5.5vw,64px)] font-extrabold leading-[1.05] text-white">
+              <h1
+                data-hero-item
+                className="mb-6 font-display text-[clamp(40px,5.5vw,64px)] font-extrabold leading-[1.05] text-white"
+              >
                 {hero.headingLine1}
                 <br />
                 <span className="bg-gradient-to-r from-purple-400 via-purple to-teal bg-clip-text text-transparent">
@@ -81,7 +87,9 @@ export default async function WaterTreatmentServicePage() {
                 </span>
               </h1>
 
-              <p className="mb-8 max-w-lg text-lg leading-[1.75] text-[#C3CDDB]">{hero.subhead}</p>
+              <p data-hero-item className="mb-8 max-w-lg text-lg leading-[1.75] text-[#C3CDDB]">
+                {hero.subhead}
+              </p>
             </ServiceDetailHero>
           </div>
         </section>

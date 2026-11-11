@@ -70,11 +70,17 @@ export default async function SubstationServicePage() {
                 <span className="text-[#94A3B8]">{hero.breadcrumbLabel}</span>
               </nav>
 
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-light/30 bg-blue-light/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-light">
+              <div
+                data-hero-item
+                className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-blue-light/30 bg-blue-light/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-light"
+              >
                 {hero.badge}
               </div>
 
-              <h1 className="mb-6 font-display text-[clamp(40px,5.5vw,64px)] font-extrabold leading-[1.05] text-white">
+              <h1
+                data-hero-item
+                className="mb-6 font-display text-[clamp(40px,5.5vw,64px)] font-extrabold leading-[1.05] text-white"
+              >
                 {hero.headingLine1}
                 <br />
                 <span className="bg-gradient-to-r from-blue-light to-teal bg-clip-text text-transparent">
@@ -82,10 +88,12 @@ export default async function SubstationServicePage() {
                 </span>
               </h1>
 
-              <p className="mb-9 max-w-xl text-lg leading-[1.75] text-[#C3CDDB]">{hero.subhead}</p>
+              <p data-hero-item className="mb-9 max-w-xl text-lg leading-[1.75] text-[#C3CDDB]">
+                {hero.subhead}
+              </p>
 
               {hero.stats.length > 0 ? (
-                <div className="flex flex-wrap gap-10">
+                <div data-hero-item className="flex flex-wrap gap-10">
                   {hero.stats.map((stat) => (
                     <div key={stat.label}>
                       <div className="font-display text-[28px] font-extrabold text-white">
