@@ -13,3 +13,6 @@
 
 # vercel
 .vercel
+
+# build artifacts (deploy zips are regenerated, never committed)
+*.zip
