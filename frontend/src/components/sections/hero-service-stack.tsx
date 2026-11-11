@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useMotionValue, useTransform, animate } from "motion/react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { BoltIcon, SunIcon, CraneIcon, DropletIcon, WrenchIcon } from "@/components/ui/icons";
 import type { HeroServiceCard } from "@/data/content-types";
@@ -25,16 +25,18 @@ const R_IN = 90;
 const R_MID = (R_OUT + R_IN) / 2;
 const GAP = 2.2;
 
-// Concentric radii the slice label is laid out on (outermost first). The icon sits
-// near the outer arc, the title curves below it, the subtitle on the innermost arc.
-const R_ICON = 193;
+// Concentric radii the slice label is laid out on (outermost first). The subtitle
+// (details) sits on the outer arc, the title curves below it, and the icon sits on
+// the innermost arc nearest the hub.
+const R_ICON = 125;
 const R_TITLE = 170;
-const R_SUB = 149;
+const R_SUB = 193;
 // Angular spans (deg) each curved line is allowed to occupy inside its ~69.8deg wedge.
-const TITLE_SPAN = 58;
-const SUB_SPAN = 64;
-const TITLE_FS = 13;
-const SUB_FS = 8.5;
+const TITLE_SPAN = 64;
+const SUB_SPAN = 68;
+const TITLE_FS = 16;
+const SUB_FS = 11;
+const ICON_SIZE = 24;
 
 // 0deg = 12 o'clock, clockwise — so the wheel reads like a clock/pizza.
 function polar(r: number, deg: number): [number, number] {
@@ -120,7 +122,15 @@ function buildSlices(cards: HeroServiceCard[]): Slice[] {
   });
 }
 
-type Expanding = { href: string; accent: string; title: string; x: number; y: number; scale: number } | null;
+type Expanding = {
+  href: string;
+  accent: string;
+  title: string;
+  image?: string;
+  x: number;
+  y: number;
+  radius: number;
+} | null;
 
 export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
   const reducedMotion = useReducedMotion();
@@ -128,6 +138,17 @@ export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [expanding, setExpanding] = useState<Expanding>(null);
+
+  // clipPath circle() isn't interpolated by the animation engine, so drive the
+  // iris radius through a motion value and build the string ourselves each frame.
+  const geomRef = useRef<{ x: number; y: number; radius: number } | null>(null);
+  const progress = useMotionValue(0);
+  const clipPath = useTransform(progress, (p) => {
+    const g = geomRef.current;
+    return g
+      ? `circle(${(p * g.radius).toFixed(1)}px at ${g.x.toFixed(1)}px ${g.y.toFixed(1)}px)`
+      : "circle(0px at 50% 50%)";
+  });
 
   if (cards.length === 0) return null;
 
@@ -150,9 +171,16 @@ export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
       [window.innerWidth, window.innerHeight],
     ];
     const maxDist = Math.max(...corners.map(([cx, cy]) => Math.hypot(cx - x, cy - y)));
-    const base = 48;
-    const scale = Math.ceil((2 * maxDist) / base) + 1;
-    setExpanding({ href: slice.card.href || "#", accent: slice.card.accent, title: slice.card.title, x, y, scale });
+    const radius = Math.ceil(maxDist) + 40;
+    const href = slice.card.href || "#";
+    geomRef.current = { x, y, radius };
+    setExpanding({ href, accent: slice.card.accent, title: slice.card.title, image: slice.card.image, x, y, radius });
+    progress.set(0);
+    animate(progress, 1, {
+      duration: 0.72,
+      ease: [0.7, 0, 0.25, 1],
+      onComplete: () => router.push(href),
+    });
   };
 
   return (
@@ -255,7 +283,7 @@ export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
                     : { opacity: { duration: 0.5, delay: 0.25 + i * 0.08 }, default: { type: "spring", stiffness: 260, damping: 22 } }
                 }
               >
-                <Icon x={s.iconX - 9} y={s.iconY - 9} width={18} height={18} stroke="#ffffff" />
+                <Icon x={s.iconX - ICON_SIZE / 2} y={s.iconY - ICON_SIZE / 2} width={ICON_SIZE} height={ICON_SIZE} stroke="#ffffff" />
                 <text
                   className="font-display"
                   fontSize={TITLE_FS}
@@ -322,30 +350,44 @@ export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
 
       <AnimatePresence>
         {expanding ? (
-          <motion.div className="pointer-events-none fixed inset-0 z-[70]" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <motion.div
-              className="absolute rounded-full"
+          <motion.div
+            // Iris reveal from the clicked slice: the division's own image floods the
+            // viewport (tinted toward its accent) so the click reads as that service's
+            // image taking over, then routes to its page. Radius is driven by a motion
+            // value (see clipPath above) because the engine won't tween circle() itself.
+            className="pointer-events-none fixed inset-0 z-[70] overflow-hidden"
+            style={{ clipPath }}
+            exit={{ opacity: 0 }}
+          >
+            {expanding.image ? (
+              <motion.div
+                className="absolute inset-0"
+                initial={{ scale: 1.2 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.9, ease: [0.7, 0, 0.25, 1] }}
+              >
+                <Image src={expanding.image} alt="" fill sizes="100vw" className="object-cover" priority />
+              </motion.div>
+            ) : null}
+            <div
+              className="absolute inset-0"
               style={{
-                left: expanding.x,
-                top: expanding.y,
-                width: 48,
-                height: 48,
-                marginLeft: -24,
-                marginTop: -24,
-                background: expanding.accent,
+                background: expanding.image
+                  ? `linear-gradient(135deg, ${expanding.accent}cc, ${expanding.accent}66)`
+                  : expanding.accent,
               }}
-              initial={{ scale: 1 }}
-              animate={{ scale: expanding.scale }}
-              transition={{ duration: 0.72, ease: [0.7, 0, 0.25, 1] }}
-              onAnimationComplete={() => router.push(expanding.href)}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "radial-gradient(circle at center, transparent 28%, rgba(6,11,21,0.55) 100%)" }}
             />
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.3 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.38, duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="font-display text-[clamp(28px,5vw,56px)] font-extrabold tracking-tight text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.4)]">
+              <span className="font-display text-[clamp(28px,5vw,56px)] font-extrabold tracking-tight text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.5)]">
                 {expanding.title}
               </span>
             </motion.div>
