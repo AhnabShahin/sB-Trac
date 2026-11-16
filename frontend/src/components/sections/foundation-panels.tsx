@@ -1,23 +1,40 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ComponentType } from "react";
-import { motion, type Variants } from "motion/react";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { Reveal } from "@/components/ui/reveal";
+import { TargetIcon, LightbulbIcon, ShieldIcon, HandshakeIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
-import { TargetIcon, LightbulbIcon, ShieldIcon, HandshakeIcon, type IconProps } from "@/components/ui/icons";
 import type { Pillar, PillarAccent } from "@/data/content-types";
 
-const AUTOPLAY_MS = 6000;
+registerGsap();
 
-const ACCENT: Record<PillarAccent, { text: string; ring: string; glow: string; chip: string }> = {
-  teal: { text: "text-teal", ring: "border-teal/40", glow: "rgba(10,158,136,0.45)", chip: "bg-teal/12" },
-  blue: { text: "text-blue-light", ring: "border-blue-light/40", glow: "rgba(159,185,252,0.4)", chip: "bg-blue-light/12" },
-  amber: { text: "text-amber", ring: "border-amber/40", glow: "rgba(224,138,0,0.4)", chip: "bg-amber/12" },
+const ACCENT: Record<PillarAccent, { text: string; chip: string; border: string; shadow: string }> = {
+  teal: {
+    text: "text-teal",
+    chip: "bg-teal/10",
+    border: "hover:border-teal/30",
+    shadow: "hover:shadow-[0_14px_32px_rgba(10,158,136,0.14)]",
+  },
+  blue: {
+    text: "text-blue-light",
+    chip: "bg-blue-light/10",
+    border: "hover:border-blue-light/30",
+    shadow: "hover:shadow-[0_14px_32px_rgba(159,185,252,0.14)]",
+  },
+  amber: {
+    text: "text-amber",
+    chip: "bg-amber/10",
+    border: "hover:border-amber/30",
+    shadow: "hover:shadow-[0_14px_32px_rgba(224,138,0,0.14)]",
+  },
 };
 
 const ICONS = [TargetIcon, LightbulbIcon, ShieldIcon] as const;
 
-// Map a pillar to an icon by its name, falling back to position so the carousel
+// Map a pillar to an icon by its name, falling back to position so the grid
 // still shows a sensible glyph if the copy is edited in the admin.
 function pillarIcon(title: string, index: number) {
   const t = title.toLowerCase();
@@ -26,75 +43,6 @@ function pillarIcon(title: string, index: number) {
   if (t.includes("value")) return ShieldIcon;
   if (t.includes("people") || t.includes("partner")) return HandshakeIcon;
   return ICONS[index % ICONS.length];
-}
-
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-// Shared "lift in with a blur" reveal reused for the big title letters and the
-// content inside the focused card, so the whole section speaks one language.
-const RISE: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: EASE } },
-};
-
-type CardAccent = (typeof ACCENT)[PillarAccent];
-
-function PillarBody({
-  pillar,
-  accent,
-  Icon,
-  animateIn,
-}: {
-  pillar: Pillar;
-  accent: CardAccent;
-  Icon: ComponentType<IconProps>;
-  animateIn: boolean;
-}) {
-  return (
-    <motion.div
-      className="flex h-full flex-col"
-      initial={animateIn ? "hidden" : false}
-      animate="show"
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: animateIn ? 0.09 : 0, delayChildren: animateIn ? 0.14 : 0 } },
-      }}
-    >
-      <motion.span
-        variants={RISE}
-        className={cn(
-          "mb-6 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
-          accent.chip,
-          accent.text,
-        )}
-      >
-        <Icon width={28} height={28} />
-      </motion.span>
-
-      {pillar.description ? (
-        <motion.p
-          variants={RISE}
-          className="text-[clamp(16px,1.5vw,20px)] font-medium leading-[1.6] text-white/92"
-        >
-          {pillar.description}
-        </motion.p>
-      ) : null}
-
-      {pillar.items.length > 0 ? (
-        <motion.ul
-          variants={{ hidden: {}, show: { transition: { staggerChildren: animateIn ? 0.07 : 0 } } }}
-          className="mt-auto grid gap-x-8 gap-y-2.5 pt-6 text-[clamp(14px,1.3vw,16px)] leading-[1.7] text-[#CBD5E1] sm:grid-cols-2"
-        >
-          {pillar.items.map((item) => (
-            <motion.li key={item.label} variants={RISE} className="flex items-center gap-2.5">
-              <span className={cn("inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-current", accent.text)} />
-              {item.label}
-            </motion.li>
-          ))}
-        </motion.ul>
-      ) : null}
-    </motion.div>
-  );
 }
 
 export function FoundationPanels({
@@ -106,213 +54,294 @@ export function FoundationPanels({
   heading: string;
   pillars: Pillar[];
 }) {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const titleWrapRef = useRef<HTMLDivElement>(null);
+  const titleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const wordRefs = useRef<(HTMLSpanElement | null)[][]>([]);
   const reducedMotion = useReducedMotion();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [width, setWidth] = useState(0);
 
-  const n = pillars.length;
+  useGSAP(
+    () => {
+      const cards = cardRefs.current.filter((el): el is HTMLDivElement => Boolean(el));
+      const track = trackRef.current;
+      const stage = stageRef.current;
+      if (reducedMotion || !track || !stage || cards.length === 0) return;
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
-    ro.observe(el);
-    setWidth(el.getBoundingClientRect().width);
-    return () => ro.disconnect();
-  }, []);
+      // Same fade-up-on-scroll-into-view entrance as the rest of the site's
+      // card grids (see StaggerGroup), kept inline here because the track
+      // below also needs to become the pin target for the desktop slider.
+      // No `clearProps` here: it would strip opacity/transform a beat after
+      // the tween finishes, which can land after the pin's own onUpdate has
+      // already written different values to those same properties — a race
+      // that snaps the slider back to the entrance's resting state.
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: { trigger: track, start: "top 80%", toggleActions: "play none none none" },
+        },
+      );
 
-  const go = useCallback((dir: number) => setActive((a) => (a + dir + n) % n), [n]);
+      // Each description's words get their own quick cascade on the same
+      // entrance — gives the (previously static-looking) card copy some
+      // life on mobile/reduced-breakpoints, where there's no active-card
+      // slider to carry that job (see the per-word reveal in onUpdate below
+      // for the desktop version, tied to a card becoming active).
+      const allWords = wordRefs.current.flatMap((words) => words.filter((el): el is HTMLSpanElement => Boolean(el)));
+      if (allWords.length > 0) {
+        gsap.fromTo(
+          allWords,
+          { opacity: 0, y: 14 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+            stagger: 0.02,
+            scrollTrigger: { trigger: track, start: "top 80%", toggleActions: "play none none none" },
+          },
+        );
+      }
 
-  useEffect(() => {
-    if (reducedMotion || paused || n <= 1) return;
-    const id = window.setInterval(() => setActive((a) => (a + 1) % n), AUTOPLAY_MS);
-    return () => window.clearInterval(id);
-  }, [reducedMotion, paused, n]);
+      if (cards.length < 2) return;
 
-  if (n === 0) return null;
+      const titles = titleRefs.current.filter((el): el is HTMLSpanElement => Boolean(el));
+      const mm = gsap.matchMedia();
 
-  const activePillar = pillars[Math.min(active, n - 1)];
-  const activeAccent = ACCENT[activePillar.accent] ?? ACCENT.teal;
+      // Below 768px the cards stay a plain stacked grid (see the Tailwind
+      // classes on the track/card elements) — only desktop gets the pinned,
+      // step-through slider, so phones never deal with scroll-jacking.
+      mm.add("(min-width: 768px)", () => {
+        if (titleWrapRef.current) gsap.set(titleWrapRef.current, { visibility: "visible" });
+        gsap.set(titles, { opacity: 0 });
+        if (titles[0]) gsap.set(titles[0], { opacity: 1 });
 
-  const cardW = Math.min(width * 0.82, 480) || 440;
-  const spacing = Math.min(width * 0.5, 300) || 280;
+        // Switch the grid into an absolute-centred stack once we know each
+        // card's natural (flowed) height. Every card is then forced to that
+        // same height — otherwise Vision's two-line description sits in a
+        // visibly shorter box than Values' bullet list, even though they're
+        // centred on the same point — so all three read as one consistent
+        // card size as they swap in and out.
+        const maxCardHeight = Math.max(...cards.map((card) => card.offsetHeight));
+        gsap.set(track, { position: "relative", height: maxCardHeight + 24 });
+        gsap.set(cards, {
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          yPercent: -50,
+          width: "min(440px, 100%)",
+          height: maxCardHeight,
+        });
+
+        // Cards also carry a Tailwind `transition-all` class for hover
+        // states; left enabled, the browser tries to CSS-transition every
+        // scrub-driven frame below, which stutters (see Reveal). Suspend it
+        // for as long as the slider owns these cards.
+        cards.forEach((card) => {
+          card.style.transition = "none";
+        });
+
+        const last = cards.length - 1;
+        // Pinned, but anchored at "center center" rather than "top top": the
+        // stage locks at the viewport's vertical middle instead of snapping
+        // to its very top edge, which splits the natural gap between the
+        // (shorter) stage and the full viewport evenly above/below instead
+        // of dumping all of it beneath the card as dead space. The scroll
+        // distance is also tuned tight (0.55 viewport-heights per card, not
+        // a full one) so each card gets just enough scrub to be read clearly
+        // without dragging the lock out longer than it needs to be.
+        const st = ScrollTrigger.create({
+          trigger: stage,
+          start: "center center",
+          end: () => `+=${last * window.innerHeight * 0.55}`,
+          pin: true,
+          anticipatePin: 1,
+          scrub: 0.5,
+          snap: { snapTo: 1 / last, duration: 0.4, ease: "power2.inOut" },
+          onUpdate: (self) => {
+            const progress = self.progress * last;
+            cards.forEach((card, i) => {
+              const dist = i - progress;
+              const abs = Math.min(Math.abs(dist), 1);
+              // Ease-out the fade/scale curve (abs² inverted) instead of a
+              // linear ramp, so a card arrives/leaves with a gentle settle
+              // rather than a constant-speed slide.
+              const eased = 1 - (1 - abs) * (1 - abs);
+              gsap.set(card, {
+                xPercent: -50 + dist * 108,
+                scale: 1 - eased * 0.16,
+                opacity: 1 - eased * 0.85,
+                zIndex: 10 - Math.round(abs * 5),
+              });
+              card.setAttribute("aria-hidden", abs > 0.5 ? "true" : "false");
+
+              // Word-by-word fade-up as this card becomes active: "focus"
+              // ramps 0→1 while it slides into the centre, and each word's
+              // own reveal window is offset along that ramp (by its index,
+              // spread across `span`) so they cascade in left-to-right
+              // rather than popping in together — purely a function of the
+              // same scrub progress already driving the card itself, so it
+              // stays perfectly in sync with no extra ScrollTrigger.
+              const words = wordRefs.current[i];
+              if (words && words.length > 0) {
+                const focus = 1 - abs;
+                const span = 0.6;
+                const revealDuration = 1 - span;
+                words.forEach((word, wi) => {
+                  if (!word) return;
+                  const delay = words.length > 1 ? (wi / (words.length - 1)) * span : 0;
+                  const wordProgress = Math.min(1, Math.max(0, (focus - delay) / revealDuration));
+                  gsap.set(word, { opacity: wordProgress, y: (1 - wordProgress) * 10 });
+                });
+              }
+            });
+            titles.forEach((title, i) => {
+              const dist = Math.abs(i - progress);
+              gsap.set(title, { opacity: Math.max(0, 1 - dist * dist * 1.6) });
+            });
+          },
+        });
+
+        return () => {
+          st.kill();
+          gsap.set(track, { clearProps: "all" });
+          gsap.set(cards, { clearProps: "all" });
+          cards.forEach((card) => {
+            card.removeAttribute("aria-hidden");
+            card.style.transition = "";
+          });
+          if (titleWrapRef.current) gsap.set(titleWrapRef.current, { clearProps: "all" });
+          gsap.set(titles, { clearProps: "all" });
+          gsap.set(allWords, { clearProps: "all" });
+        };
+      });
+
+      return () => mm.revert();
+    },
+    { scope: stageRef, dependencies: [reducedMotion, pillars.length] },
+  );
+
+  if (pillars.length === 0) return null;
 
   return (
-    <motion.div
-      initial={reducedMotion ? undefined : "hidden"}
-      whileInView={reducedMotion ? undefined : "show"}
-      viewport={{ once: true, amount: 0.2 }}
-    >
-      {/* Header — centered. The big accent word doubles as the live title and the
-          only place the pillar name appears, so the card below carries no
-          duplicate heading. */}
-      <motion.div
-        className="mx-auto max-w-xl text-center"
-        variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
+    <div>
+      <Reveal className="mx-auto max-w-xl text-center">
         <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">{eyebrow}</div>
         <h2 className="font-display text-[clamp(26px,3vw,38px)] font-extrabold leading-[1.1] text-white">
           {heading}
         </h2>
-      </motion.div>
+      </Reveal>
 
-      <div
-        className="relative mt-6 flex h-[clamp(72px,11vw,140px)] items-center justify-center overflow-hidden"
-        style={{ perspective: 900 }}
-      >
-        {reducedMotion ? (
-          <span
-            className={cn(
-              "font-display font-extrabold uppercase leading-none tracking-[-2px] text-[clamp(56px,10vw,128px)]",
-              activeAccent.text,
-            )}
-          >
-            {activePillar.title}
-          </span>
-        ) : (
-          <motion.h3
-            key={active}
-            aria-label={activePillar.title}
-            className={cn(
-              "flex font-display font-extrabold uppercase leading-none tracking-[-2px] text-[clamp(56px,10vw,128px)]",
-              activeAccent.text,
-            )}
-            style={{ transformStyle: "preserve-3d", textShadow: `0 20px 60px ${activeAccent.glow}` }}
-            initial="hidden"
-            animate="show"
-            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.045 } } }}
-          >
-            {activePillar.title.split("").map((ch, idx) => (
-              <motion.span
-                key={idx}
-                aria-hidden="true"
-                className="inline-block will-change-transform"
-                variants={{
-                  hidden: { opacity: 0, y: 60, rotateX: -75, filter: "blur(10px)" },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    rotateX: 0,
-                    filter: "blur(0px)",
-                    transition: { duration: 0.55, ease: EASE },
-                  },
-                }}
-              >
-                {ch === " " ? " " : ch}
-              </motion.span>
-            ))}
-          </motion.h3>
-        )}
-      </div>
+      {/* Both the giant pillar title and the card track are pinned together
+          as one unit (see useGSAP above) — pinning the track alone would
+          freeze it at the viewport top while the title, sitting above it in
+          flow, scrolled out from under it. */}
+      <div ref={stageRef} className="flow-root">
+        {/* Decorative, oversized pillar title — hidden until the desktop
+            slider's effect makes it visible; plain-grid / reduced-motion
+            visitors never see a title stuck on "Vision" while only the
+            Values card is in view. */}
+        <div
+          ref={titleWrapRef}
+          aria-hidden="true"
+          className="relative mx-auto mt-20 hidden h-[56px] max-w-5xl md:block lg:h-[72px]"
+          style={{ visibility: "hidden" }}
+        >
+          {pillars.map((pillar, i) => (
+            <span
+              key={pillar.title}
+              ref={(el) => {
+                titleRefs.current[i] = el;
+              }}
+              className="absolute inset-x-0 top-0 select-none text-center font-display text-[clamp(40px,6vw,72px)] font-extrabold uppercase leading-none tracking-tight text-teal [text-shadow:0_0_50px_rgba(10,158,136,0.5)]"
+            >
+              {pillar.title}
+            </span>
+          ))}
+        </div>
 
-      {/* Coverflow carousel — the focused pillar reads as a large modal panel,
-          neighbours are scaled, blurred and dimmed behind it. */}
-      <div
-        ref={containerRef}
-        className="relative mt-2 select-none"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocusCapture={() => setPaused(true)}
-        onBlurCapture={() => setPaused(false)}
-      >
-        <div className="relative mx-auto h-[420px] sm:h-[380px]" style={{ maxWidth: cardW + spacing * 2 }}>
+        <div ref={trackRef} className="mx-auto mt-6 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-3">
           {pillars.map((pillar, i) => {
-            let rel = i - active;
-            if (rel > n / 2) rel -= n;
-            if (rel < -n / 2) rel += n;
-            const abs = Math.abs(rel);
-            const isActive = rel === 0;
-            const visible = abs <= 2;
             const accent = ACCENT[pillar.accent] ?? ACCENT.teal;
             const Icon = pillarIcon(pillar.title, i);
 
             return (
-              <motion.div
+              <div
                 key={pillar.title}
-                className="absolute left-1/2 top-0"
-                style={{ width: cardW, zIndex: 20 - abs }}
-                animate={{
-                  x: rel * spacing - cardW / 2,
-                  scale: isActive ? 1 : Math.max(0.7, 1 - abs * 0.15),
-                  opacity: visible ? (isActive ? 1 : 0.35) : 0,
-                  filter: isActive ? "blur(0px)" : "blur(2px)",
+                ref={(el) => {
+                  cardRefs.current[i] = el;
                 }}
-                transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 210, damping: 26 }}
-                drag={isActive ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.18}
-                onDragEnd={(_, info) => {
-                  if (info.offset.x < -60) go(1);
-                  else if (info.offset.x > 60) go(-1);
-                }}
-                aria-hidden={!isActive}
+                className={cn(
+                  "group flex flex-col rounded-2xl border border-border bg-card px-7 py-8 transition-all duration-300 hover:-translate-y-1",
+                  accent.border,
+                  accent.shadow,
+                )}
               >
-                <button
-                  type="button"
-                  tabIndex={isActive ? 0 : -1}
-                  onClick={() => (isActive ? null : setActive(i))}
-                  className={cn(
-                    "group flex h-[400px] w-full cursor-pointer flex-col rounded-3xl border p-8 text-left outline-none backdrop-blur-sm transition-colors sm:h-[360px] sm:p-9",
-                    isActive
-                      ? cn("bg-card/95 focus-visible:border-white/50", accent.ring)
-                      : "border-border bg-card/70",
-                  )}
-                  style={
-                    isActive
-                      ? { boxShadow: `0 40px 90px -30px ${accent.glow}, inset 0 1px 0 rgba(255,255,255,0.06)` }
-                      : undefined
-                  }
-                >
-                  <PillarBody
-                    key={`${i}-${isActive}`}
-                    pillar={pillar}
-                    accent={accent}
-                    Icon={Icon}
-                    animateIn={isActive && !reducedMotion}
-                  />
-                </button>
-              </motion.div>
+                <div className="relative mb-4 flex h-12 items-center">
+                  <div
+                    className={cn(
+                      "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
+                      accent.chip,
+                      accent.text,
+                    )}
+                  >
+                    <Icon width={24} height={24} />
+                  </div>
+                  {/* Centred on the full card width via absolute + inset-x-0,
+                      independent of the icon sitting in flow on the left. */}
+                  <h3 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-xl font-bold text-white">
+                    {pillar.title}
+                  </h3>
+                </div>
+
+                <div className="flex flex-1 flex-col justify-center">
+                  {pillar.description ? (
+                    <p className="text-center text-[15px] leading-[1.65] text-[#CBD5E1]">
+                      {pillar.description.split(" ").map((word, wi, words) => (
+                        <span
+                          key={wi}
+                          ref={(el) => {
+                            if (!wordRefs.current[i]) wordRefs.current[i] = [];
+                            wordRefs.current[i][wi] = el;
+                          }}
+                          className="inline-block"
+                        >
+                          {word}
+                          {wi < words.length - 1 ? " " : ""}
+                        </span>
+                      ))}
+                    </p>
+                  ) : null}
+
+                  {pillar.items.length > 0 ? (
+                    // Column-major split: the first half of the items fill the
+                    // left column top-to-bottom, the rest fill the right — not
+                    // an interleaved 2-per-row grid.
+                    <div
+                      className="mt-5 grid grid-flow-col grid-cols-2 gap-x-6 gap-y-2 border-t border-border pt-5"
+                      style={{ gridTemplateRows: `repeat(${Math.ceil(pillar.items.length / 2)}, auto)` }}
+                    >
+                      {pillar.items.map((item) => (
+                        <div key={item.label} className="flex items-center gap-2.5 text-[14px] text-[#CBD5E1]">
+                          <span className={cn("inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-current", accent.text)} />
+                          {item.label}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
             );
           })}
         </div>
-
-        <div className="mt-8 flex items-center justify-center gap-5">
-          <button
-            type="button"
-            onClick={() => go(-1)}
-            aria-label="Previous pillar"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-white/80 transition-colors hover:border-teal/50 hover:text-teal"
-          >
-            ←
-          </button>
-          <div className="flex items-center gap-2">
-            {pillars.map((pillar, i) => (
-              <button
-                key={pillar.title}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-label={`Show ${pillar.title}`}
-                aria-current={i === active}
-                className={cn(
-                  "h-2 rounded-full transition-all duration-300",
-                  i === active ? "w-7 bg-teal" : "w-2 bg-white/25 hover:bg-white/45",
-                )}
-              />
-            ))}
-          </div>
-          <button
-            type="button"
-            onClick={() => go(1)}
-            aria-label="Next pillar"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-white/80 transition-colors hover:border-teal/50 hover:text-teal"
-          >
-            →
-          </button>
-        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

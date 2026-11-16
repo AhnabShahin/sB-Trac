@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
@@ -9,6 +9,7 @@ import type { ClientTestimonialItem } from "@/data/content-types";
 
 const GAP = 24;
 const SLIDE = { duration: 0.72, ease: [0.22, 1, 0.36, 1] } as const;
+const AUTOPLAY_MS = 2600;
 
 // A full-bleed, peeking carousel: the focused card sits at the content gutter
 // (aligned with the heading) and reveals its quote, while neighbouring cards
@@ -43,6 +44,7 @@ export function TestimonialCarousel({
   // card in an adjacent copy with no transition, so the slide reads as endless.
   const [active, setActive] = useState(loops ? n : 0);
   const [animate, setAnimate] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   useLayoutEffect(() => {
     const el = viewportRef.current;
@@ -67,6 +69,14 @@ export function TestimonialCarousel({
     },
     [loops],
   );
+
+  // Re-armed on every `active` change (manual or auto) so the gap between
+  // advances stays constant regardless of what triggered the last one.
+  useEffect(() => {
+    if (!loops || reducedMotion || paused) return;
+    const id = setInterval(() => go(1), AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [loops, reducedMotion, paused, go, active]);
 
   const settle = () => {
     if (!loops) return;
@@ -120,7 +130,13 @@ export function TestimonialCarousel({
       </div>
 
       {/* Full-bleed viewport — fixed height reserves space (no CLS). */}
-      <div ref={viewportRef} className="w-full overflow-hidden" style={{ height: cardH }}>
+      <div
+        ref={viewportRef}
+        className="w-full overflow-hidden"
+        style={{ height: cardH }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
         <div
           className="flex items-start will-change-transform"
           style={{
