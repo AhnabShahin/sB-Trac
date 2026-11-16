@@ -168,11 +168,11 @@ export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
                 <div
                   aria-hidden="true"
                   className="absolute inset-0"
-                  style={{ background: `linear-gradient(165deg, ${card.accent}b3, ${card.accent}80 55%, rgba(6,11,21,0.55))` }}
+                  style={{ background: `linear-gradient(165deg, ${card.accent}80, ${card.accent}40 55%, rgba(6,11,21,0.32))` }}
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-black/32 via-transparent to-transparent"
                 />
                 <div className="relative z-10 flex h-full flex-col items-center justify-center gap-2 p-4 text-center">
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm">

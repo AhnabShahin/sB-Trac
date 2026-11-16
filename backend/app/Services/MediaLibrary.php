@@ -30,13 +30,13 @@ class MediaLibrary
             return $url;
         }
 
-        return rtrim((string) config('app.url'), '/') . '/' . ltrim($url, '/');
+        return rtrim((string) config('app.url'), '/').'/'.ltrim($url, '/');
     }
 
     /** Is this value one of our managed storage URLs (vs. a /assets demo path or external URL)? */
     public function isManagedUrl(string $value): bool
     {
-        return str_contains($value, '/storage/' . self::ROOT . '/');
+        return str_contains($value, '/storage/'.self::ROOT.'/');
     }
 
     /**
@@ -46,7 +46,7 @@ class MediaLibrary
      */
     public function demoUrl(string $assetPath): string
     {
-        return rtrim((string) config('app.url'), '/') . '/demo-media/' . ltrim($assetPath, '/');
+        return rtrim((string) config('app.url'), '/').'/demo-media/'.ltrim($assetPath, '/');
     }
 
     /** Map a managed storage URL back to its public-disk path, or null if it isn't one. */
@@ -59,13 +59,13 @@ class MediaLibrary
         $pos = strpos($value, $marker);
         $path = substr($value, $pos + strlen($marker));
 
-        return str_starts_with($path, self::ROOT . '/') ? $path : null;
+        return str_starts_with($path, self::ROOT.'/') ? $path : null;
     }
 
     public function store(UploadedFile $file, string $slug): string
     {
-        $dir = self::ROOT . '/' . $this->safe($slug) . '/uploads';
-        $name = Str::random(24) . '.' . strtolower($file->getClientOriginalExtension() ?: $file->extension());
+        $dir = self::ROOT.'/'.$this->safe($slug).'/uploads';
+        $name = Str::random(24).'.'.strtolower($file->getClientOriginalExtension() ?: $file->extension());
         $path = $file->storeAs($dir, $name, 'public');
 
         return $this->url($path);
@@ -90,7 +90,7 @@ class MediaLibrary
      */
     public function clearPage(string $slug): void
     {
-        $dir = self::ROOT . '/' . $this->safe($slug);
+        $dir = self::ROOT.'/'.$this->safe($slug);
 
         foreach ($this->disk()->allFiles($dir) as $file) {
             try {
@@ -130,19 +130,35 @@ class MediaLibrary
         if (is_string($node)) {
             $asset = $this->demoAssetPath($node);
             if ($asset !== null) {
-                $source = base_path('demo-data/media' . $asset);
+                $source = base_path('demo-data/media'.$asset);
                 if (is_file($source)) {
-                    $dest = self::ROOT . '/' . $this->safe($slug) . '/' . ltrim($asset, '/');
+                    $dest = self::ROOT.'/'.$this->safe($slug).'/'.ltrim($asset, '/');
+                    $size = filesize($source);
 
                     // Skip the copy when an identical file is already there. Demo
                     // media is static, so re-applying would only risk overwriting a
                     // file the browser is currently streaming (on Windows that lock
                     // corrupts the write and the asset vanishes).
-                    if (! $this->disk()->exists($dest) || $this->disk()->size($dest) !== filesize($source)) {
-                        $this->disk()->put($dest, file_get_contents($source));
+                    try {
+                        if (! $this->disk()->exists($dest) || $this->disk()->size($dest) !== $size) {
+                            $this->disk()->put($dest, file_get_contents($source));
+                        }
+                    } catch (\Throwable) {
+                        // handled below by the post-write verification
                     }
 
-                    return $this->url($dest);
+                    // Verify the copy actually landed before trusting the storage
+                    // URL — a locked destination can leave the write short or
+                    // missing with no exception, which previously produced a
+                    // /storage/... URL pointing at a file that was never there.
+                    if ($this->disk()->exists($dest) && $this->disk()->size($dest) === $size) {
+                        return $this->url($dest);
+                    }
+
+                    // Copy didn't take: serve straight from demo-data instead of
+                    // handing back a dead /storage/ URL, so the frontend still gets
+                    // a working image.
+                    return $this->demoUrl($asset);
                 }
             }
         }
@@ -167,7 +183,7 @@ class MediaLibrary
         $marker = '/demo-media/assets/';
         $pos = strpos($value, $marker);
         if ($pos !== false) {
-            return '/assets/' . substr($value, $pos + strlen($marker));
+            return '/assets/'.substr($value, $pos + strlen($marker));
         }
 
         return null;
@@ -192,7 +208,7 @@ class MediaLibrary
             return array_map(fn ($v) => $this->walkLink($v), $node);
         }
 
-        if (is_string($node) && str_starts_with($node, '/assets/') && is_file(base_path('demo-data/media' . $node))) {
+        if (is_string($node) && str_starts_with($node, '/assets/') && is_file(base_path('demo-data/media'.$node))) {
             return $this->demoUrl($node);
         }
 

@@ -71,21 +71,7 @@ export function CascadeStackView({ content }: { content: CascadeContent }) {
   );
 
   return (
-    <section ref={sectionRef} id="cascade" className="relative overflow-hidden bg-navy">
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pt-24 pb-10 sm:px-12 lg:px-20 lg:pt-28 lg:pb-14">
-        <Reveal>
-          <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
-            {content.eyebrow}
-          </div>
-          <h2 className="max-w-[640px] font-display text-[clamp(30px,3.4vw,42px)] font-extrabold leading-[1.1] text-white">
-            {content.heading}
-          </h2>
-          <p className="mt-4 max-w-xl text-base leading-[1.7] text-slate-300">
-            {content.intro}
-          </p>
-        </Reveal>
-      </div>
-
+    <section ref={sectionRef} id="cascade" className="relative overflow-hidden bg-white">
       <div className="relative">
         {content.slides.map((slide, i) => (
           <CascadeSlide
@@ -130,31 +116,31 @@ function CascadeSlide({
   }, []);
 
   return (
-    <div ref={panelRef} className="relative bg-navy2 lg:mb-10 lg:h-[600px]">
+    <div ref={panelRef} className="relative bg-white lg:mb-10 lg:h-[600px]">
       <div className="mx-auto lg:grid lg:h-full lg:max-w-[1440px] lg:grid-cols-[1fr_1.15fr] lg:items-center">
         <div className="relative z-10 flex flex-col justify-center gap-4 px-6 py-16 sm:px-12 lg:px-20 lg:py-10">
           <Reveal start="top 88%">
             <div className="mb-1 flex items-center gap-4">
-              <span className="font-display text-sm font-bold tracking-[2px] text-teal">
+              <span className="font-display text-sm font-bold tracking-[2px] text-teal-dark">
                 {slide.index}
               </span>
-              <span className="h-px w-full max-w-[60px] bg-teal/40" />
+              <span className="h-px w-full max-w-[60px] bg-teal-dark/40" />
             </div>
 
-            <h3 className="mb-5 max-w-xl font-display text-[clamp(24px,2.6vw,34px)] font-extrabold leading-[1.15] text-white">
+            <h3 className="mb-5 max-w-xl font-display text-[clamp(24px,2.6vw,34px)] font-extrabold leading-[1.15] text-[#0E2A47]">
               {slide.title}
             </h3>
 
             <div className="relative max-w-xl">
               <div ref={textRef} className="max-h-[260px] overflow-hidden lg:max-h-[200px]">
                 {slide.lead ? (
-                  <p className="mb-5 text-lg font-semibold leading-[1.5] text-teal-light">
+                  <p className="mb-5 text-lg font-semibold leading-[1.5] text-teal-dark">
                     {slide.lead}
                   </p>
                 ) : null}
 
                 {slide.description ? (
-                  <p className="text-base leading-[1.8] text-slate-300">{slide.description}</p>
+                  <p className="text-base leading-[1.8] text-[#475569]">{slide.description}</p>
                 ) : null}
 
                 {slide.items?.length ? (
@@ -165,13 +151,13 @@ function CascadeSlide({
                         className={cn(
                           "flex items-start gap-3",
                           slide.itemsVariant === "stats" &&
-                            "rounded-xl border border-teal/15 bg-white/[0.03] px-4 py-3.5",
+                            "rounded-xl border border-teal-dark/15 bg-teal-dark/5 px-4 py-3.5",
                         )}
                       >
-                        <ChecklistIcon width={18} height={18} className="mt-0.5 shrink-0 text-teal" />
-                        <span className="text-[15px] leading-[1.6] text-slate-200">
+                        <ChecklistIcon width={18} height={18} className="mt-0.5 shrink-0 text-teal-dark" />
+                        <span className="text-[15px] leading-[1.6] text-[#334155]">
                           {item.title ? (
-                            <strong className="font-semibold text-white">{item.title}: </strong>
+                            <strong className="font-semibold text-[#0E2A47]">{item.title}: </strong>
                           ) : null}
                           {item.description}
                         </span>
@@ -184,7 +170,7 @@ function CascadeSlide({
               {clamped ? (
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-navy2 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent"
                 />
               ) : null}
             </div>
@@ -194,7 +180,7 @@ function CascadeSlide({
                 type="button"
                 onClick={() => setModalOpen(true)}
                 data-cursor-interactive
-                className="group mt-5 inline-flex w-fit items-center gap-2 rounded-[4px] border border-teal/40 px-6 py-3 text-sm font-medium text-teal-light transition-all hover:border-teal hover:bg-teal/10"
+                className="group mt-5 inline-flex w-fit items-center gap-2 rounded-[4px] border border-teal-dark/40 px-6 py-3 text-sm font-medium text-teal-dark transition-all hover:border-teal-dark hover:bg-teal-dark/10"
               >
                 Learn more
                 <ArrowUpRightIcon
@@ -218,7 +204,7 @@ function CascadeSlide({
               loading={eager ? "eager" : "lazy"}
             />
           ) : (
-            <div className="h-full w-full bg-navy3" />
+            <div className="h-full w-full bg-[#E2E8F0]" />
           )}
         </div>
       </div>

@@ -2,7 +2,18 @@
 
 use App\Http\Controllers\DemoMediaController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+
+// Directory junctions (unlike NTFS symbolic links) don't need admin rights or
+// Developer Mode on Windows, so this is the fallback the health-check route
+// below reaches for when symlink() fails on a local Windows dev box.
+function windows_storage_junction(string $target, string $link): bool
+{
+    exec('cmd /c mklink /J '.escapeshellarg($link).' '.escapeshellarg($target), result_code: $code);
+
+    return $code === 0 && is_dir($link);
+}
 
 // API-only backend — no Blade UI. The root reports that the API is up and whether
 // the database is reachable, so a live deploy can be verified from the browser.
@@ -17,7 +28,7 @@ Route::get('/', function () {
         // Cheap round-trip that forces a real connection without touching any table.
         DB::connection()->getPdo();
         DB::select('select 1');
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $database['status'] = 'error';
         $database['message'] = $e->getMessage();
     }
@@ -31,22 +42,38 @@ Route::get('/', function () {
     $storage = ['link' => $link, 'target' => $target];
 
     try {
-        if (is_dir($link)) {
+        // A REAL link, not just any directory at the path: a failed symlink()
+        // (e.g. Windows without admin/Developer Mode) can leave a plain folder
+        // sitting at $link — is_dir() alone reports that as fine, but a plain
+        // folder is a point-in-time copy that silently drifts out of sync with
+        // every file written to storage after it was created (newly applied
+        // demo media 404s/403s even though it's really on disk).
+        $isProperLink = is_link($link) && realpath($link) === realpath($target);
+
+        if ($isProperLink) {
             $storage['status'] = 'exists';
         } else {
-            // Drop a dangling symlink or stray file sitting at the link path.
-            if (is_link($link) || file_exists($link)) {
+            // Drop whatever is sitting at the link path — a dangling symlink,
+            // a stray file, or a stale real directory — before relinking.
+            if (is_dir($link) && ! is_link($link)) {
+                File::deleteDirectory($link);
+            } elseif (is_link($link) || file_exists($link)) {
                 @unlink($link);
             }
 
-            if (! function_exists('symlink')) {
-                $storage['status'] = 'error';
-                $storage['message'] = 'symlink() is disabled on this host';
-            } elseif (@symlink($target, $link)) {
+            if (function_exists('symlink') && @symlink($target, $link)) {
+                $storage['status'] = 'created';
+            } elseif (PHP_OS_FAMILY === 'Windows' && windows_storage_junction($target, $link)) {
+                // symlink() needs admin rights or Developer Mode on Windows and
+                // commonly fails on a local dev box; a directory junction does the
+                // same job (live, always in sync — unlike a one-off file copy)
+                // without either.
                 $storage['status'] = 'created';
             } else {
                 $storage['status'] = 'error';
-                $storage['message'] = error_get_last()['message'] ?? 'symlink() failed';
+                $storage['message'] = ! function_exists('symlink')
+                    ? 'symlink() is disabled on this host'
+                    : (error_get_last()['message'] ?? 'symlink() failed');
             }
         }
 
@@ -57,7 +84,7 @@ Route::get('/', function () {
         $probe = 'media/products-services/assets/services-banner/substation.png';
         $storage['probe'] = $probe;
         $storage['probe_exists'] = is_file($target.'/'.$probe);
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $storage['status'] = 'error';
         $storage['message'] = $e->getMessage();
     }
