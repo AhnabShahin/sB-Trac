@@ -2,7 +2,15 @@
 
 import { Field, SectionCard, TextInput, inputCls } from "@/components/admin/form-primitives";
 import type { CompanyStat, PrincipleContent } from "@/data/content-types";
-import { EMPTY_PRINCIPLE } from "@/components/admin/forms/principle-form";
+
+// The two editors below (Stat band, Vision/Mission/Values) both edit slices
+// of this one `principle` object, so the whole shape is shared here.
+export const EMPTY_PRINCIPLE: PrincipleContent = {
+  stats: [],
+  foundationEyebrow: "",
+  foundationHeading: "",
+  pillars: [],
+};
 
 const STAT_COUNT = 4;
 const EMPTY_STAT: CompanyStat = { value: "", accent: "+", description: "" };
@@ -26,7 +34,7 @@ export function StatBandForm({
 
   return (
     <div className="space-y-5">
-      <SectionCard title="Stat band" description="The four big counters below the Who We Are intro. Exactly four — value, suffix and caption each.">
+      <SectionCard title="Stat band" description="The four big counters above the foundation panels. Exactly four — value, suffix and caption each.">
         <div className="space-y-3">
           {stats.map((stat, i) => (
             <div key={i} className="rounded-xl border border-border/60 bg-navy/40 p-3.5">

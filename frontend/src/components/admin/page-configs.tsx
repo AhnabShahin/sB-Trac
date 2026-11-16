@@ -3,9 +3,9 @@
 import type { ComponentProps, ReactNode } from "react";
 import { HeroForm } from "@/components/admin/forms/hero-form";
 import { ClientMarqueeForm } from "@/components/admin/forms/client-marquee-form";
-import { PrincipleForm } from "@/components/admin/forms/principle-form";
 import { StatBandForm } from "@/components/admin/forms/stat-band-form";
 import { FoundationForm } from "@/components/admin/forms/foundation-form";
+import { CascadeForm } from "@/components/admin/forms/cascade-form";
 import { IsoForm } from "@/components/admin/forms/iso-form";
 import { StrengthForm } from "@/components/admin/forms/strength-form";
 import { TimelineForm } from "@/components/admin/forms/timeline-form";
@@ -100,7 +100,7 @@ export const PAGE_CONFIGS: Record<string, PageConfig> = {
     sections: [
       form("hero", "Hero", "hero", HeroForm),
       form("clientMarquee", "Client Logos", "clientMarquee", ClientMarqueeForm),
-      form("principle", "Who We Are", "principle", PrincipleForm),
+      form("cascade", "Cascade Stack (5 Pillars)", "cascade", CascadeForm),
       form("stats", "Stat Band", "principle", StatBandForm),
       form("foundation", "Vision / Mission / Values", "principle", FoundationForm),
       form("isoBand", "ISO Band", "isoBand", IsoForm),

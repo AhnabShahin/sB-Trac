@@ -92,43 +92,6 @@
       ]
     },
     "principle": {
-      "eyebrow": "Who We Are",
-      "heading": "A Leading EPC Company\nin Bangladesh",
-      "paragraphs": [
-        "B-Trac Engineering Ltd. (BTEL), a concern of Bangla Trac Group, is a leading EPC company driving Bangladesh's industrial growth since 2009. We deliver turnkey engineering solutions spanning Substation & Switchgear, Renewable Energy-Solar, MEP-EPC, NALCO Water Treatment Chemicals, and nationwide After Sales Support & Service.",
-        "Our success is built on three unwavering commitments: Customer Focus, Quality Excellence, and Timely Delivery. As an ISO 9001:2015 certified organization, BTEL continues to strengthen Bangladesh's industrial landscape through innovation, engineering excellence, and customer trust."
-      ],
-      "ctaLabel": "Talk to Our Engineers",
-      "ctaHref": "/contact",
-      "glanceTitle": "BTEL at a Glance",
-      "facts": [
-        {
-          "label": "Founded",
-          "value": "2009"
-        },
-        {
-          "label": "Parent Group",
-          "value": "Bangla Trac Group"
-        },
-        {
-          "label": "Certification",
-          "value": "ISO 9001:2015",
-          "accent": true
-        },
-        {
-          "label": "Headquarters",
-          "value": "Banani, Dhaka"
-        },
-        {
-          "label": "Service Divisions",
-          "value": "5 Divisions"
-        },
-        {
-          "label": "Largest Project",
-          "value": "$185M (BATB, 2023)",
-          "accent": true
-        }
-      ],
       "stats": [
         {
           "value": "250",
@@ -189,6 +152,74 @@
             {
               "label": "Environmentally Responsible"
             }
+          ]
+        }
+      ]
+    },
+    "cascade": {
+      "eyebrow": "Built to Deliver",
+      "heading": "Engineering the Foundations of Progress",
+      "intro": "The pillars that define how B-Trac Engineering turns complex requirements into dependable infrastructure, project after project.",
+      "slides": [
+        {
+          "index": "01",
+          "title": "What We Do",
+          "description": "We turn complex requirements into growth opportunities. From power infrastructure and industrial engineering to renewable energy, water treatment, and integrated EPC & MEP solutions, we deliver the capabilities businesses need to operate efficiently, expand sustainably, and realize their ambitions.",
+          "image": "/assets/cascade/what-we-do.png"
+        },
+        {
+          "index": "02",
+          "title": "How We Work",
+          "description": "We understand your business objectives. Through tailored engineering, disciplined planning, precise execution, and responsive support, we transform requirements into reliable outcomes — designed around your operational needs and sustainable growth.",
+          "image": "/assets/cascade/how-we-work.avif"
+        },
+        {
+          "index": "03",
+          "title": "Who We Serve",
+          "description": "We serve a diverse range of industries, including manufacturing, energy, pharmaceuticals, textiles, FMCG, and commercial enterprises, delivering dependable engineering solutions that strengthen infrastructure, improve operational efficiency, and support sustainable business growth.",
+          "image": "/assets/cascade/who-we-serve.avif"
+        },
+        {
+          "index": "04",
+          "title": "What Makes Us Different",
+          "lead": "Built on experience. Driven by your growth.",
+          "itemsVariant": "list",
+          "image": "/assets/cascade/what-makes-us-different.avif",
+          "items": [
+            {
+              "title": "Proven market presence",
+              "description": "Experience that brings insight, confidence, and reliability to every engagement."
+            },
+            {
+              "title": "Complete engineering solutions",
+              "description": "Integrated capabilities that simplify complexity and create a seamless customer experience."
+            },
+            {
+              "title": "24/7 service and support",
+              "description": "Responsive assistance that helps protect operational continuity."
+            },
+            {
+              "title": "Strength of the group",
+              "description": "The collective expertise and resources of Bangla Trac Group, working toward a shared commitment."
+            },
+            {
+              "title": "Customer-first execution",
+              "description": "Quality, precision, and timely delivery aligned with your business priorities."
+            }
+          ]
+        },
+        {
+          "index": "05",
+          "title": "Our Achievements",
+          "itemsVariant": "stats",
+          "image": "/assets/cascade/our-achievements.avif",
+          "items": [
+            { "description": "Total rooftop solar power installed capacity over 50,000 KWp." },
+            { "description": "Total installed substation capacity: 55,000 KVA." },
+            { "description": "Successfully executed multiple EPC projects valued over 520 Cr." },
+            { "description": "Supplied NALCO water treatment chemicals over 25 TON." },
+            { "description": "Installed & commissioned control and sync systems in more than 200 generators." },
+            { "description": "Delivered electrical transmission line hardware to REB across various tenders valued over 208 Cr." }
           ]
         }
       ]

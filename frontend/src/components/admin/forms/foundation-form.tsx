@@ -12,7 +12,7 @@ import {
   inputCls,
 } from "@/components/admin/form-primitives";
 import type { PrincipleContent } from "@/data/content-types";
-import { EMPTY_PRINCIPLE } from "@/components/admin/forms/principle-form";
+import { EMPTY_PRINCIPLE } from "@/components/admin/forms/stat-band-form";
 
 const ACCENTS = [
   { value: "teal", label: "Teal" },

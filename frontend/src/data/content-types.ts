@@ -44,7 +44,7 @@ export interface HeroContent {
   services: HeroServiceCard[];
 }
 
-/* ------------------------------------------------- principle / who we are --- */
+/* ------------------------------------------------------------- principle --- */
 
 export type PillarAccent = "teal" | "blue" | "amber";
 
@@ -55,30 +55,51 @@ export interface Pillar {
   items: { label: string }[];
 }
 
-export interface AtAGlanceFact {
-  label: string;
-  value: string;
-  accent?: boolean;
-}
-
 export interface CompanyStat {
   value: string;
   accent?: string;
   description: string;
 }
 
+/** The stat band + the Vision/Mission/Values panels below the cascade stack
+ * (the "Who We Are" intro + glance card that used to sit above the stat band
+ * was removed in favor of the cascade stack, which now opens the page). */
 export interface PrincipleContent {
-  eyebrow: string;
-  heading: string;
-  paragraphs: string[];
-  ctaLabel: string;
-  ctaHref: string;
-  glanceTitle: string;
-  facts: AtAGlanceFact[];
   stats: CompanyStat[];
   foundationEyebrow: string;
   foundationHeading: string;
   pillars: Pillar[];
+}
+
+/* ------------------------------------------------------------- cascade --- */
+
+export interface CascadeListItem {
+  title?: string;
+  description: string;
+}
+
+export interface CascadeSlideContent {
+  /** Display index, e.g. "01". Admin-editable rather than derived, so the
+   * sequence can start anywhere or carry a non-numeric mark if ever needed. */
+  index: string;
+  title: string;
+  /** Lead paragraph(s). Omit when the slide is a pure bullet list (e.g. Achievements). */
+  description?: string;
+  /** Image for the slide's image half (served path, e.g. /assets/cascade/...). */
+  image?: string;
+  /** Short bold intro line above a bullet list (e.g. "Built on experience. Driven by your growth."). */
+  lead?: string;
+  /** Bullet list for slides like "What Makes Us Different" / "Our Achievements". */
+  items?: CascadeListItem[];
+  /** "list" = inline checklist (What Makes Us Different); "stats" = tile grid, for the closing Achievements slide. */
+  itemsVariant?: "list" | "stats";
+}
+
+export interface CascadeContent {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  slides: CascadeSlideContent[];
 }
 
 /* --------------------------------------------------------------- iso band --- */
@@ -529,6 +550,7 @@ export interface HomeSections {
   hero?: HeroContent;
   clientMarquee?: ClientMarqueeContent;
   principle?: PrincipleContent;
+  cascade?: CascadeContent;
   isoBand?: IsoBandContent;
   strength?: StrengthContent;
   timeline?: TimelineContent;

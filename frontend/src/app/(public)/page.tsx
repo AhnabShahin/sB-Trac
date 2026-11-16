@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/sections/hero-section";
 import { ClientMarqueeSection } from "@/components/sections/client-marquee-section";
+import { CascadeSection } from "@/components/sections/cascade-section";
 import { PrincipleSection } from "@/components/sections/principle-section";
 import { IsoBandSection } from "@/components/sections/iso-band-section";
 import { StrengthCloudSection } from "@/components/sections/strength-cloud-section";
@@ -15,6 +16,7 @@ export default function Home() {
     <main className="flex-1">
       <HeroSection />
       <ClientMarqueeSection />
+      <CascadeSection />
       <PrincipleSection />
       <IsoBandSection />
       <StrengthCloudSection />
