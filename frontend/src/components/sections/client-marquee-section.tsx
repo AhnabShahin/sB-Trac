@@ -13,7 +13,7 @@ export async function ClientMarqueeSection() {
   return (
     <section
       aria-label={c?.ariaLabel || "Client logos"}
-      className="relative overflow-hidden bg-offwhite"
+      className="relative overflow-hidden bg-white"
     >
       <div className="relative pt-6 pb-6 sm:pt-7 sm:pb-7">
         <Marquee gap="gap-10" trailingSpace="pr-10">

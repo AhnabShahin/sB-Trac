@@ -110,6 +110,7 @@ export function CascadeDetailModal({
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="relative max-h-[88vh] w-full max-w-xl overflow-y-auto rounded-[14px] border border-border bg-card"
             style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(10,158,136,0.28)" }}
+            data-lenis-prevent
           >
             <div className="h-[5px] bg-teal" />
 

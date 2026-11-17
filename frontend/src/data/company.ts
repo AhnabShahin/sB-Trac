@@ -59,14 +59,14 @@ export async function getPillars(): Promise<Pillar[]> {
     {
       title: "Values",
       accent: "amber",
-      description: "",
+      description:
+        "A dynamic global company driving stakeholders' success through excellence, integrity, humility & people leadership.",
       items: [
-        { label: "People First" },
-        { label: "Customers' Success" },
-        { label: "Excellence Through Humility" },
         { label: "Integrity" },
         { label: "Innovation" },
-        { label: "Environmentally Responsible" },
+        { label: "People First" },
+        { label: "Customer Success" },
+        { label: "Environmental Care" },
       ],
     },
   ];

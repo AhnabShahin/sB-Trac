@@ -155,6 +155,7 @@ export function ProjectDetailModal({
             style={{
               boxShadow: `0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px ${ACCENT_GLOW[accent]}`,
             }}
+            data-lenis-prevent
           >
             <div className={cn("h-[5px]", ACCENT_BG[accent])} />
 

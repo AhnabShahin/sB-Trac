@@ -153,6 +153,7 @@ export function ProductDetailModal({
             style={{
               boxShadow: `0 28px 90px rgba(0,0,0,0.6), 0 0 0 1px ${ACCENT_GLOW[accent]}`,
             }}
+            data-lenis-prevent
           >
             <div className={cn("h-[5px] lg:col-span-2", ACCENT_BG[accent])} />
 

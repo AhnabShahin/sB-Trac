@@ -4,15 +4,42 @@ import { useCallback, useEffect, useRef, useState, type ComponentType } from "re
 import { motion, type Variants } from "motion/react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
-import { TargetIcon, LightbulbIcon, ShieldIcon, HandshakeIcon, type IconProps } from "@/components/ui/icons";
+import { TargetIcon, LightbulbIcon, ShieldIcon, HandshakeIcon, CheckIcon, type IconProps } from "@/components/ui/icons";
 import type { Pillar, PillarAccent } from "@/data/content-types";
 
 const AUTOPLAY_MS = 3000;
 
-const ACCENT: Record<PillarAccent, { text: string; ring: string; glow: string; chip: string }> = {
-  teal: { text: "text-teal", ring: "border-teal/40", glow: "rgba(10,158,136,0.45)", chip: "bg-teal/12" },
-  blue: { text: "text-blue-light", ring: "border-blue-light/40", glow: "rgba(159,185,252,0.4)", chip: "bg-blue-light/12" },
-  amber: { text: "text-amber", ring: "border-amber/40", glow: "rgba(224,138,0,0.4)", chip: "bg-amber/12" },
+const ACCENT: Record<
+  PillarAccent,
+  { text: string; ring: string; glow: string; chip: string; bar: string; dot: string; arrowHover: string }
+> = {
+  teal: {
+    text: "text-teal",
+    ring: "border-teal/40",
+    glow: "rgba(10,158,136,0.45)",
+    chip: "bg-teal/12",
+    bar: "bg-teal",
+    dot: "bg-teal",
+    arrowHover: "hover:border-teal/50 hover:text-teal",
+  },
+  blue: {
+    text: "text-blue-light",
+    ring: "border-blue-light/40",
+    glow: "rgba(159,185,252,0.4)",
+    chip: "bg-blue-light/12",
+    bar: "bg-blue-light",
+    dot: "bg-blue-light",
+    arrowHover: "hover:border-blue-light/50 hover:text-blue-light",
+  },
+  amber: {
+    text: "text-amber",
+    ring: "border-amber/40",
+    glow: "rgba(224,138,0,0.4)",
+    chip: "bg-amber/12",
+    bar: "bg-amber",
+    dot: "bg-amber",
+    arrowHover: "hover:border-amber/50 hover:text-amber",
+  },
 };
 
 const ICONS = [TargetIcon, LightbulbIcon, ShieldIcon] as const;
@@ -52,7 +79,7 @@ function PillarBody({
 }) {
   return (
     <motion.div
-      className="flex h-full flex-col items-center text-center"
+      className="flex h-full flex-col items-center justify-center text-center"
       initial={animateIn ? "hidden" : false}
       animate="show"
       variants={{
@@ -60,16 +87,22 @@ function PillarBody({
         show: { transition: { staggerChildren: animateIn ? 0.09 : 0, delayChildren: animateIn ? 0.14 : 0 } },
       }}
     >
-      <motion.span
-        variants={RISE}
-        className={cn(
-          "mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
-          accent.chip,
-          accent.text,
-        )}
-      >
-        <Icon width={28} height={28} />
-      </motion.span>
+      <motion.div variants={RISE} className="relative mb-5 flex h-16 w-16 shrink-0 items-center justify-center">
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 rounded-2xl blur-lg"
+          style={{ backgroundColor: accent.glow }}
+        />
+        <span
+          className={cn(
+            "relative flex h-full w-full items-center justify-center rounded-2xl border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+            accent.chip,
+            accent.text,
+          )}
+        >
+          <Icon width={28} height={28} />
+        </span>
+      </motion.div>
 
       {pillar.description ? (
         <motion.p
@@ -81,25 +114,26 @@ function PillarBody({
       ) : null}
 
       {pillar.items.length > 0 ? (
-        // Column-major, shortest-first: sorting by label length before
-        // splitting into the two columns keeps every short, single-line
-        // entry together on the left and the long, wrapping ones together
-        // on the right, instead of pairing them row-by-row (which left a
-        // short item stranded next to a two-line one with mismatched
-        // height).
+        // Flowing inline line, not a grid: items wrap as whole "check + label
+        // + separator" units, same as reading a sentence, so the list reads
+        // as one continuous statement of values rather than a tidy table.
         <motion.ul
           variants={{ hidden: {}, show: { transition: { staggerChildren: animateIn ? 0.07 : 0 } } }}
-          className="mt-auto grid w-full grid-flow-col justify-items-center gap-x-6 gap-y-2 pt-6 text-[clamp(13px,1.2vw,15px)] leading-[1.7] text-[#CBD5E1] sm:grid-cols-2"
-          style={{ gridTemplateRows: `repeat(${Math.ceil(pillar.items.length / 2)}, auto)` }}
+          className="mt-6 flex max-w-md flex-wrap items-center justify-center gap-y-2.5 text-[clamp(13px,1.2vw,15px)] leading-[1.7] text-[#CBD5E1]"
         >
-          {[...pillar.items]
-            .sort((a, b) => a.label.length - b.label.length)
-            .map((item) => (
-              <motion.li key={item.label} variants={RISE} className="flex items-center justify-center gap-2.5 whitespace-nowrap">
-                <span className={cn("inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-current", accent.text)} />
+          {pillar.items.map((item, idx) => (
+            <motion.li key={item.label} variants={RISE} className="flex items-center whitespace-nowrap">
+              <span className="flex items-center gap-1.5">
+                <CheckIcon width={14} height={14} className={cn("shrink-0", accent.text)} />
                 {item.label}
-              </motion.li>
-            ))}
+              </span>
+              {idx < pillar.items.length - 1 ? (
+                <span className={cn("mx-2", accent.text)} aria-hidden="true">
+                  •
+                </span>
+              ) : null}
+            </motion.li>
+          ))}
         </motion.ul>
       ) : null}
     </motion.div>
@@ -260,7 +294,7 @@ export function FoundationPanels({
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => (isActive ? null : setActive(i))}
                   className={cn(
-                    "group flex h-[340px] w-full cursor-pointer flex-col rounded-3xl border p-7 text-left outline-none backdrop-blur-sm transition-colors sm:h-[300px] sm:p-8",
+                    "group relative flex h-[340px] w-full cursor-pointer flex-col rounded-3xl border p-7 text-left outline-none backdrop-blur-sm transition-colors sm:h-[300px] sm:p-8",
                     isActive
                       ? cn("bg-card/95 focus-visible:border-white/50", accent.ring)
                       : "border-border bg-card/70",
@@ -289,30 +323,39 @@ export function FoundationPanels({
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous pillar"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-white/80 transition-colors hover:border-teal/50 hover:text-teal"
+            className={cn(
+              "flex h-10 w-10 items-center justify-center rounded-full border border-border text-white/80 transition-colors",
+              activeAccent.arrowHover,
+            )}
           >
             ←
           </button>
           <div className="flex items-center gap-2">
-            {pillars.map((pillar, i) => (
-              <button
-                key={pillar.title}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-label={`Show ${pillar.title}`}
-                aria-current={i === active}
-                className={cn(
-                  "h-2 rounded-full transition-all duration-300",
-                  i === active ? "w-7 bg-teal" : "w-2 bg-white/25 hover:bg-white/45",
-                )}
-              />
-            ))}
+            {pillars.map((pillar, i) => {
+              const dotAccent = ACCENT[pillar.accent] ?? ACCENT.teal;
+              return (
+                <button
+                  key={pillar.title}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  aria-label={`Show ${pillar.title}`}
+                  aria-current={i === active}
+                  className={cn(
+                    "h-2 rounded-full transition-all duration-300",
+                    i === active ? cn("w-7", dotAccent.dot) : "w-2 bg-white/25 hover:bg-white/45",
+                  )}
+                />
+              );
+            })}
           </div>
           <button
             type="button"
             onClick={() => go(1)}
             aria-label="Next pillar"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-white/80 transition-colors hover:border-teal/50 hover:text-teal"
+            className={cn(
+              "flex h-10 w-10 items-center justify-center rounded-full border border-border text-white/80 transition-colors",
+              activeAccent.arrowHover,
+            )}
           >
             →
           </button>

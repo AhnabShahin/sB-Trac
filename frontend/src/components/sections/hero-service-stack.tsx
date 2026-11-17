@@ -122,10 +122,21 @@ export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
           return (
             <motion.div
               key={`${card.title}-${i}`}
-              style={{
-                gridArea: useMosaic ? MOSAIC_AREAS[i] : undefined,
-                gridColumn: !useMosaic && card.wide ? "span 2" : undefined,
-              }}
+              // Mosaic placement goes through `gridArea`; the fallback layout uses
+              // a plain column span. They are built as separate style objects so a
+              // `gridColumn: undefined` never sits beside `gridArea`: on a client
+              // re-render React clears that undefined column through the CSSOM
+              // (style.gridColumn = ""), which strips the column half of the
+              // `grid-area` shorthand (leaving just `grid-row`) and collapses the
+              // mosaic when you navigate back to the homepage. SSR omits the
+              // undefined key, so it only broke after a client-side nav.
+              style={
+                useMosaic
+                  ? { gridArea: MOSAIC_AREAS[i] }
+                  : card.wide
+                    ? { gridColumn: "span 2" }
+                    : undefined
+              }
               className="relative"
               initial={
                 reducedMotion
