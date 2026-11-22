@@ -34,6 +34,13 @@ export async function PrincipleSection() {
   const c = content?.principle;
   if (!c) return null;
 
+  // CMS sections can come back partially filled; normalize arrays so a missing
+  // field renders as empty instead of crashing the server render.
+  const paragraphs = c.paragraphs ?? [];
+  const facts = c.facts ?? [];
+  const stats = c.stats ?? [];
+  const pillars = c.pillars ?? [];
+
   return (
     <>
       <section id="about" className="relative z-10 overflow-hidden bg-navy2 px-6 pt-24 pb-24 sm:px-12 sm:pt-28 sm:pb-28 lg:px-20 lg:pt-32 lg:pb-32">
@@ -63,12 +70,12 @@ export async function PrincipleSection() {
               <h2 className="mb-4 max-w-[620px] whitespace-pre-line font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white drop-shadow-[0_12px_28px_rgba(0,0,0,0.38)]">
                 {c.heading}
               </h2>
-              {c.paragraphs.map((p, i) => (
+              {paragraphs.map((p, i) => (
                 <p
                   key={i}
                   className={cn(
                     "max-w-[620px] text-[15px] leading-[1.8] text-slate-200/90 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]",
-                    i === c.paragraphs.length - 1 ? "mb-7" : "mb-4",
+                    i === paragraphs.length - 1 ? "mb-7" : "mb-4",
                   )}
                 >
                   {p}
@@ -91,7 +98,7 @@ export async function PrincipleSection() {
                   {c.glanceTitle}
                 </div>
                 <dl className="divide-y divide-white/10">
-                  {c.facts.map((fact) => (
+                  {facts.map((fact) => (
                     <div
                       key={fact.label}
                       className="group flex items-center justify-between gap-4 py-3 transition-colors duration-200 first:pt-0 last:pb-0"
@@ -121,7 +128,7 @@ export async function PrincipleSection() {
         className="grid grid-cols-2 gap-0 border-y border-border bg-navy px-6 py-16 sm:px-12 lg:grid-cols-4 lg:px-20"
         itemSelector="[data-stagger-item]"
       >
-        {c.stats.map((stat, i) => {
+        {stats.map((stat, i) => {
           const { prefix, number } = parseStatValue(stat.value);
           return (
             <div
@@ -129,7 +136,7 @@ export async function PrincipleSection() {
               data-stagger-item
               className={cn(
                 "group px-4 py-4 text-center transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.03] sm:px-8",
-                i !== c.stats.length - 1 && "border-border sm:border-r",
+                i !== stats.length - 1 && "border-border sm:border-r",
               )}
             >
               <Counter
@@ -162,7 +169,7 @@ export async function PrincipleSection() {
             className="grid grid-cols-1 gap-6 md:grid-cols-3"
             itemSelector="[data-stagger-item]"
           >
-            {c.pillars.map((pillar) => (
+            {pillars.map((pillar) => (
               <div
                 key={pillar.title}
                 data-stagger-item
@@ -185,9 +192,9 @@ export async function PrincipleSection() {
                     {pillar.description}
                   </p>
                 )}
-                {pillar.items.length > 0 && (
+                {(pillar.items ?? []).length > 0 && (
                   <ul className="space-y-0 text-sm leading-[2] text-[#CBD5E1]">
-                    {pillar.items.map((item) => (
+                    {(pillar.items ?? []).map((item) => (
                       <li key={item.label}>▸ {item.label}</li>
                     ))}
                   </ul>
