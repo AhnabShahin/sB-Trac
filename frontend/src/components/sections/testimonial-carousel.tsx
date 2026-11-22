@@ -1,6 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
@@ -70,6 +78,52 @@ export function TestimonialCarousel({
     [loops],
   );
 
+  // Touch/pointer swipe. `touch-action: pan-y` on the viewport lets the browser
+  // keep vertical page scroll while we own horizontal drags. The track follows
+  // the finger live via `dragOffset`; on release a drag past the threshold flips
+  // one slide, otherwise it eases back. `suppressClick` stops a swipe that ends
+  // on a side card from also firing that card's focus-on-click.
+  const [dragOffset, setDragOffset] = useState(0);
+  const drag = useRef<{ id: number; startX: number; moved: boolean } | null>(null);
+  const suppressClick = useRef(false);
+
+  const onPointerDown = (e: ReactPointerEvent) => {
+    if (!loops) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    drag.current = { id: e.pointerId, startX: e.clientX, moved: false };
+    setPaused(true);
+    setAnimate(false);
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+
+  const onPointerMove = (e: ReactPointerEvent) => {
+    const d = drag.current;
+    if (!d || e.pointerId !== d.id) return;
+    const dx = e.clientX - d.startX;
+    if (Math.abs(dx) > 6) d.moved = true;
+    setDragOffset(dx);
+  };
+
+  const endPointer = (e: ReactPointerEvent) => {
+    const d = drag.current;
+    if (!d || e.pointerId !== d.id) return;
+    const dx = e.clientX - d.startX;
+    drag.current = null;
+    if (d.moved) suppressClick.current = true;
+    setDragOffset(0);
+    setAnimate(true);
+    setPaused(false);
+    const threshold = Math.max(40, cardW * 0.18);
+    if (Math.abs(dx) > threshold) go(dx < 0 ? 1 : -1);
+  };
+
+  const onClickCapture = (e: ReactMouseEvent) => {
+    if (suppressClick.current) {
+      e.stopPropagation();
+      suppressClick.current = false;
+    }
+  };
+
   // Re-armed on every `active` change (manual or auto) so the gap between
   // advances stays constant regardless of what triggered the last one.
   useEffect(() => {
@@ -132,10 +186,15 @@ export function TestimonialCarousel({
       {/* Full-bleed viewport — fixed height reserves space (no CLS). */}
       <div
         ref={viewportRef}
-        className="w-full overflow-hidden"
-        style={{ height: cardH }}
+        className={cn("w-full overflow-hidden", loops && "cursor-grab active:cursor-grabbing")}
+        style={{ height: cardH, touchAction: "pan-y" }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endPointer}
+        onPointerCancel={endPointer}
+        onClickCapture={onClickCapture}
       >
         <div
           className="flex items-start will-change-transform"
@@ -143,7 +202,7 @@ export function TestimonialCarousel({
             gap: GAP,
             height: cardH,
             opacity: ready ? 1 : 0,
-            transform: `translate3d(${trackX}px, 0, 0)`,
+            transform: `translate3d(${trackX + dragOffset}px, 0, 0)`,
             transition: animate && !reducedMotion ? "transform 0.72s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
           }}
           onTransitionEnd={(e) => {

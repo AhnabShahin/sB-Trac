@@ -173,12 +173,15 @@ export function HeroServiceStack({ cards }: { cards: HeroServiceCard[] }) {
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 260px, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    // Translucent at rest so the hero background reads faintly
+                    // through the tile; hover brings the photo to full opacity
+                    // ("solid"). Only opacity/transform animate — GPU-friendly.
+                    className="object-cover opacity-40 transition-[opacity,transform] duration-500 group-hover:scale-105 group-hover:opacity-100"
                   />
                 ) : null}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0"
+                  className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
                   style={{ background: `linear-gradient(165deg, ${card.accent}80, ${card.accent}40 55%, rgba(6,11,21,0.32))` }}
                 />
                 <div

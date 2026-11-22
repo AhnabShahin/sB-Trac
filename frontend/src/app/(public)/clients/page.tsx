@@ -136,7 +136,7 @@ export default async function ClientsPage() {
                 <StaggerGroup
                   as="div"
                   itemSelector="[data-stagger-item]"
-                  className="mt-9 flex flex-wrap gap-3"
+                  className="mt-9 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap"
                 >
                   {hero.badges.map((badge) => {
                     const Icon = TRUST_ICON_MAP[badge.icon] ?? FactoryIcon;
@@ -144,12 +144,12 @@ export default async function ClientsPage() {
                       <div
                         key={badge.title}
                         data-stagger-item
-                        className="flex items-center gap-3 rounded-lg border border-border bg-white/[0.03] px-5 py-3.5"
+                        className="flex items-center gap-3 rounded-lg border border-border bg-white/[0.03] px-4 py-3 sm:px-5 sm:py-3.5"
                       >
                         <Icon width={20} height={20} className="shrink-0 text-teal" />
-                        <div>
+                        <div className="min-w-0">
                           <div className="text-sm font-bold text-white">{badge.title}</div>
-                          <div className="text-[15px] text-muted">{badge.subtitle}</div>
+                          <div className="text-[13px] text-muted sm:text-[15px]">{badge.subtitle}</div>
                         </div>
                       </div>
                     );

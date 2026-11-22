@@ -312,6 +312,23 @@ export function SiteHeader({ content }: { content?: HeaderContent }) {
                   </MotionLink>
                 );
               })}
+
+              {/* The Contact CTA is a desktop-only button in the bar (`lg:inline-block`),
+                  so without this the mobile menu had no way to reach /contact. */}
+              <MotionLink
+                href={ctaHref}
+                onClick={(event) => {
+                  setMenuOpen(false);
+                  handleNavClick(event, ctaHref);
+                }}
+                aria-current={isActivePath(pathname, ctaHref) ? "page" : undefined}
+                initial={reducedMotion ? false : { opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: reducedMotion ? 0 : navLinks.length * 0.04 }}
+                className="mt-3 rounded-[4px] bg-teal px-5 py-3.5 text-center text-[17px] font-semibold text-white transition-colors hover:bg-teal-dark"
+              >
+                {ctaLabel}
+              </MotionLink>
             </nav>
           </motion.div>
         )}

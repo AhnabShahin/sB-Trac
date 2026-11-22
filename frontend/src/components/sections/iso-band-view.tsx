@@ -60,7 +60,7 @@ export function IsoBandView({ content }: { content: IsoBandContent }) {
         </Reveal>
 
         {content.badge ? (
-          <Reveal delay={0.12} y={24} className="shrink-0">
+          <Reveal delay={0.12} y={24} className="order-first shrink-0 lg:order-none">
             <Image
               src={content.badge}
               alt={content.badgeAlt}
