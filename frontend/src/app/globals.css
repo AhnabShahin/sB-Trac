@@ -138,12 +138,19 @@
   html {
     background: var(--background);
     color-scheme: dark;
+    /* Decorative layers bleed past the viewport by design — rotated hero
+       service-stack tiles, the strength-cloud SVG, card stacks pinned at
+       left-1/2, marquees. `clip` (not `hidden`) kills the horizontal
+       scrollbar without making the root a scroll container, so the public
+       pages' `position: sticky` toolbars/rails keep tracking. */
+    overflow-x: clip;
   }
 
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-body), sans-serif;
+    overflow-x: clip;
   }
 }
 

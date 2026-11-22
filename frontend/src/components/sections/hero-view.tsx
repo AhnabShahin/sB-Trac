@@ -73,17 +73,17 @@ export function HeroView({ content }: { content: HeroContent }) {
         </Reveal>
 
         <Reveal y={20} delay={0.3}>
-          <div className="flex flex-wrap items-center gap-4">
-            <Magnetic>
+          <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+            <Magnetic className="w-full sm:w-auto">
               <Link
                 href={primaryCta.href || "#"}
                 data-cursor-interactive
-                className="inline-block rounded-[4px] bg-blue-light px-8 py-3.5 text-[17px] font-semibold text-navy transition-colors hover:bg-blue2"
+                className="block w-full rounded-[4px] bg-blue-light px-8 py-3.5 text-center text-[17px] font-semibold text-navy transition-colors hover:bg-blue2 sm:inline-block sm:w-auto"
               >
                 {primaryCta.label}
               </Link>
             </Magnetic>
-            <Magnetic strength={0.15}>
+            <Magnetic strength={0.15} className="w-fit sm:w-auto">
               <a
                 href={secondaryCta.href || "#"}
                 data-cursor-interactive
@@ -99,7 +99,7 @@ export function HeroView({ content }: { content: HeroContent }) {
         </Reveal>
 
         <StaggerGroup
-          className="mt-14 flex flex-wrap gap-10 border-t border-border pt-8"
+          className="mt-10 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-border pt-8 sm:mt-14 sm:flex sm:flex-wrap sm:gap-10"
           itemSelector="[data-stagger-item]"
         >
           {stats.map((stat, i) => (
