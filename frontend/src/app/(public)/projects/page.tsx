@@ -5,11 +5,6 @@ import { getProjectsContent } from "@/data/pages";
 import type { ProjectsAccent } from "@/data/content-types";
 import { ServiceDetailHero } from "@/components/sections/service-detail-hero";
 import { ProjectPortfolioGrid } from "@/components/sections/project-portfolio-grid";
-import {
-  TrackRecordCards,
-  type TrackRecordCard,
-} from "@/components/sections/track-record-cards";
-import type { ProjectFilterValue } from "@/components/sections/project-portfolio-grid";
 import { Reveal } from "@/components/ui/reveal";
 import { StaggerGroup } from "@/components/ui/stagger-group";
 import { Counter } from "@/components/ui/counter";
@@ -36,38 +31,12 @@ const BADGE_ACCENT: Record<ProjectsAccent, { chip: string; dot: string }> = {
   cyan: { chip: "border-cyan/30 bg-cyan/[0.10] text-cyan", dot: "bg-cyan" },
 };
 
-const TR_ACCENT: Record<ProjectsAccent, { text: string; border: string }> = {
-  teal: { text: "text-teal", border: "border-t-teal" },
-  amber: { text: "text-amber", border: "border-t-amber" },
-  blue: { text: "text-blue-light", border: "border-t-blue" },
-  purple: { text: "text-purple", border: "border-t-purple" },
-  cyan: { text: "text-cyan", border: "border-t-cyan" },
-};
-
 export default async function ProjectsPage() {
   const content = await getProjectsContent();
   const hero = content?.projectsHero;
   const statsBand = content?.statsBand?.stats ?? [];
   const projects = content?.portfolio?.projects ?? [];
-  const trackRecord = content?.trackRecord;
   const cta = content?.projectsCta;
-
-  const trackCards: TrackRecordCard[] =
-    trackRecord?.cards.map((c) => ({
-      tag: c.tag,
-      accent: TR_ACCENT[c.accent]?.text ?? "text-teal",
-      border: TR_ACCENT[c.accent]?.border ?? "border-t-teal",
-      filter: c.filter as ProjectFilterValue,
-      title: c.title,
-      description: c.description,
-    })) ?? [];
-
-  const divisionCounts = trackCards.reduce<Record<string, number>>((acc, card) => {
-    acc[card.filter] = projects.filter(
-      (p) => (p.filterTag ?? p.categorySlug) === card.filter,
-    ).length;
-    return acc;
-  }, {});
 
   return (
     <main className="flex-1">
@@ -180,33 +149,8 @@ export default async function ProjectsPage() {
         </section>
       ) : null}
 
-      {trackRecord && trackCards.length > 0 ? (
-        <section className="bg-navy px-6 py-24 sm:px-12 lg:px-20 lg:py-28">
-          <div className="mx-auto max-w-6xl">
-            <Reveal className="mx-auto max-w-xl text-center">
-              <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
-                {trackRecord.eyebrow}
-              </div>
-              <h2 className="font-display text-[clamp(32px,3.6vw,44px)] font-extrabold leading-[1.1] text-white">
-                {trackRecord.headingLine1}
-                <br />
-                {trackRecord.headingLine2}
-              </h2>
-            </Reveal>
-
-            <StaggerGroup
-              as="div"
-              itemSelector="[data-stagger-item]"
-              className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3"
-            >
-              <TrackRecordCards items={trackCards} counts={divisionCounts} />
-            </StaggerGroup>
-          </div>
-        </section>
-      ) : null}
-
       {cta ? (
-        <section className="bg-navy2 px-6 py-20 text-center sm:px-12 lg:px-20">
+        <section className="bg-navy3 px-6 py-20 text-center sm:px-12 lg:px-20">
           <Reveal className="mx-auto max-w-2xl">
             <div className="mb-3 text-[13px] font-bold uppercase tracking-[2px] text-teal">
               {cta.eyebrow}

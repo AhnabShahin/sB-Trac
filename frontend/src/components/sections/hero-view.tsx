@@ -101,10 +101,14 @@ export function HeroView({ content }: { content: HeroContent }) {
         {/* Container-query grid: respond to this column's OWN width, not the
             viewport — the hero splits into two columns at lg so the stats column
             width jumps independently of the breakpoint. Only 2 or 4 across, never
-            a lone 3+1 wrap: 2×2 when cramped, 4 in a row once there's room. */}
+            a lone 3+1 wrap: 2×2 when cramped, 4 in a row once there's room. The
+            4-across layout sizes columns to their content (not equal 1fr) so the
+            longest label ("Years of Experience") stays on one line instead of
+            wrapping while the other columns sit with spare gap. 46rem is roughly
+            the width the four one-line labels need. */}
         <div className="@container mt-10 border-t border-border pt-8 sm:mt-14">
           <StaggerGroup
-            className="grid grid-cols-2 gap-x-6 gap-y-7 @min-[33rem]:grid-cols-4 @min-[33rem]:gap-x-8"
+            className="grid grid-cols-2 gap-x-6 gap-y-7 @min-[46rem]:grid-cols-[repeat(4,max-content)] @min-[46rem]:justify-between"
             itemSelector="[data-stagger-item]"
           >
             {stats.map((stat, i) => (
@@ -116,7 +120,7 @@ export function HeroView({ content }: { content: HeroContent }) {
                 className="font-display text-[38px] font-extrabold leading-none text-white"
                 suffixClassName="text-teal"
               />
-              <div className="mt-1.5 text-[15px] font-semibold uppercase tracking-[0.1em] text-slate-300">
+              <div className="mt-1.5 text-[15px] font-semibold uppercase tracking-[0.1em] text-slate-300 @min-[46rem]:whitespace-nowrap">
                 {stat.label}
               </div>
               </div>
