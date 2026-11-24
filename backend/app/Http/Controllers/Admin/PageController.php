@@ -31,7 +31,7 @@ class PageController extends Controller
             'title' => $post->title ?? $entry['title'],
             'editable' => $entry['editable'],
             'sectionKeys' => $entry['sections'],
-            'sections' => $post ? $post->sections() : (object) [],
+            'sections' => $post ? $this->media->absolutizeSections($post->sections()) : (object) [],
             'sectionsMeta' => $post ? $post->sectionsMeta() : (object) [],
         ]);
     }
@@ -51,10 +51,11 @@ class PageController extends Controller
         $previous = Post::where('post_type', 'page')->where('slug', $slug)->with('meta')->first();
         $oldSections = $previous ? $previous->sections() : [];
 
-        // Copy any demo-sourced media (a Load-demo URL, or a hand-typed /assets
-        // path) into storage and rewrite it to a managed storage URL, so the DB
-        // never persists a read-only demo reference.
-        $sections = $this->media->materializeDemo($slug, $data['sections']);
+        // Strip any host the editor echoed back so the DB stays host-agnostic,
+        // then copy any demo-sourced media (a Load-demo URL, or a hand-typed
+        // /assets path) into storage and rewrite it to a managed storage path.
+        $incoming = $this->media->relativizeSections($data['sections']);
+        $sections = $this->media->materializeDemo($slug, $incoming);
 
         $post = $this->upsert($slug, $entry, $data['title'] ?? null, $sections, $request->user()->id);
 
@@ -63,7 +64,7 @@ class PageController extends Controller
         return response()->json([
             'slug' => $post->slug,
             'title' => $post->title,
-            'sections' => $post->sections(),
+            'sections' => $this->media->absolutizeSections($post->sections()),
             'sectionsMeta' => $post->sectionsMeta(),
         ]);
     }
@@ -76,7 +77,7 @@ class PageController extends Controller
         $demo = $this->readDemo($slug);
         // Point media at the backend's public demo folder so the editor preview
         // never relies on the frontend shipping a copy under /public.
-        $demo['sections'] = $this->media->linkDemo($demo['sections'] ?? []);
+        $demo['sections'] = $this->media->absolutizeSections($this->media->linkDemo($demo['sections'] ?? []));
 
         return response()->json($demo);
     }
@@ -101,7 +102,7 @@ class PageController extends Controller
         return response()->json([
             'slug' => $post->slug,
             'title' => $post->title,
-            'sections' => $post->sections(),
+            'sections' => $this->media->absolutizeSections($post->sections()),
             'sectionsMeta' => $post->sectionsMeta(),
         ]);
     }

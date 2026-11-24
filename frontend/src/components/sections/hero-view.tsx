@@ -98,12 +98,17 @@ export function HeroView({ content }: { content: HeroContent }) {
           </div>
         </Reveal>
 
-        <StaggerGroup
-          className="mt-10 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-border pt-8 sm:mt-14 sm:flex sm:flex-wrap sm:gap-10"
-          itemSelector="[data-stagger-item]"
-        >
-          {stats.map((stat, i) => (
-            <div key={`${stat.label}-${i}`} data-stagger-item>
+        {/* Container-query grid: respond to this column's OWN width, not the
+            viewport — the hero splits into two columns at lg so the stats column
+            width jumps independently of the breakpoint. Only 2 or 4 across, never
+            a lone 3+1 wrap: 2×2 when cramped, 4 in a row once there's room. */}
+        <div className="@container mt-10 border-t border-border pt-8 sm:mt-14">
+          <StaggerGroup
+            className="grid grid-cols-2 gap-x-6 gap-y-7 @min-[33rem]:grid-cols-4 @min-[33rem]:gap-x-8"
+            itemSelector="[data-stagger-item]"
+          >
+            {stats.map((stat, i) => (
+              <div key={`${stat.label}-${i}`} data-stagger-item>
               <Counter
                 value={stat.value}
                 prefix={stat.prefix}
@@ -114,9 +119,10 @@ export function HeroView({ content }: { content: HeroContent }) {
               <div className="mt-1.5 text-[15px] font-semibold uppercase tracking-[0.1em] text-slate-300">
                 {stat.label}
               </div>
-            </div>
-          ))}
-        </StaggerGroup>
+              </div>
+            ))}
+          </StaggerGroup>
+        </div>
       </div>
 
       <div className="relative z-1 flex items-center justify-center px-6 pb-16 sm:px-12 lg:py-20 lg:pl-12 lg:pr-20">

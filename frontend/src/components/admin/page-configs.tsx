@@ -100,7 +100,7 @@ export const PAGE_CONFIGS: Record<string, PageConfig> = {
     sections: [
       form("hero", "Hero", "hero", HeroForm),
       form("clientMarquee", "Client Logos", "clientMarquee", ClientMarqueeForm),
-      form("cascade", "Cascade Stack (5 Pillars)", "cascade", CascadeForm),
+      form("cascade", "Cascade Stack (6 Pillars)", "cascade", CascadeForm),
       form("stats", "Stat Band", "principle", StatBandForm),
       form("foundation", "Vision / Mission / Values", "principle", FoundationForm),
       form("isoBand", "ISO Band", "isoBand", IsoForm),

@@ -191,6 +191,7 @@ export async function ClientIndustryBands({
               <Marquee
                 gap="gap-3.5"
                 trailingSpace="pr-3.5"
+                reverse={i % 2 === 1}
                 repeat={Math.ceil(MIN_RAIL_TILES / names.length)}
               >
                 {names.map((name) => (

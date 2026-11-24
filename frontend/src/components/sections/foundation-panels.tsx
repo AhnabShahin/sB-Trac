@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState, type ComponentType } from "re
 import { motion, type Variants } from "motion/react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
-import { TargetIcon, LightbulbIcon, ShieldIcon, HandshakeIcon, CheckIcon, type IconProps } from "@/components/ui/icons";
+import { TargetArrowIcon, EyeIcon, DiamondIcon, HandshakeIcon, CheckIcon, type IconProps } from "@/components/ui/icons";
 import type { Pillar, PillarAccent } from "@/data/content-types";
 
 const AUTOPLAY_MS = 3000;
@@ -42,15 +42,15 @@ const ACCENT: Record<
   },
 };
 
-const ICONS = [TargetIcon, LightbulbIcon, ShieldIcon] as const;
+const ICONS = [EyeIcon, TargetArrowIcon, DiamondIcon] as const;
 
 // Map a pillar to an icon by its name, falling back to position so the carousel
 // still shows a sensible glyph if the copy is edited in the admin.
 function pillarIcon(title: string, index: number) {
   const t = title.toLowerCase();
-  if (t.includes("vision")) return TargetIcon;
-  if (t.includes("mission")) return LightbulbIcon;
-  if (t.includes("value")) return ShieldIcon;
+  if (t.includes("vision")) return EyeIcon;
+  if (t.includes("mission")) return TargetArrowIcon;
+  if (t.includes("value")) return DiamondIcon;
   if (t.includes("people") || t.includes("partner")) return HandshakeIcon;
   return ICONS[index % ICONS.length];
 }

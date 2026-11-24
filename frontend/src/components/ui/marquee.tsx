@@ -6,6 +6,8 @@ interface MarqueeProps {
   className?: string;
   gap?: string;
   pauseOnHover?: boolean;
+  /** Reverse the scroll direction (rightward instead of the default leftward). Used to alternate direction between stacked rows. */
+  reverse?: boolean;
   /** Times to repeat the children within one half. Short lists need >1 so a single half still overflows the viewport, otherwise the loop shows a gap. */
   repeat?: number;
   /**
@@ -22,6 +24,7 @@ export function Marquee({
   className,
   gap = "gap-16",
   pauseOnHover = true,
+  reverse = false,
   repeat = 1,
   trailingSpace,
 }: MarqueeProps) {
@@ -45,6 +48,11 @@ export function Marquee({
     >
       {/* Both halves sit in one track so the -50% keyframe resolves against the full track width (= exactly one half), which is what makes the loop seamless. */}
       <div
+        // `animationDirection` is set inline rather than via a Tailwind arbitrary
+        // utility so a brand-new direction value never depends on the JIT having
+        // generated that class; it only takes effect once the `animate-marquee`
+        // class actually applies an animation (i.e. under motion-safe).
+        style={reverse ? { animationDirection: "reverse" } : undefined}
         className={cn(
           "flex w-max motion-safe:animate-[var(--animate-marquee)]",
           pauseOnHover && "group-hover:[animation-play-state:paused]"

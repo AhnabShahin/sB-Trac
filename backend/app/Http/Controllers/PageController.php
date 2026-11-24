@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Services\MediaLibrary;
 use Illuminate\Http\JsonResponse;
 
 // Public, read-only. The frontend renders strictly from what lives here — there
@@ -10,6 +11,8 @@ use Illuminate\Http\JsonResponse;
 // the frontend simply renders nothing for it.
 class PageController extends Controller
 {
+    public function __construct(private readonly MediaLibrary $media) {}
+
     public function show(string $slug): JsonResponse
     {
         $post = Post::where('post_type', 'page')
@@ -25,7 +28,8 @@ class PageController extends Controller
         return response()->json([
             'slug' => $post->slug,
             'title' => $post->title,
-            'sections' => $post->sections(),
+            // DB stores host-agnostic media paths; attach this environment's host on the way out.
+            'sections' => $this->media->absolutizeSections($post->sections()),
         ]);
     }
 }

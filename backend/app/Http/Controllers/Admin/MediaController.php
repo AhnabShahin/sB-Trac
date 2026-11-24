@@ -20,9 +20,11 @@ class MediaController extends Controller
             'slug' => ['required', 'string', 'max:64'],
         ]);
 
-        $url = $this->media->store($data['file'], $data['slug']);
+        // store() persists a host-agnostic path; the editor needs a loadable URL
+        // now, so hand back the absolute form (it's relativized again on save).
+        $path = $this->media->store($data['file'], $data['slug']);
 
-        return response()->json(['url' => $url]);
+        return response()->json(['url' => $this->media->absolutize($path)]);
     }
 
     public function destroy(Request $request): JsonResponse

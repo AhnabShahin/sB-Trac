@@ -55,7 +55,7 @@ export function ClientIndustryBandsView({
 }) {
   return (
     <>
-      {industries.map((group) => {
+      {industries.map((group, i) => {
         const Icon = ICON_MAP[group.icon] ?? CartIcon;
         const names = group.clients;
         if (names.length === 0) return null;
@@ -95,6 +95,7 @@ export function ClientIndustryBandsView({
               <Marquee
                 gap="gap-3.5"
                 trailingSpace="pr-3.5"
+                reverse={i % 2 === 1}
                 repeat={Math.ceil(MIN_RAIL_TILES / names.length)}
               >
                 {names.map((client) => (

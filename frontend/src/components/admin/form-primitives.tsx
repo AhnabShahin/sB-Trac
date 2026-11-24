@@ -370,3 +370,138 @@ export function MediaField({
     </div>
   );
 }
+
+export function MediaListField({
+  label,
+  slug,
+  value,
+  onChange,
+  hint,
+}: {
+  label: string;
+  slug: string;
+  value: string[];
+  onChange: (next: string[]) => void;
+  hint?: string;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function onAdd(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    if (inputRef.current) inputRef.current.value = "";
+    if (!files.length) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const urls: string[] = [];
+      for (const file of files) urls.push(await uploadMedia(file, slug));
+      onChange([...value, ...urls]);
+    } catch (err) {
+      setError((err as Error)?.message ?? "Upload failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function removeAt(i: number) {
+    const url = value[i];
+    if (isManagedMedia(url)) deleteMedia(url);
+    onChange(value.filter((_, idx) => idx !== i));
+  }
+
+  function move(i: number, dir: -1 | 1) {
+    const j = i + dir;
+    if (j < 0 || j >= value.length) return;
+    const next = [...value];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  }
+
+  return (
+    <div>
+      <div className="mb-1.5 flex items-center justify-between gap-3">
+        <span className="text-xs font-medium text-muted">{label}</span>
+        <div className="flex items-center gap-2">
+          {value.length > 1 ? (
+            <span className="text-[11px] text-teal-light">{value.length} images · auto-slides</span>
+          ) : null}
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            disabled={busy}
+            className="rounded-lg border border-teal/40 px-3 py-1.5 text-xs font-medium text-teal-light transition-colors hover:bg-teal/10 disabled:opacity-40"
+          >
+            {busy ? "Uploading…" : "Add image"}
+          </button>
+        </div>
+      </div>
+      {hint ? <p className="mb-1.5 text-[11px] leading-relaxed text-muted">{hint}</p> : null}
+      <input ref={inputRef} type="file" accept="image/*" multiple onChange={onAdd} className="hidden" />
+
+      {value.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-border bg-navy/40 px-3 py-4 text-center text-[12px] text-muted">
+          No images yet — add one, or several to auto-slide.
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {value.map((url, i) => {
+            const { preview, name } = mediaMeta(url);
+            return (
+              <div key={i} className="flex items-stretch gap-2">
+                <div className="flex h-14 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border/60 bg-navy text-[11px] text-muted">
+                  {preview ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={preview} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    "image"
+                  )}
+                </div>
+                <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+                  <input
+                    className={`${inputCls} text-xs text-muted`}
+                    value={url}
+                    placeholder="/assets/… or uploaded URL"
+                    onChange={(e) => onChange(value.map((v, idx) => (idx === i ? e.target.value : v)))}
+                  />
+                  <div className="flex items-center gap-2">
+                    <span className="min-w-0 flex-1 truncate text-[11px] text-muted" title={url}>
+                      {name}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => move(i, -1)}
+                      disabled={i === 0}
+                      aria-label="Move image up"
+                      className="rounded-md border border-border px-2 py-1 text-xs text-muted transition-colors hover:border-teal/40 hover:text-teal-light disabled:opacity-30"
+                    >
+                      ↑
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => move(i, 1)}
+                      disabled={i === value.length - 1}
+                      aria-label="Move image down"
+                      className="rounded-md border border-border px-2 py-1 text-xs text-muted transition-colors hover:border-teal/40 hover:text-teal-light disabled:opacity-30"
+                    >
+                      ↓
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeAt(i)}
+                      className="rounded-md border border-border px-2 py-1 text-xs text-muted transition-colors hover:border-red-500/40 hover:text-red-300"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {error ? <p className="mt-1 text-xs text-red-300">{error}</p> : null}
+    </div>
+  );
+}

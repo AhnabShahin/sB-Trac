@@ -160,24 +160,30 @@
       "slides": [
         {
           "index": "01",
+          "title": "Who We Are",
+          "description": "B-Trac Engineering is an engineering and technology-driven organization dedicated to enabling business growth through dependable infrastructure, technical expertise, and integrated solutions. We deliver comprehensive end-to-end engineering solutions on EPC basis, spanning power and energy, electrical infrastructure, MEP, industrial systems, water treatment, and specialized technical services. Through our expertise, industry experience, and commitment to execution excellence, we help businesses build reliable foundations, overcome complex challenges, and move forward with confidence — we engineer the foundations of progress.",
+          "images": []
+        },
+        {
+          "index": "02",
           "title": "What We Do",
           "description": "We turn complex requirements into growth opportunities. From power infrastructure and industrial engineering to renewable energy, water treatment, and integrated EPC & MEP solutions, we deliver the capabilities businesses need to operate efficiently, expand sustainably, and realize their ambitions.",
           "image": "/assets/cascade/what-we-do.png"
         },
         {
-          "index": "02",
+          "index": "03",
           "title": "How We Work",
           "description": "We understand your business objectives. Through tailored engineering, disciplined planning, precise execution, and responsive support, we transform requirements into reliable outcomes — designed around your operational needs and sustainable growth.",
           "image": "/assets/cascade/how-we-work.avif"
         },
         {
-          "index": "03",
+          "index": "04",
           "title": "Who We Serve",
           "description": "We serve a diverse range of industries, including manufacturing, energy, pharmaceuticals, textiles, FMCG, and commercial enterprises, delivering dependable engineering solutions that strengthen infrastructure, improve operational efficiency, and support sustainable business growth.",
           "image": "/assets/cascade/who-we-serve.avif"
         },
         {
-          "index": "04",
+          "index": "05",
           "title": "What Makes Us Different",
           "lead": "Built on experience. Driven by your growth.",
           "itemsVariant": "list",
@@ -206,17 +212,29 @@
           ]
         },
         {
-          "index": "05",
+          "index": "06",
           "title": "Our Achievements",
           "itemsVariant": "stats",
           "image": "/assets/cascade/our-achievements.avif",
           "items": [
-            { "description": "Total rooftop solar power installed capacity over 50,000 KWp." },
-            { "description": "Total installed substation capacity: 55,000 KVA." },
-            { "description": "Successfully executed multiple EPC projects valued over 520 Cr." },
-            { "description": "Supplied NALCO water treatment chemicals over 25 TON." },
-            { "description": "Installed & commissioned control and sync systems in more than 200 generators." },
-            { "description": "Delivered electrical transmission line hardware to REB across various tenders valued over 208 Cr." }
+            {
+              "description": "Total rooftop solar power installed capacity over 50,000 KWp."
+            },
+            {
+              "description": "Total installed substation capacity: 55,000 KVA."
+            },
+            {
+              "description": "Successfully executed multiple EPC projects valued over 520 Cr."
+            },
+            {
+              "description": "Supplied NALCO water treatment chemicals over 25 TON."
+            },
+            {
+              "description": "Installed & commissioned control and sync systems in more than 200 generators."
+            },
+            {
+              "description": "Delivered electrical transmission line hardware to REB across various tenders valued over 208 Cr."
+            }
           ]
         }
       ]

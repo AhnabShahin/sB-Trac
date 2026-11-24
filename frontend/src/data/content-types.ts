@@ -85,8 +85,12 @@ export interface CascadeSlideContent {
   title: string;
   /** Lead paragraph(s). Omit when the slide is a pure bullet list (e.g. Achievements). */
   description?: string;
-  /** Image for the slide's image half (served path, e.g. /assets/cascade/...). */
+  /** Single image for the slide's image half (served path, e.g. /assets/cascade/...).
+   * Kept for back-compat; `images` takes precedence when it has entries. */
   image?: string;
+  /** One or more images for the slide's image half. When more than one is set
+   * they auto-advance as a left-to-right slideshow. Falls back to `image`. */
+  images?: string[];
   /** Short bold intro line above a bullet list (e.g. "Built on experience. Driven by your growth."). */
   lead?: string;
   /** Bullet list for slides like "What Makes Us Different" / "Our Achievements". */

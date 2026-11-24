@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { Reveal } from "@/components/ui/reveal";
-import { ChecklistIcon, ArrowUpRightIcon } from "@/components/ui/icons";
+import { ChecklistIcon, ArrowUpRightIcon, ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 import { CascadeDetailModal } from "@/components/sections/cascade-detail-modal";
 import { cn } from "@/lib/utils";
 import type { CascadeContent, CascadeSlideContent } from "@/data/content-types";
@@ -78,6 +78,8 @@ export function CascadeStackView({ content }: { content: CascadeContent }) {
             key={`${slide.index}-${slide.title}`}
             slide={slide}
             eager={i === 0}
+            index={i}
+            total={content.slides.length}
             panelRef={(el) => {
               panelRefs.current[i] = el;
             }}
@@ -91,10 +93,14 @@ export function CascadeStackView({ content }: { content: CascadeContent }) {
 function CascadeSlide({
   slide,
   eager,
+  index,
+  total,
   panelRef,
 }: {
   slide: CascadeSlideContent;
   eager: boolean;
+  index: number;
+  total: number;
   panelRef: (el: HTMLDivElement | null) => void;
 }) {
   const textRef = useRef<HTMLDivElement>(null);
@@ -116,8 +122,21 @@ function CascadeSlide({
   }, []);
 
   return (
-    <div ref={panelRef} className="relative bg-white lg:mb-10 lg:h-[600px]">
-      <div className="mx-auto lg:grid lg:h-full lg:max-w-[1440px] lg:grid-cols-[1fr_1.15fr] lg:items-center">
+    <div ref={panelRef} className="relative overflow-hidden bg-white lg:h-[600px]">
+      {/* One blueprint image sliced across every panel (sprite-style): each panel
+          shows its own horizontal band of the single image, so down the whole
+          section it reads as one continuous backdrop instead of the same crop
+          repeated per slide. Panels stay opaque so the pinned handoff is a clean
+          cut (translucent panels ghosted the covered slide's text). */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 bg-[url('/assets/cascade-blueprint-bg.jpg')] bg-no-repeat opacity-[0.12]"
+        style={{
+          backgroundSize: `100% ${total * 100}%`,
+          backgroundPositionY: total > 1 ? `${(index / (total - 1)) * 100}%` : "center",
+        }}
+      />
+      <div className="relative z-10 mx-auto lg:grid lg:h-full lg:max-w-[1440px] lg:grid-cols-[1fr_1.15fr] lg:items-center">
         <div className="relative z-10 flex flex-col justify-center gap-4 px-6 py-16 sm:px-12 lg:px-20 lg:py-10">
           <Reveal start="top 88%">
             <div className="mb-1 flex items-center gap-4">
@@ -193,23 +212,152 @@ function CascadeSlide({
           </Reveal>
         </div>
 
-        <div className="relative h-64 sm:h-80 lg:h-[460px]">
-          {slide.image ? (
-            <Image
-              src={slide.image}
-              alt=""
-              fill
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              className="object-cover"
-              loading={eager ? "eager" : "lazy"}
-            />
-          ) : (
-            <div className="h-full w-full bg-[#E2E8F0]" />
-          )}
+        <div className="relative h-64 overflow-hidden sm:h-80 lg:h-[460px]">
+          <CascadeImages
+            images={slide.images?.length ? slide.images : slide.image ? [slide.image] : []}
+            eager={eager}
+          />
         </div>
       </div>
 
       <CascadeDetailModal slide={modalOpen ? slide : null} onClose={() => setModalOpen(false)} />
+    </div>
+  );
+}
+
+const CASCADE_SLIDE_INTERVAL = 4000;
+
+// One slide = one image half. With a single image it's a plain fill photo; with
+// several it becomes a left-to-right auto-slideshow. The track translates by
+// whole viewport-widths so only transform animates (GPU), and auto-advance is
+// skipped under reduced-motion (manual dots still work).
+function CascadeImages({ images, eager }: { images: string[]; eager: boolean }) {
+  const reducedMotion = useReducedMotion();
+  const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const dragStartX = useRef<number | null>(null);
+  const multiple = images.length > 1;
+
+  // Wrap both ways so the loop is continuous (…3 → 1, and 1 → 3 backwards).
+  const go = (dir: 1 | -1) => setIdx((i) => (i + dir + images.length) % images.length);
+
+  useEffect(() => {
+    if (!multiple || reducedMotion || paused) return;
+    const id = window.setInterval(() => go(1), CASCADE_SLIDE_INTERVAL);
+    return () => window.clearInterval(id);
+    // go() only closes over images.length, which is in the deps.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [multiple, reducedMotion, paused, images.length]);
+
+  if (images.length === 0) return <div className="h-full w-full bg-[#E2E8F0]" />;
+
+  if (!multiple) {
+    return (
+      <Image
+        src={images[0]}
+        alt=""
+        fill
+        sizes="(min-width: 1024px) 55vw, 100vw"
+        className="object-cover"
+        loading={eager ? "eager" : "lazy"}
+      />
+    );
+  }
+
+  return (
+    <div
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="Slide images"
+      tabIndex={0}
+      className="group/slider absolute inset-0 cursor-grab touch-pan-y select-none overflow-hidden outline-none active:cursor-grabbing focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/70"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          go(-1);
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          go(1);
+        }
+      }}
+      // Pointer events cover mouse drag AND touch swipe with one path. Skip when
+      // the gesture starts on a control so arrow/dot clicks still work (pointer
+      // capture would otherwise swallow their click).
+      onPointerDown={(e) => {
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        if ((e.target as HTMLElement).closest("button")) return;
+        dragStartX.current = e.clientX;
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }}
+      onPointerUp={(e) => {
+        if (dragStartX.current === null) return;
+        const dx = dragStartX.current - e.clientX;
+        dragStartX.current = null;
+        try {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        } catch {}
+        if (Math.abs(dx) > 40) go(dx > 0 ? 1 : -1);
+      }}
+      onDragStart={(e) => e.preventDefault()}
+    >
+      <div
+        className="flex h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
+        style={{ transform: `translateX(-${idx * 100}%)` }}
+      >
+        {images.map((src, i) => (
+          <div
+            key={`${src}-${i}`}
+            className="relative h-full w-full shrink-0 grow-0 basis-full"
+            aria-hidden={i !== idx}
+          >
+            <Image
+              src={src}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="object-cover"
+              loading={eager && i === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={() => go(-1)}
+        data-cursor-interactive
+        aria-label="Previous image"
+        className="absolute left-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/35 text-white opacity-0 backdrop-blur-sm transition-all hover:bg-black/55 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 group-hover/slider:opacity-100"
+      >
+        <ChevronLeftIcon className="h-5 w-5" />
+      </button>
+      <button
+        type="button"
+        onClick={() => go(1)}
+        data-cursor-interactive
+        aria-label="Next image"
+        className="absolute right-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/35 text-white opacity-0 backdrop-blur-sm transition-all hover:bg-black/55 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 group-hover/slider:opacity-100"
+      >
+        <ChevronRightIcon className="h-5 w-5" />
+      </button>
+
+      <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => setIdx(i)}
+            data-cursor-interactive
+            aria-label={`Show image ${i + 1} of ${images.length}`}
+            className={cn(
+              "h-1.5 rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.4)] transition-all",
+              i === idx ? "w-5 bg-white" : "w-1.5 bg-white/55 hover:bg-white/85",
+            )}
+          />
+        ))}
+      </div>
     </div>
   );
 }

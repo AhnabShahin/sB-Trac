@@ -359,6 +359,59 @@ export function PlugIcon(props: IconProps) {
   );
 }
 
+export function RocketIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0Z" />
+      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z" />
+      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+      <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+    </svg>
+  );
+}
+
+export function EyeIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M4 8V6a2 2 0 0 1 2-2h2" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+      <path d="M20 16v2a2 2 0 0 1-2 2h-2" />
+      <path d="M8 20H6a2 2 0 0 1-2-2v-2" />
+      <path d="M5.5 12s2-3.5 6.5-3.5S18.5 12 18.5 12 16.5 15.5 12 15.5 5.5 12 5.5 12Z" />
+      <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function DiamondIcon(props: IconProps) {
+  // Brilliant-cut diamond: flat table up top, a girdle line across the widest
+  // point, crown facets above it and pavilion facets converging to the point.
+  return (
+    <svg {...base(props)}>
+      <path d="M6 6h12l4 4-10 11L2 10Z" />
+      <path d="M2 10h20" />
+      <path d="M6 6 8.5 10 12 21" />
+      <path d="M18 6 15.5 10 12 21" />
+      <path d="M8.5 10 12 6 15.5 10" />
+    </svg>
+  );
+}
+
+export function TargetArrowIcon(props: IconProps) {
+  // Bullseye struck by an arrow from the upper-right: the arrowhead lands on the
+  // centre, fletching trails off the tail near the top-right corner.
+  return (
+    <svg {...base(props)}>
+      <circle cx="10.5" cy="13.5" r="7.5" />
+      <circle cx="10.5" cy="13.5" r="4" />
+      <circle cx="10.5" cy="13.5" r="1" fill="currentColor" stroke="none" />
+      <path d="M21 3 12 12" />
+      <path d="M16.7 10.3 12 12 13.7 7.3" />
+      <path d="M19.3 1.9 21 3.6M18.2 3 19.9 4.7" />
+    </svg>
+  );
+}
+
 export function CheckIcon(props: IconProps) {
   return (
     <svg {...base(props)}>

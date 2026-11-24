@@ -19,18 +19,71 @@ class MediaLibrary
         return Storage::disk('public');
     }
 
-    /** Absolute URL for a public-disk path, e.g. media/home/x.jpg -> http://host/storage/media/home/x.jpg */
+    /**
+     * Host-agnostic, root-relative URL for a public-disk path, e.g.
+     * media/home/x.jpg -> /storage/media/home/x.jpg. The DB stores paths in this
+     * form so content is portable between environments; the host is re-attached
+     * from APP_URL only when a response goes out (see absolutize()).
+     */
     public function url(string $path): string
     {
-        $url = $this->disk()->url($path);
+        return '/storage/'.ltrim($path, '/');
+    }
 
-        // The public disk's url() is absolute when its `url` config is set
-        // (default: APP_URL.'/storage'); guard against a relative value too.
-        if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
-            return $url;
+    /** Re-attach the current environment's host to a root-relative media path. */
+    public function absolutize(string $value): string
+    {
+        if (str_starts_with($value, '/storage/') || str_starts_with($value, '/demo-media/')) {
+            return rtrim((string) config('app.url'), '/').$value;
         }
 
-        return rtrim((string) config('app.url'), '/').'/'.ltrim($url, '/');
+        return $value;
+    }
+
+    /** Strip a baked-in host from a managed/demo URL so the DB stays host-agnostic. */
+    public function relativize(string $value): string
+    {
+        if (! str_starts_with($value, 'http://') && ! str_starts_with($value, 'https://')) {
+            return $value;
+        }
+        foreach (['/storage/'.self::ROOT.'/', '/demo-media/'] as $marker) {
+            $pos = strpos($value, $marker);
+            if ($pos !== false) {
+                return substr($value, $pos);
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * Walk a sections tree re-attaching the host to every media path, for an API
+     * response. @param array<string, mixed> $sections @return array<string, mixed>
+     */
+    public function absolutizeSections(array $sections): array
+    {
+        return $this->mapStrings($sections, fn (string $s) => $this->absolutize($s));
+    }
+
+    /**
+     * Walk a sections tree stripping any baked-in host before persisting.
+     * @param array<string, mixed> $sections @return array<string, mixed>
+     */
+    public function relativizeSections(array $sections): array
+    {
+        return $this->mapStrings($sections, fn (string $s) => $this->relativize($s));
+    }
+
+    private function mapStrings(mixed $node, callable $fn): mixed
+    {
+        if (is_array($node)) {
+            return array_map(fn ($v) => $this->mapStrings($v, $fn), $node);
+        }
+        if (is_string($node)) {
+            return $fn($node);
+        }
+
+        return $node;
     }
 
     /** Is this value one of our managed storage URLs (vs. a /assets demo path or external URL)? */
@@ -46,7 +99,7 @@ class MediaLibrary
      */
     public function demoUrl(string $assetPath): string
     {
-        return rtrim((string) config('app.url'), '/').'/demo-media/'.ltrim($assetPath, '/');
+        return '/demo-media/'.ltrim($assetPath, '/');
     }
 
     /** Map a managed storage URL back to its public-disk path, or null if it isn't one. */

@@ -4,7 +4,7 @@ import {
   AddButton,
   EmptyRow,
   Field,
-  MediaField,
+  MediaListField,
   RemoveButton,
   RepeaterItem,
   Select,
@@ -109,7 +109,13 @@ export function CascadeForm({
                   <Field label="Description (optional)" hint="Leave empty for a pure bullet-list slide.">
                     <TextArea value={slide.description ?? ""} onChange={(x) => upd({ description: x })} rows={3} />
                   </Field>
-                  <MediaField label="Image" kind="image" slug={slug} value={slide.image ?? ""} onChange={(x) => upd({ image: x })} />
+                  <MediaListField
+                    label="Images"
+                    hint="Add one image, or several — more than one auto-slides left to right on the site."
+                    slug={slug}
+                    value={slide.images?.length ? slide.images : slide.image ? [slide.image] : []}
+                    onChange={(list) => upd({ images: list, image: list[0] ?? "" })}
+                  />
 
                   <div>
                     <div className="mb-1.5 flex items-center justify-between gap-3">
