@@ -130,7 +130,7 @@ function CascadeSlide({
           cut (translucent panels ghosted the covered slide's text). */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[url('/assets/cascade-blueprint-bg.jpg')] bg-no-repeat opacity-[0.12]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[url('/assets/cascade-blueprint-bg.webp')] bg-no-repeat opacity-[0.12]"
         style={{
           backgroundSize: `100% ${total * 100}%`,
           backgroundPositionY: total > 1 ? `${(index / (total - 1)) * 100}%` : "center",
