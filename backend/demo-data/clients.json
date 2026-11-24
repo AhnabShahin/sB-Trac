@@ -1,178 +1,357 @@
 {
-  "title": "Clients",
-  "sections": {
-    "clientsHero": {
-      "accent": "teal",
-      "badge": "60+ Industry Leaders",
-      "headingLine1": "Bangladesh's Most",
-      "headingHighlight": "Demanding Clients",
-      "headingSuffix": "Trust BTEL.",
-      "subhead": "From Fortune 500 multinationals to government institutions and industrial conglomerates — BTEL has delivered engineering excellence across every major sector since 2009.",
-      "image": "/assets/hero/clients.jpg",
-      "badges": [
-        { "icon": "factory", "title": "60+ Clients", "subtitle": "All sectors" },
-        { "icon": "globe", "title": "Multinational", "subtitle": "Global brands" },
-        { "icon": "landmark", "title": "Government", "subtitle": "BREB, PGCB, Navy" },
-        { "icon": "cap", "title": "Since 2009", "subtitle": "Long-term trust" }
-      ]
-    },
-    "clientsStats": {
-      "stats": [
-        { "value": 65, "suffix": "+", "label": "Active Clients\nAcross All Divisions" },
-        { "value": 7, "suffix": "+", "label": "Industry Sectors\nServed" },
-        { "value": 15, "suffix": "+", "label": "Years of Client\nRelationships" },
-        { "value": 95, "suffix": "%", "label": "Client Retention\nRate" }
-      ]
-    },
-    "clientsBands": {
-      "industries": [
-        {
-          "industry": "FMCG & Consumer Goods",
-          "icon": "cart",
-          "accent": "teal",
-          "focus": "Multinational brands · Electrical & MEP solutions",
-          "clients": [
-            { "name": "British American Tobacco", "logo": "/assets/logos/clients/british-american-tobacco.png" },
-            { "name": "Nestlé Bangladesh", "logo": "/assets/logos/clients/nestle-bangladesh.png" },
-            { "name": "Unilever Bangladesh", "logo": "/assets/logos/clients/unilever-bangladesh.png" },
-            { "name": "Coca-Cola Bangladesh", "logo": "/assets/logos/clients/coca-cola-bangladesh.png" },
-            { "name": "Arla Foods", "logo": "" },
-            { "name": "PRAN-RFL Group", "logo": "" },
-            { "name": "Marico Bangladesh", "logo": "" },
-            { "name": "Reckitt Bangladesh", "logo": "" }
-          ]
+    "title": "Clients",
+    "sections": {
+        "clientsHero": {
+            "accent": "teal",
+            "badge": "60+ Industry Leaders",
+            "headingLine1": "Bangladesh's Most",
+            "headingHighlight": "Demanding Clients",
+            "headingSuffix": "Trust BTEL.",
+            "subhead": "From Fortune 500 multinationals to government institutions and industrial conglomerates — BTEL has delivered engineering excellence across every major sector since 2009.",
+            "image": "/assets/hero/clients.jpg",
+            "badges": [
+                {
+                    "icon": "factory",
+                    "title": "60+ Clients",
+                    "subtitle": "All sectors"
+                },
+                {
+                    "icon": "globe",
+                    "title": "Multinational",
+                    "subtitle": "Global brands"
+                },
+                {
+                    "icon": "landmark",
+                    "title": "Government",
+                    "subtitle": "BREB, PGCB, Navy"
+                },
+                {
+                    "icon": "cap",
+                    "title": "Since 2009",
+                    "subtitle": "Long-term trust"
+                }
+            ]
         },
-        {
-          "industry": "Industrial & Conglomerate Groups",
-          "icon": "crane",
-          "accent": "blue",
-          "focus": "Bangladesh's largest business houses · Substation, switchgear & EPC",
-          "clients": [
-            { "name": "Bashundhara Group", "logo": "/assets/logos/clients/bashundhara-group.png" },
-            { "name": "Akij Group", "logo": "/assets/logos/clients/akij-group.png" },
-            { "name": "Square Group", "logo": "/assets/logos/clients/square-group.png" },
-            { "name": "ACI Group", "logo": "/assets/logos/clients/aci-group.png" },
-            { "name": "Meghna Group", "logo": "" },
-            { "name": "PHP Group", "logo": "" },
-            { "name": "Ha-Meem Group", "logo": "" },
-            { "name": "KDS Group", "logo": "" },
-            { "name": "Abul Khair Group", "logo": "" },
-            { "name": "Partex Group", "logo": "" },
-            { "name": "DBL Group", "logo": "" }
-          ]
+        "clientsStats": {
+            "stats": [
+                {
+                    "value": 65,
+                    "suffix": "+",
+                    "label": "Active Clients\nAcross All Divisions"
+                },
+                {
+                    "value": 7,
+                    "suffix": "+",
+                    "label": "Industry Sectors\nServed"
+                },
+                {
+                    "value": 15,
+                    "suffix": "+",
+                    "label": "Years of Client\nRelationships"
+                },
+                {
+                    "value": 95,
+                    "suffix": "%",
+                    "label": "Client Retention\nRate"
+                }
+            ]
         },
-        {
-          "industry": "Energy, Power & Heavy Industry",
-          "icon": "bolt",
-          "accent": "purple",
-          "focus": "Substations, solar & generator EPC",
-          "clients": [
-            { "name": "Chevron Bangladesh", "logo": "/assets/logos/clients/chevron-bangladesh.png" },
-            { "name": "GPH Ispat", "logo": "/assets/logos/clients/gph-ispat.png" },
-            { "name": "Walton Hi-Tech", "logo": "/assets/logos/clients/walton-hi-tech.png" },
-            { "name": "Sharmin Group", "logo": "/assets/logos/clients/sharmin-group.png" },
-            { "name": "Summit Power", "logo": "" },
-            { "name": "Doreen Power", "logo": "" },
-            { "name": "United Power", "logo": "" }
-          ]
+        "clientsBands": {
+            "industries": [
+                {
+                    "industry": "FMCG & Consumer Goods",
+                    "icon": "cart",
+                    "accent": "teal",
+                    "focus": "Multinational brands · Electrical & MEP solutions",
+                    "clients": [
+                        {
+                            "name": "British American Tobacco",
+                            "logo": "/assets/logos/clients/british-american-tobacco.png"
+                        },
+                        {
+                            "name": "Nestlé Bangladesh",
+                            "logo": "/assets/logos/clients/nestle-bangladesh.png"
+                        },
+                        {
+                            "name": "Unilever Bangladesh",
+                            "logo": "/assets/logos/clients/unilever-bangladesh.png"
+                        },
+                        {
+                            "name": "Coca-Cola Bangladesh",
+                            "logo": "/assets/logos/clients/coca-cola-bangladesh.png"
+                        },
+                        {
+                            "name": "Arla Foods",
+                            "logo": "/assets/clients/uploads/etr37OVtGFJARk5K4AyqKZdo.png"
+                        },
+                        {
+                            "name": "PRAN-RFL Group",
+                            "logo": "/assets/clients/uploads/ZoiWDdPZ2pavT6pTqWL7kM3u.jpg"
+                        },
+                        {
+                            "name": "Marico Bangladesh",
+                            "logo": "/assets/clients/uploads/MAeqyc8CMOgIdPph7HkLdBty.webp"
+                        },
+                        {
+                            "name": "Reckitt Bangladesh",
+                            "logo": "/assets/clients/uploads/aLPDMTCQt8gZGqLxVHOfEIG5.png"
+                        }
+                    ]
+                },
+                {
+                    "industry": "Industrial & Conglomerate Groups",
+                    "icon": "crane",
+                    "accent": "blue",
+                    "focus": "Bangladesh's largest business houses · Substation, switchgear & EPC",
+                    "clients": [
+                        {
+                            "name": "Bashundhara Group",
+                            "logo": "/assets/logos/clients/bashundhara-group.png"
+                        },
+                        {
+                            "name": "Akij Group",
+                            "logo": "/assets/logos/clients/akij-group.png"
+                        },
+                        {
+                            "name": "Square Group",
+                            "logo": "/assets/logos/clients/square-group.png"
+                        },
+                        {
+                            "name": "ACI Group",
+                            "logo": "/assets/logos/clients/aci-group.png"
+                        },
+                        {
+                            "name": "Meghna Group",
+                            "logo": "/assets/clients/uploads/833Yg7g9eo1Fh1MLnr5VW7c7.png"
+                        },
+                        {
+                            "name": "PHP Group",
+                            "logo": "/assets/clients/uploads/BA5rw1Vf0vfp7bHRyQGrKRqZ.jpg"
+                        },
+                        {
+                            "name": "Ha-Meem Group",
+                            "logo": "/assets/clients/uploads/6evI4RvXDX8rM8vOA8qkXmpu.png"
+                        },
+                        {
+                            "name": "KDS Group",
+                            "logo": "/assets/clients/uploads/5fOjEoyypfiraiJLQS1rxkTx.png"
+                        },
+                        {
+                            "name": "Abul Khair Group",
+                            "logo": "/assets/clients/uploads/ZeqdNwd3kNUPcvX9xpJ5d6dD.png"
+                        },
+                        {
+                            "name": "Partex Group",
+                            "logo": "/assets/clients/uploads/Nmw1VnrpAMaDNJ8G8rNsX8xS.png"
+                        },
+                        {
+                            "name": "DBL Group",
+                            "logo": "/assets/clients/uploads/TJpWyunYnoz2UZmNG8K4Xi66.jfif"
+                        }
+                    ]
+                },
+                {
+                    "industry": "Energy, Power & Heavy Industry",
+                    "icon": "bolt",
+                    "accent": "purple",
+                    "focus": "Substations, solar & generator EPC",
+                    "clients": [
+                        {
+                            "name": "Chevron Bangladesh",
+                            "logo": "/assets/logos/clients/chevron-bangladesh.png"
+                        },
+                        {
+                            "name": "GPH Ispat",
+                            "logo": "/assets/logos/clients/gph-ispat.png"
+                        },
+                        {
+                            "name": "Walton Hi-Tech",
+                            "logo": "/assets/logos/clients/walton-hi-tech.png"
+                        },
+                        {
+                            "name": "Sharmin Group",
+                            "logo": "/assets/logos/clients/sharmin-group.png"
+                        },
+                        {
+                            "name": "Summit Power",
+                            "logo": "/assets/clients/uploads/sIoaRoatG4usMMd5Qi94IFck.webp"
+                        },
+                        {
+                            "name": "Doreen Power",
+                            "logo": "/assets/clients/uploads/Fnh7PjTEFjRVAoXB9n5sUoVf.jpg"
+                        },
+                        {
+                            "name": "United Power",
+                            "logo": "/assets/clients/uploads/YgIuHd86Ac4puKxMgXQROr3F.png"
+                        }
+                    ]
+                },
+                {
+                    "industry": "Pharmaceutical & Healthcare",
+                    "icon": "flask",
+                    "accent": "blue",
+                    "focus": "HVAC, MEP, water treatment & clean-room electrical",
+                    "clients": [
+                        {
+                            "name": "Incepta Pharma",
+                            "logo": "/assets/logos/clients/incepta-pharma.png"
+                        },
+                        {
+                            "name": "Beximco Pharma",
+                            "logo": "/assets/logos/clients/beximco-pharma.png"
+                        },
+                        {
+                            "name": "The ACME Laboratories",
+                            "logo": "/assets/logos/clients/acme-laboratories.png"
+                        },
+                        {
+                            "name": "Renata PLC",
+                            "logo": "/assets/clients/uploads/1JksoGHxzbqwxm5Ylt6vVyDw.png"
+                        },
+                        {
+                            "name": "IBN Sina Pharma",
+                            "logo": "/assets/clients/uploads/zUzw1ifqigdxf76NCqVuYNcV.png"
+                        },
+                        {
+                            "name": "Opsonin Pharma",
+                            "logo": "/assets/clients/uploads/niAPLUZFMfD6vEJOjsFsLL1z.png"
+                        }
+                    ]
+                },
+                {
+                    "industry": "Telecommunications",
+                    "icon": "broadcast",
+                    "accent": "teal",
+                    "focus": "Tower power, substation & electrical infrastructure",
+                    "clients": [
+                        {
+                            "name": "Grameenphone",
+                            "logo": "/assets/clients/uploads/aTSAsFvzp2PTfvlsBTufvCD4.webp"
+                        },
+                        {
+                            "name": "Robi Axiata",
+                            "logo": "/assets/clients/uploads/tnOaDD2Q7wGOWKfIfHoKsxvo.png"
+                        },
+                        {
+                            "name": "Banglalink",
+                            "logo": "/assets/clients/uploads/Ujcirvie4BxfIiUJmwRVf7ye.webp"
+                        },
+                        {
+                            "name": "TowerCo Bangladesh",
+                            "logo": "/assets/clients/uploads/hTaacd99CnH8cfWYWJFIZ2LU.png"
+                        }
+                    ]
+                },
+                {
+                    "industry": "Government, Defence & Utilities",
+                    "icon": "landmark",
+                    "accent": "amber",
+                    "focus": "Power utilities, armed forces & development corporations",
+                    "clients": [
+                        {
+                            "name": "Bangladesh Navy",
+                            "logo": "/assets/logos/clients/bangladesh-navy.png"
+                        },
+                        {
+                            "name": "BREB",
+                            "logo": "/assets/logos/clients/breb.png"
+                        },
+                        {
+                            "name": "Bangladesh Machine Tools Factory",
+                            "logo": "/assets/logos/clients/bangladesh-machine-tools-factory.png"
+                        },
+                        {
+                            "name": "Bangladesh Ordnance Factories",
+                            "logo": "/assets/clients/uploads/1i79havZ4qoePVUhEb49c4wq.png"
+                        },
+                        {
+                            "name": "Bangladesh Agricultural Dev. Corp.",
+                            "logo": "/assets/clients/uploads/sS36v30ccZlsZtbMSWEEMTF3.png"
+                        },
+                        {
+                            "name": "PGCB",
+                            "logo": "/assets/clients/uploads/8uN2T50wBoXTPvtAKDVD9IAe.png"
+                        },
+                        {
+                            "name": "DESCO",
+                            "logo": "/assets/clients/uploads/laDDjzw4uS4HFICLwZVb1Ela.png"
+                        },
+                        {
+                            "name": "BPDB",
+                            "logo": "/assets/clients/uploads/PGXHdVmJH1Z9NTgh99Lf4XIF.png"
+                        },
+                        {
+                            "name": "WZPDCL",
+                            "logo": "/assets/clients/uploads/I9rRZKfIWTqOqWOLkg6r2iNV.png"
+                        }
+                    ]
+                },
+                {
+                    "industry": "Education & Institutions",
+                    "icon": "cap",
+                    "accent": "teal",
+                    "focus": "Campus MEP, electrical & water treatment",
+                    "clients": [
+                        {
+                            "name": "BRAC University",
+                            "logo": "/assets/clients/uploads/A6YkqDphEb4XrvT8N3BcDZNB.png"
+                        },
+                        {
+                            "name": "North South University",
+                            "logo": "/assets/clients/uploads/6zKuznImEnClqUAwKUjtFlhg.png"
+                        },
+                        {
+                            "name": "Independent University",
+                            "logo": "/assets/clients/uploads/aL5fRV7ORtpqcrj9CEV3vgmy.png"
+                        },
+                        {
+                            "name": "Dhaka Chamber of Commerce",
+                            "logo": "/assets/clients/uploads/C19ZvYTys8dBwVK9yE5Y1s1F.webp"
+                        }
+                    ]
+                }
+            ]
         },
-        {
-          "industry": "Pharmaceutical & Healthcare",
-          "icon": "flask",
-          "accent": "blue",
-          "focus": "HVAC, MEP, water treatment & clean-room electrical",
-          "clients": [
-            { "name": "Incepta Pharma", "logo": "/assets/logos/clients/incepta-pharma.png" },
-            { "name": "Beximco Pharma", "logo": "/assets/logos/clients/beximco-pharma.png" },
-            { "name": "The ACME Laboratories", "logo": "/assets/logos/clients/acme-laboratories.png" },
-            { "name": "Renata PLC", "logo": "" },
-            { "name": "IBN Sina Pharma", "logo": "" },
-            { "name": "Opsonin Pharma", "logo": "" }
-          ]
+        "clientsTestimonials": {
+            "eyebrow": "What Clients Say",
+            "headingLine1": "Built on Trust &",
+            "headingHighlight": "Long-Term Partnerships",
+            "items": [
+                {
+                    "quote": "BTEL delivered our 33KV substation on schedule and without compromise. Their team's technical depth and on-site coordination was outstanding throughout the project lifecycle.",
+                    "author": "Engineering Manager",
+                    "role": "FMCG Multinational, Dhaka",
+                    "image": "/assets/clients/uploads/8rGrLmIbZyahUPqiCsI9zRt2.jfif"
+                },
+                {
+                    "quote": "We've worked with BTEL across three facility expansions. Their NALCO water treatment chemical supply and after-sales support has been consistently reliable — they genuinely understand our operational needs.",
+                    "author": "Facilities Director",
+                    "role": "Pharmaceutical Group, Narayanganj",
+                    "image": "/assets/clients/uploads/95fk03m9MMlj525CKh3pT2VJ.jfif"
+                },
+                {
+                    "quote": "From generator EPC to HVAC commissioning, BTEL handled everything under one roof. The quality of execution and timeliness set them apart from other vendors we've worked with.",
+                    "author": "Project Director",
+                    "role": "Industrial Conglomerate, Chittagong",
+                    "image": "/assets/clients/uploads/upw1YkUkHmjehYPWGrISOj9Q.jfif"
+                },
+                {
+                    "quote": "BTEL engineered and commissioned our rooftop solar plant end to end — design, procurement and installation. The system has performed above our projected yield since day one, and their after-sales monitoring gives us real peace of mind.",
+                    "author": "Head of Operations",
+                    "role": "Textile & Apparel Group, Gazipur",
+                    "image": "/assets/clients/uploads/vhn4XHZJXLp87z6900ythW5v.jfif"
+                }
+            ]
         },
-        {
-          "industry": "Telecommunications",
-          "icon": "broadcast",
-          "accent": "teal",
-          "focus": "Tower power, substation & electrical infrastructure",
-          "clients": [
-            { "name": "Grameenphone", "logo": "" },
-            { "name": "Robi Axiata", "logo": "" },
-            { "name": "Banglalink", "logo": "" },
-            { "name": "TowerCo Bangladesh", "logo": "" }
-          ]
-        },
-        {
-          "industry": "Government, Defence & Utilities",
-          "icon": "landmark",
-          "accent": "amber",
-          "focus": "Power utilities, armed forces & development corporations",
-          "clients": [
-            { "name": "Bangladesh Navy", "logo": "/assets/logos/clients/bangladesh-navy.png" },
-            { "name": "BREB", "logo": "/assets/logos/clients/breb.png" },
-            { "name": "Bangladesh Machine Tools Factory", "logo": "/assets/logos/clients/bangladesh-machine-tools-factory.png" },
-            { "name": "Bangladesh Ordnance Factories", "logo": "" },
-            { "name": "Bangladesh Agricultural Dev. Corp.", "logo": "" },
-            { "name": "PGCB", "logo": "" },
-            { "name": "DESCO", "logo": "" },
-            { "name": "BPDB", "logo": "" },
-            { "name": "WZPDCL", "logo": "" }
-          ]
-        },
-        {
-          "industry": "Education & Institutions",
-          "icon": "cap",
-          "accent": "teal",
-          "focus": "Campus MEP, electrical & water treatment",
-          "clients": [
-            { "name": "BRAC University", "logo": "" },
-            { "name": "North South University", "logo": "" },
-            { "name": "Independent University", "logo": "" },
-            { "name": "Dhaka Chamber of Commerce", "logo": "" }
-          ]
+        "clientsCta": {
+            "eyebrow": "Work With BTEL",
+            "headingLine1": "Join Bangladesh's Most",
+            "headingLine2": "Trusted Client List",
+            "body": "BTEL's engineering team works with clients of all sizes — from SMEs to multinationals and government institutions.",
+            "primaryLabel": "Start a Conversation →",
+            "primaryHref": "/contact",
+            "secondaryLabel": "See Our Projects →",
+            "secondaryHref": "/projects"
         }
-      ]
-    },
-    "clientsTestimonials": {
-      "eyebrow": "What Clients Say",
-      "headingLine1": "Built on Trust &",
-      "headingHighlight": "Long-Term Partnerships",
-      "items": [
-        {
-          "quote": "BTEL delivered our 33KV substation on schedule and without compromise. Their team's technical depth and on-site coordination was outstanding throughout the project lifecycle.",
-          "author": "Engineering Manager",
-          "role": "FMCG Multinational, Dhaka",
-          "image": "/assets/hero/substation.jpg"
-        },
-        {
-          "quote": "We've worked with BTEL across three facility expansions. Their NALCO water treatment chemical supply and after-sales support has been consistently reliable — they genuinely understand our operational needs.",
-          "author": "Facilities Director",
-          "role": "Pharmaceutical Group, Narayanganj",
-          "image": "/assets/hero/water.jpg"
-        },
-        {
-          "quote": "From generator EPC to HVAC commissioning, BTEL handled everything under one roof. The quality of execution and timeliness set them apart from other vendors we've worked with.",
-          "author": "Project Director",
-          "role": "Industrial Conglomerate, Chittagong",
-          "image": "/assets/hero/mep.jpg"
-        },
-        {
-          "quote": "BTEL engineered and commissioned our rooftop solar plant end to end — design, procurement and installation. The system has performed above our projected yield since day one, and their after-sales monitoring gives us real peace of mind.",
-          "author": "Head of Operations",
-          "role": "Textile & Apparel Group, Gazipur",
-          "image": "/assets/hero/solar.jpg"
-        }
-      ]
-    },
-    "clientsCta": {
-      "eyebrow": "Work With BTEL",
-      "headingLine1": "Join Bangladesh's Most",
-      "headingLine2": "Trusted Client List",
-      "body": "BTEL's engineering team works with clients of all sizes — from SMEs to multinationals and government institutions.",
-      "primaryLabel": "Start a Conversation →",
-      "primaryHref": "/contact",
-      "secondaryLabel": "See Our Projects →",
-      "secondaryHref": "/projects"
     }
-  }
 }
