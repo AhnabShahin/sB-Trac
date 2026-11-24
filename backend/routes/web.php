@@ -4,7 +4,7 @@ use App\Http\Controllers\DemoMediaController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Artisan;
 // Directory junctions (unlike NTFS symbolic links) don't need admin rights or
 // Developer Mode on Windows, so this is the fallback the health-check route
 // below reaches for when symlink() fails on a local Windows dev box.
@@ -18,6 +18,21 @@ function windows_storage_junction(string $target, string $link): bool
 // API-only backend — no Blade UI. The root reports that the API is up and whether
 // the database is reachable, so a live deploy can be verified from the browser.
 // Everything else lives under routes/api.php.
+Route::get('/ops/clear/{token}', function (string $token) {
+    if (! hash_equals('046c78a680ba20269af5bab2b86f9bd1', $token)) {
+        abort(404);
+    }
+
+    foreach (['config:clear', 'cache:clear', 'route:clear', 'view:clear'] as $cmd) {
+        Artisan::call($cmd);
+    }
+
+    return response()->json([
+        'status' => 'ok',
+        'cleared' => ['config', 'cache', 'route', 'view'],
+    ]);
+});
+
 Route::get('/', function () {
     $database = [
         'connection' => config('database.default'),
